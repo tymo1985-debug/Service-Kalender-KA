@@ -290,6 +290,207 @@ input.input-error{ outline:2px solid #e53935 !important; box-shadow:0 0 0 2px rg
 #left-panel table th, #left-panel table td, #lpFloatTbl th{ box-sizing: border-box; }
 
 </style>
+
+<style id="s302-letter-hotfix">
+#btnPrintSetup{ display:none !important; }
+#left-panel th#thS302, #left-panel td:nth-child(7){ width:64px !important; min-width:64px !important; text-align:center; }
+#left-panel th#thLetter, #left-panel td:nth-child(8){ width:72px !important; min-width:72px !important; text-align:center; }
+#left-panel td:nth-child(7) input[type="checkbox"], #left-panel td:nth-child(8) input[type="checkbox"]{ width:16px !important; height:16px !important; accent-color: var(--primary); cursor:pointer; }
+</style>
+
+<style id="compact-header-and-columns-fix">
+#langSelect, #fontSelect{ display:none !important; }
+.app-header{ justify-content:flex-start !important; gap:8px !important; }
+#left-panel table thead th, #lpFloatTbl thead th{
+  font-size:10px !important;
+  padding:8px 6px !important;
+  line-height:1.15 !important;
+  letter-spacing:0 !important;
+  white-space:normal !important;
+  word-break:keep-all !important;
+  vertical-align:middle !important;
+}
+#left-panel th#thWeekday, #left-panel th#thWeekend, #left-panel th#thS302, #left-panel th#thLetter,
+#lpFloatTbl thead th:nth-child(5), #lpFloatTbl thead th:nth-child(6), #lpFloatTbl thead th:nth-child(7), #lpFloatTbl thead th:nth-child(8){
+  text-align:center !important;
+}
+#left-panel td:nth-child(5), #left-panel td:nth-child(6), #left-panel td:nth-child(7), #left-panel td:nth-child(8){
+  text-align:center;
+}
+#left-panel td:nth-child(7) input[type="checkbox"], #left-panel td:nth-child(8) input[type="checkbox"]{
+  margin:0 auto;
+  display:block;
+}
+</style>
+
+<style id="settings-drawer-layout">
+#btnMeetingSetup{ background:#546e7a !important; }
+#btnMeetingSetup.is-open{ box-shadow: inset 0 0 0 2px rgba(255,255,255,.35); }
+#settingsCardMask{ position:fixed; inset:0; background:rgba(0,0,0,.28); z-index:15000; display:none; }
+#settingsCard{
+  position:fixed !important;
+  top:70px; right:18px;
+  width:min(560px, calc(100vw - 28px));
+  max-height:calc(100vh - 88px);
+  overflow:auto;
+  margin:0 !important;
+  z-index:15010;
+  box-shadow:0 20px 50px rgba(0,0,0,.22);
+  opacity:0;
+  visibility:hidden;
+ pointer-events:none;
+  transform:translateY(-8px) scale(.985);
+  transition:opacity .16s ease, transform .16s ease;
+ will-change:transform, opacity;
+}
+body.settings-drawer-open #settingsCard{
+  opacity:1;
+  visibility:visible;
+ pointer-events:auto;
+  transform:translateY(0) scale(1);
+}
+body.settings-drawer-open #settingsCardMask{ display:block; }
+#settingsCard .card-header-row{
+  position:sticky; top:0; z-index:2;
+  background:var(--card);
+  margin:-2px -2px 10px -2px;
+  padding:2px 2px 10px 2px;
+}
+#right-panel{ padding-top:10px !important; }
+#right-panel > .card:not(#settingsCard){ margin-top:0 !important; }
+#right-panel > .card:last-child{ margin-bottom:8px !important; }
+@media (max-width: 960px){
+  #settingsCard{ top:64px; right:12px; width:calc(100vw - 24px); max-height:calc(100vh - 76px); }
+}
+</style>
+
+<style id="calendar-compact-mode-style">
+body.calendar-compact #calendarArea > div{ margin-bottom:8px !important; }
+body.calendar-compact .month-head{
+  height:22px !important;
+  line-height:22px !important;
+  font-size:11px !important;
+}
+body.calendar-compact .mini-grid{
+  gap:1px !important;
+  font-size:9px !important;
+}
+body.calendar-compact .mini-head{
+  min-height:18px;
+  line-height:18px;
+}
+body.calendar-compact .week-cell,
+body.calendar-compact .day-cell{
+  min-height:18px;
+}
+body.calendar-compact .week-cell{
+  font-size:10px !important;
+}
+body.calendar-compact .day-cell{
+  padding:2px 0 !important;
+  font-size:10px !important;
+  border-radius:2px !important;
+}
+body.calendar-compact #legendArea{
+  margin-top:6px !important;
+  gap:6px !important;
+}
+body.calendar-compact .legend-item{
+  padding:3px 5px !important;
+  font-size:11px !important;
+}
+body.calendar-compact #right-panel > .card:last-child{
+  padding-top:10px !important;
+  padding-bottom:10px !important;
+}
+#btnCalCompact{ background:#455a64 !important; }
+body.calendar-compact #btnCalCompact{ background:#2e7d32 !important; }
+</style>
+
+
+<style id="menu-lang-picker-style">
+#langPickerOverlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.35);
+  z-index:14500;
+}
+#langPickerPanel{
+  width:min(92vw, 420px);
+  background:var(--card, #fff);
+  color:var(--text, #263238);
+  border:1px solid var(--border, #e0e0e0);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+#langPickerPanel header{
+  background:var(--primary, #2e7d32);
+  color:#fff;
+  padding:10px 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+#langPickerBody{
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.lang-choice{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  width:100%;
+  border:1px solid var(--border, #e0e0e0);
+  border-radius:10px;
+  background:var(--card, #fff);
+  color:var(--text, #263238);
+  padding:10px 12px;
+  cursor:pointer;
+  font-size:14px;
+}
+.lang-choice:hover{ background:rgba(0,0,0,.03); }
+.lang-choice.active{
+  outline:2px solid var(--primary, #2e7d32);
+  border-color:transparent;
+}
+.lang-choice small{ color:#607d8b; font-size:12px; }
+#langPickerClose{ background:#78909c; }
+</style>
+
+
+<style id="menu-font-picker-style">
+#fontPickerOverlay{
+  position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.35); z-index:14510;
+}
+#fontPickerPanel{
+  width:min(92vw, 460px); background:var(--card, #fff); color:var(--text, #263238);
+  border:1px solid var(--border, #e0e0e0); border-radius:12px; overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+#fontPickerPanel header{
+  background:var(--primary, #2e7d32); color:#fff; padding:10px 12px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+#fontPickerBody{ padding:12px; display:flex; flex-direction:column; gap:8px; max-height:min(70vh, 520px); overflow:auto; }
+.font-choice{
+  display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%;
+  border:1px solid var(--border, #e0e0e0); border-radius:10px; background:var(--card, #fff);
+  color:var(--text, #263238); padding:10px 12px; cursor:pointer; font-size:14px; text-align:left;
+}
+.font-choice:hover{ background:rgba(0,0,0,.03); }
+.font-choice.active{ outline:2px solid var(--primary, #2e7d32); border-color:transparent; }
+.font-choice small{ color:#607d8b; font-size:12px; }
+#fontPickerClose{ background:#78909c; }
+</style>
+
 </head>
 <body>
 <header class="app-header">
@@ -320,6 +521,7 @@ input.input-error{ outline:2px solid #e53935 !important; box-shadow:0 0 0 2px rg
     <option>Times New Roman</option>
   </select>
   <button id="btnHdrToday" class="btn" style="background:#388e3c;" type="button" onclick="goToToday()">📅 Сегодня</button>
+  <button id="btnMeetingSetup" class="btn" style="background:#546e7a;" type="button">⚙️ Собрания</button>
   <button id="btnMenu" class="btn" style="background:#1e88e5;" type="button">⋯ Меню</button>
   <!-- placeholders to prevent auto-adding extra header buttons -->
   <span id="btnAddYear" style="display:none"></span>
@@ -336,11 +538,14 @@ input.input-error{ outline:2px solid #e53935 !important; box-shadow:0 0 0 2px rg
           <th id="thMeeting">Собрание / Событие</th>
           <th id="thWeekday" style="width: 110px;">Будни</th>
           <th id="thWeekend" style="width: 110px;">Выходной</th>
+          <th id="thS302" style="width: 64px; text-align:center;">S 302</th>
+          <th id="thLetter" style="width: 72px; text-align:center;">Письмо</th>
           <th id="thNotes">Заметки</th>
         </tr>
       </thead>
       <tbody id="tableBody"></tbody>
     </table>
+    <div id="mobileListArea"></div>
   </div>
   <div id="resizer" role="separator" aria-orientation="vertical" aria-label="Изменение ширины правой панели"></div>
   <div id="right-panel">
@@ -666,6 +871,8 @@ function renderAll() {
           </span>
         </div>` : ''}
       </td>
+      <td style="text-align:center; vertical-align:middle;"><input type="checkbox" class="flag-s302" ${row.f302 ? 'checked' : ''} onchange="saveData()" aria-label="S 302"></td>
+      <td style="text-align:center; vertical-align:middle;"><input type="checkbox" class="flag-letter" ${row.letter ? 'checked' : ''} onchange="saveData()" aria-label="Письмо"></td>
       <td>
         <div class="note-preview" id="notePrev-${i}">${row.nt ? stripHtml(row.nt).slice(0,180) : ''}</div>
         <div class="note-actions">
@@ -769,6 +976,8 @@ function saveData() {
     const s = tr.querySelectorAll('input[type="date"]')[0].value;
     let e = tr.querySelectorAll('input[type="date"]')[1].value;
     const m = tr.querySelector('.m-select').value;
+    const f302 = !!tr.querySelector('.flag-s302')?.checked;
+    const letter = !!tr.querySelector('.flag-letter')?.checked;
     const was = mapPrev.get(id) || {};
     let nt = was.nt || '';
     const sd = parseYmdLocal(s);
@@ -782,9 +991,9 @@ function saveData() {
       if (span > 30) showToast(`Неделя №${id}: слишком длинный период (${span} дней).`);
     }
     const wasNt = was.nt || '';
-    const changed = (was.s||'')!==s || (was.e||'')!==e || (was.m||'')!==m || (wasNt)!==nt;
+    const changed = (was.s||'')!==s || (was.e||'')!==e || (was.m||'')!==m || !!was.f302!==f302 || !!was.letter!==letter || (wasNt)!==nt;
     const ts = changed ? Date.now() : (was.ts || 0);
-    return { id, s, e, m, nt, ts };
+    return { id, s, e, m, f302, letter, nt, ts };
   });
   localStorage.setItem(key, JSON.stringify(rows));
   buildCal();
@@ -903,10 +1112,10 @@ function buildCal() {
     __chunks.push(h);
   });
   area.onclick = (ev) => { const wk = ev.target?.getAttribute?.('data-week-click'); if (wk) { focusLeftRow(parseInt(wk,10) || 0); } };
+  area.innerHTML = __chunks.join('');
   renderLegend(filterSelected);
   markConflictsInCalendar();
   applyI18nToCalendar();
-  area.innerHTML = __chunks.join('');
 }
 
 function renderLegend(activeName) {
@@ -1144,7 +1353,7 @@ function gotoPrevMarked() {
   const $tw=document.getElementById('todayWidget');
   const $twD=document.getElementById('twDate');
   const $twW=document.getElementById('twWeek');
-  function updateTodayWidget(){ if(!$tw) return; const now=new Date(); const loc=i18n.locale==='ru'?'ru-RU':(i18n.locale==='uk'?'uk-UA':'en-US'); $twD.textContent=now.toLocaleDateString(loc,{weekday:'long',day:'2-digit',month:'long'}); const ay=getAcademicYearForDate(now); const wk=getServiceWeekNoByDate(now,ay); $twW.textContent=`${i18n.t('schoolYear')} ${ay} • ${i18n.t('week')} №${wk}`; $tw.hidden=false; }
+  function updateTodayWidget(){ if(!$tw) return; const now=new Date(); const loc=i18n.locale==='ru'?'ru-RU':(i18n.locale==='uk'?'uk-UA':(i18n.locale==='pl'?'pl-PL':'en-US')); $twD.textContent=now.toLocaleDateString(loc,{weekday:'long',day:'2-digit',month:'long'}); const ay=getAcademicYearForDate(now); const wk=getServiceWeekNoByDate(now,ay); $twW.textContent=`${i18n.t('schoolYear')} ${ay} • ${i18n.t('week')} №${wk}`; $tw.hidden=false; }
 
   const _renderAll=window.renderAll; window.renderAll=function(){ _renderAll(); enhanceAfterRender(); };
   const _buildCal=window.buildCal; window.buildCal=function(){ _buildCal(); updateTodayWidget(); };
@@ -1225,6 +1434,8 @@ function gotoPrevMarked() {
   const thMeeting = document.getElementById('thMeeting'); if(thMeeting) thMeeting.textContent = (i18n.locale==='en'?'Meeting / Event':(i18n.locale==='uk'?'Зібрання / Подія':'Собрание / Событие'));
   const thWeekday = document.getElementById('thWeekday'); if(thWeekday) thWeekday.textContent = (i18n.locale==='en'?'Weekday':(i18n.locale==='uk'?'Будні':'Будни'));
   const thWeekend = document.getElementById('thWeekend'); if(thWeekend) thWeekend.textContent = (i18n.locale==='en'?'Weekend':(i18n.locale==='uk'?'Вихідний':'Выходной'));
+  const thS302 = document.getElementById('thS302'); if(thS302) thS302.textContent = 'S 302';
+  const thLetter = document.getElementById('thLetter'); if(thLetter) thLetter.textContent = (i18n.locale==='en'?'Letter':(i18n.locale==='uk'?'Лист':'Письмо'));
   const thNotes = document.getElementById('thNotes'); if(thNotes) thNotes.textContent = (i18n.locale==='en'?'Notes':(i18n.locale==='uk'?'Нотатки':'Заметки'));
   const upd = document.getElementById('updText'); if (upd) upd.textContent = i18n.t('updText');
 }
@@ -1420,7 +1631,7 @@ window.applyI18nStatic = applyI18nStatic;
     }
     const ftbl = wrap.querySelector('#lpFloatTbl');
     function getHeaderLabels(){
-      const ids = ['thNo','thStart','thEnd','thMeeting','thWeekday','thWeekend','thNotes'];
+      const ids = ['thNo','thStart','thEnd','thMeeting','thWeekday','thWeekend','thS302','thLetter','thNotes'];
       const fromDom = ids.map(id => { const el = document.getElementById(id); return el ? (el.textContent||'').trim() : null; });
       let labels = fromDom.filter(x=>x!==null);
       if(labels.length !== ids.length){
@@ -1433,6 +1644,8 @@ window.applyI18nStatic = applyI18nStatic;
           labels.push(L==='en'?'Meeting / Event':(L==='uk'?'Зібрання / Подія':'Собрание / Событие'));
           labels.push(L==='en'?'Weekday':(L==='uk'?'Будні':'Будни'));
           labels.push(L==='en'?'Weekend':(L==='uk'?'Вихідний':'Выходной'));
+          labels.push('S 302');
+          labels.push(L==='en'?'Letter':(L==='uk'?'Лист':'Письмо'));
           labels.push(L==='en'?'Notes':(L==='uk'?'Нотатки':'Заметки'));
         }
       }
@@ -1495,10 +1708,68 @@ window.applyI18nStatic = applyI18nStatic;
   const KEY='svc_print_cols';
   function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch{ return {}; } }
   function save(p){ try{ localStorage.setItem(KEY, JSON.stringify(p)); }catch{} }
-  function apply(p){ for(let i=1;i<=7;i++) document.body.classList.remove('phide-'+i); for(let i=1;i<=7;i++) if(p[i]===false) document.body.classList.add('phide-'+i); }
-  function ensureModal(){ if(document.getElementById('printOverlay')) return; const ov=document.createElement('div'); ov.id='printOverlay'; ov.style.cssText='position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.35);z-index:12500;'; const modal=document.createElement('div'); modal.id='printModal'; modal.style.cssText='width:min(92vw,520px);background:#fff;border:1px solid #e0e0e0;border-radius:12px;overflow:hidden;'; const head=document.createElement('header'); head.style.cssText='background:#2e7d32;color:#fff;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;'; head.innerHTML='<div>Настройка печати</div>'; const close=document.createElement('button'); close.id='printClose'; close.className='btn'; close.style.background='#78909c'; close.textContent='×'; close.type='button'; head.appendChild(close); const body=document.createElement('div'); body.className='body'; body.style.cssText='padding:12px;'; const hint=document.createElement('div'); hint.style.cssText='font-size:12px;color:#607d8b;margin-bottom:8px;'; hint.textContent='Выберите столбцы, которые нужно печатать:'; body.appendChild(hint); const labels=['№','Начало','Конец','Событие','Будни','Выходной','Заметки']; for(let i=1;i<=7;i++){ const row=document.createElement('div'); row.className='row'; row.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee;font-size:14px;'; const sp=document.createElement('span'); sp.textContent=labels[i-1]; const ch=document.createElement('input'); ch.type='checkbox'; ch.setAttribute('data-col', String(i)); ch.checked=true; row.appendChild(sp); row.appendChild(ch); body.appendChild(row); } const foot=document.createElement('div'); foot.style.cssText='display:flex;justify-content:flex-end;gap:8px;padding:10px 12px;border-top:1px solid #eee;'; const cancel=document.createElement('button'); cancel.id='printCancel'; cancel.className='btn'; cancel.style.background='#9e9e9e'; cancel.textContent='Отмена'; cancel.type='button'; const go=document.createElement('button'); go.id='printGo'; go.className='btn'; go.style.background='#2e7d32'; go.textContent='Печатать'; go.type='button'; foot.appendChild(cancel); foot.appendChild(go); modal.appendChild(head); modal.appendChild(body); modal.appendChild(foot); ov.appendChild(modal); document.body.appendChild(ov); function closeModal(){ ov.style.display='none'; } close.onclick=closeModal; cancel.onclick=closeModal; ov.addEventListener('click',(e)=>{ if(e.target===ov) closeModal(); }); go.onclick=()=>{ const p={}; ov.querySelectorAll('input[type=checkbox][data-col]').forEach(ch=>{ const c=parseInt(ch.getAttribute('data-col'),10); p[c]=!!ch.checked; }); save(p); apply(p); closeModal(); setTimeout(()=>window.print(), 50); }; }
-  function open(){ ensureModal(); const ov=document.getElementById('printOverlay'); const p=load(); ov.querySelectorAll('input[type=checkbox][data-col]').forEach(ch=>{ const c=parseInt(ch.getAttribute('data-col'),10); ch.checked = (p[c] !== false); }); ov.style.display='flex'; }
-  function addBtn(){ const header=document.querySelector('.app-header'); if(!header || document.getElementById('btnPrintSetup')) return; const b=document.createElement('button'); b.id='btnPrintSetup'; b.className='btn'; b.style.background='#455a64'; b.textContent='⚙️ Печать'; b.type='button'; b.onclick=open; header.insertBefore(b, document.getElementById('printBtn') || null); }
+  function apply(p){
+    for(let i=1;i<=9;i++) document.body.classList.remove('phide-'+i);
+    for(let i=1;i<=9;i++) if(p[i]===false) document.body.classList.add('phide-'+i);
+  }
+  function ensureModal(){
+    if(document.getElementById('printOverlay')) return;
+    const ov=document.createElement('div');
+    ov.id='printOverlay';
+    ov.style.cssText='position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.35);z-index:12500;';
+    const modal=document.createElement('div');
+    modal.id='printModal';
+    modal.style.cssText='width:min(92vw,520px);background:#fff;border:1px solid #e0e0e0;border-radius:12px;overflow:hidden;';
+    const head=document.createElement('header');
+    head.style.cssText='background:#2e7d32;color:#fff;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;';
+    head.innerHTML='<div>Настройка печати</div>';
+    const close=document.createElement('button');
+    close.id='printClose'; close.className='btn'; close.style.background='#78909c'; close.textContent='×'; close.type='button';
+    head.appendChild(close);
+    const body=document.createElement('div');
+    body.className='body'; body.style.cssText='padding:12px;';
+    const hint=document.createElement('div');
+    hint.style.cssText='font-size:12px;color:#607d8b;margin-bottom:8px;';
+    hint.textContent='Выберите столбцы, которые нужно печатать:';
+    body.appendChild(hint);
+    const labels=['№','Начало','Конец','Событие','Будни','Выходной','S 302','Письмо','Заметки'];
+    for(let i=1;i<=9;i++){
+      const row=document.createElement('div');
+      row.className='row';
+      row.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee;font-size:14px;';
+      const sp=document.createElement('span'); sp.textContent=labels[i-1];
+      const ch=document.createElement('input'); ch.type='checkbox'; ch.setAttribute('data-col', String(i)); ch.checked=true;
+      row.appendChild(sp); row.appendChild(ch); body.appendChild(row);
+    }
+    const foot=document.createElement('div');
+    foot.style.cssText='display:flex;justify-content:flex-end;gap:8px;padding:10px 12px;border-top:1px solid #eee;';
+    const cancel=document.createElement('button');
+    cancel.id='printCancel'; cancel.className='btn'; cancel.style.background='#9e9e9e'; cancel.textContent='Отмена'; cancel.type='button';
+    const go=document.createElement('button');
+    go.id='printGo'; go.className='btn'; go.style.background='#2e7d32'; go.textContent='Печатать'; go.type='button';
+    foot.appendChild(cancel); foot.appendChild(go);
+    modal.appendChild(head); modal.appendChild(body); modal.appendChild(foot); ov.appendChild(modal); document.body.appendChild(ov);
+    function closeModal(){ ov.style.display='none'; }
+    close.onclick=closeModal; cancel.onclick=closeModal;
+    ov.addEventListener('click',(e)=>{ if(e.target===ov) closeModal(); });
+    go.onclick=()=>{
+      const p={};
+      ov.querySelectorAll('input[type=checkbox][data-col]').forEach(ch=>{ const c=parseInt(ch.getAttribute('data-col'),10); p[c]=!!ch.checked; });
+      save(p); apply(p); closeModal(); setTimeout(()=>window.print(), 80);
+    };
+  }
+  function open(){
+    ensureModal();
+    const ov=document.getElementById('printOverlay');
+    const p=load();
+    ov.querySelectorAll('input[type=checkbox][data-col]').forEach(ch=>{ const c=parseInt(ch.getAttribute('data-col'),10); ch.checked = (p[c] !== false); });
+    ov.style.display='flex';
+  }
+  function addBtn(){
+    const existing=document.getElementById('btnPrintSetup');
+    if(existing){ existing.style.display='none'; existing.onclick=open; }
+  }
+  window.openPrintSetup = open;
   window.addEventListener('load', ()=>{ addBtn(); apply(load()); });
 })();
 </script>
@@ -1518,89 +1789,328 @@ window.applyI18nStatic = applyI18nStatic;
 // Mobile list mode + header menu + sync link (переписано: прямые вызовы)
 (function(){
   const KEY='svc_view_mode';
-  function labels(){ const L=(window.i18n && i18n.locale)? i18n.locale : 'ru'; const dict={ ru:{list:'📱 Список', table:'📋 Таблица', week:(window.i18n? i18n.t('week'):'Неделя'), start:'Начало', end:'Конец', event:'Событие', weekday:'Будни', weekend:'Выходной', notes:'Заметки'}, en:{list:'📱 List', table:'📋 Table', week:(window.i18n? i18n.t('week'):'Week'), start:'Start', end:'End', event:'Event', weekday:'Weekday', weekend:'Weekend', notes:'Notes'}, uk:{list:'📱 Список', table:'📋 Таблиця', week:(window.i18n? i18n.t('week'):'Тиждень'), start:'Початок', end:'Кінець', event:'Подія', weekday:'Будні', weekend:'Вихідний', notes:'Нотатки'}
-      ,pl: {
-        backup:'📤 Kopia zapasowa', restore:'📥 Przywróć', syncExport:'🔄 Eksport sync', syncImport:'🔁 Import sync',
-        print:'🖨 Drukuj', saved:'Zapisano', saving:'Zapisywanie…', online:'Online', offline:'Offline',
-        setup:'Ustawienia zebrania', addrPH:'Adres Sali Królestwa', wd:'Dzień powszedni:', we:'Dzień wolny:',
-        save:'Zapisz', cancel:'Anuluj', calendar:'Kalendarz', showAll:'— pokaż wszystkie wydarzenia —',
-        hideOthers:'Ukrywaj pozostałe', reset:'Reset', today:'Dziś', prev:'◀ Poprzedni', next:'Następny ▶',
-        syncDone:'Synchronizacja zakończona.', syncFail:'Nie udało się zaimportować pliku synchronizacji.',
-        months:['Wrzesień','Październik','Listopad','Grudzień','Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień'],
-        wdays:['Nr','P','W','Ś','C','P','S','N'], updText:'Dostępna aktualizacja aplikacji.',
-        schoolYear:'Rok służby', week:'Tydzień', collapse:'Zwiń', expand:'Rozwiń', todayOutOfRange:'Dzisiejsza data poza zakresem roku.'
-      }
- }; return dict[L]||dict.ru; }
-  function getMode(){ try{return localStorage.getItem(KEY)||'table';}catch{return 'table';} }
-  function setMode(m){ try{localStorage.setItem(KEY,m);}catch{} document.body.classList.toggle('view-list', m==='list'); updBtn(); setTimeout(buildMobileList,0); }
-  function updBtn(){ const b=document.getElementById('btnViewMode'); if(!b) return; const l=labels(); b.textContent=(getMode()==='list')? l.table : l.list; b.title=b.textContent; }
-  function addViewBtn(){ const header=document.querySelector('.app-header'); if(!header || document.getElementById('btnViewMode')) return; const b=document.createElement('button'); b.id='btnViewMode'; b.className='btn'; b.style.background='#1e88e5'; b.style.display='none'; b.type='button'; b.onclick=()=> setMode(getMode()==='list'?'table':'list'); header.insertBefore(b, document.getElementById('yearSelect') || null); updBtn(); }
 
-  // --- Menu overlay (прямые вызовы, без кликов по скрытым кнопкам)
-  function ensureMenuDom(){ if(document.getElementById('menuOverlay')) return; const ov=document.createElement('div'); ov.id='menuOverlay'; const panel=document.createElement('div'); panel.id='menuPanel'; const head=document.createElement('header'); head.innerHTML='<div>Меню</div>'; const close=document.createElement('button'); close.className='btn'; close.style.background='#78909c'; close.textContent='×'; close.type='button'; head.appendChild(close); const body=document.createElement('div'); body.className='body';
-    const items=[
- {label:'🎨 Цвет интерфейса', hint:'Выбрать акцентный цвет', fn:()=> window.__openThemeChooser && window.__openThemeChooser() },
-      {label:'➕ Добавить год', hint:'Добавить любой год', fn:()=>{ const v=prompt('Введите год (YYYY):', document.getElementById('yearSelect')?.value || String(new Date().getFullYear())); const y=parseInt(String(v||'').trim(),10); if(!y||y<1900||y>3000) return alert('Неверный год'); const key='svc_d_'+y; try{ if(!localStorage.getItem(key)) localStorage.setItem(key,'[]'); }catch{} const sel=document.getElementById('yearSelect'); if(sel){ if(!Array.from(sel.options).some(o=>o.value===String(y))){ const opt=document.createElement('option'); opt.value=String(y); opt.textContent=String(y); sel.appendChild(opt);} sel.value=String(y);} try{ window.renderAll?.(); }catch{} }},
-      {label:'📤 Бэкап', hint:'Скачать полный бэкап', fn:()=> window.exportJSON && window.exportJSON() },
-      {label:'📥 Восстановить', hint:'Загрузить бэкап', fn:()=> window.importJSON && window.importJSON() },
-      {label:'🔄 Экспорт синхро', hint:'Скачать sync-файл', fn:()=> window.syncExport && window.syncExport() },
-      {label:'🔁 Импорт синхро', hint:'Загрузить sync-файл', fn:()=> window.syncImport && window.syncImport() },
-      {label:'⚙️ Настройка печати', hint:'Выбор столбцов', fn:()=> { const el=document.getElementById('btnPrintSetup'); if(el && el.click){ el.click(); } else { alert('Диалог печати будет доступен из меню в этой сборке.'); } } },
-      {label:'🖨 Печать', hint:'Открыть диалог печати', fn:()=> window.print() }
-    ];
-    function mkItem(it){ const div=document.createElement('div'); div.className='menu-item'; div.innerHTML = `<div><div>${it.label}</div><small>${it.hint||''}</small></div><div>›</div>`; div.onclick = ()=>{ try{ it.fn?.(); }catch(e){ console.error(e);} ov.style.display='none'; }; return div; }
-    items.forEach(it=> body.appendChild(mkItem(it)));
-    panel.appendChild(head); panel.appendChild(body); ov.appendChild(panel); document.body.appendChild(ov);
-    close.onclick = ()=> ov.style.display='none'; ov.addEventListener('click', (e)=>{ if(e.target===ov) ov.style.display='none'; });
+  function labels(){
+    const L=(window.i18n && i18n.locale)? i18n.locale : 'ru';
+    const dict={
+      ru:{list:'📱 Список', table:'📋 Таблица', week:(window.i18n? i18n.t('week'):'Неделя')},
+      en:{list:'📱 List', table:'📋 Table', week:(window.i18n? i18n.t('week'):'Week')},
+      uk:{list:'📱 Список', table:'📋 Таблиця', week:(window.i18n? i18n.t('week'):'Тиждень')},
+      pl:{list:'📱 Lista', table:'📋 Tabela', week:(window.i18n? i18n.t('week'):'Tydzień')}
+    };
+    return dict[L] || dict.ru;
   }
 
-  function bindMenuBtn(){ const btn=document.getElementById('btnMenu'); if(!btn) return; btn.onclick = ()=>{ ensureMenuDom(); document.getElementById('menuOverlay').style.display='flex'; } }
+  function getMode(){ try{return localStorage.getItem(KEY)||'table';}catch{return 'table';} }
+  function setMode(m){
+    try{ localStorage.setItem(KEY,m); }catch{}
+    document.body.classList.toggle('view-list', m==='list');
+    updBtn();
+    try{ if(typeof buildMobileList==='function') setTimeout(buildMobileList,0); }catch{}
+  }
+  function updBtn(){
+    const b=document.getElementById('btnViewMode');
+    if(!b) return;
+    const l=labels();
+    b.textContent=(getMode()==='list')? l.table : l.list;
+    b.title=b.textContent;
+  }
+  function addViewBtn(){
+    const header=document.querySelector('.app-header');
+    if(!header || document.getElementById('btnViewMode')) return;
+    const b=document.createElement('button');
+    b.id='btnViewMode';
+    b.className='btn';
+    b.style.background='#1e88e5';
+    b.style.display='none';
+    b.type='button';
+    b.onclick=()=> setMode(getMode()==='list'?'table':'list');
+    header.insertBefore(b, document.getElementById('yearSelect') || null);
+    updBtn();
+  }
 
-  // mobile list area left as-is (reuse earlier code if needed)
+  function promptLanguage(){
+  function labels(){
+    const L = (window.i18n && i18n.locale) ? i18n.locale : 'ru';
+    const m = {
+      ru:{title:'Язык интерфейса', close:'Закрыть'},
+      en:{title:'Interface language', close:'Close'},
+      uk:{title:'Мова інтерфейсу', close:'Закрити'},
+      pl:{title:'Język interfejsu', close:'Zamknij'}
+    };
+    return m[L] || m.ru;
+  }
+  function ensurePicker(){
+    let ov = document.getElementById('langPickerOverlay');
+    if(ov) return ov;
+    ov = document.createElement('div');
+    ov.id = 'langPickerOverlay';
+    ov.setAttribute('role','dialog');
+    ov.setAttribute('aria-modal','true');
+    ov.innerHTML = `
+      <div id="langPickerPanel">
+        <header>
+          <div id="langPickerTitle">Язык интерфейса</div>
+          <button id="langPickerClose" class="btn" type="button">×</button>
+        </header>
+        <div id="langPickerBody"></div>
+      </div>`;
+    document.body.appendChild(ov);
+    const close = () => { ov.style.display='none'; };
+    ov.querySelector('#langPickerClose').onclick = close;
+    ov.addEventListener('click', function(e){ if(e.target === ov) close(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && ov.style.display === 'flex') close(); });
+    return ov;
+  }
+  const ov = ensurePicker();
+  const body = ov.querySelector('#langPickerBody');
+  const title = ov.querySelector('#langPickerTitle');
+  const txt = labels();
+  title.textContent = txt.title;
+  const sel = document.getElementById('langSelect');
+  if(!sel) return;
+  const options = [
+    {value:'ru', label:'Русский', note:'RU'},
+    {value:'en', label:'English', note:'EN'},
+    {value:'uk', label:'Українська', note:'UA'},
+    {value:'pl', label:'Polski', note:'PL'}
+  ];
+  body.innerHTML = '';
+  options.forEach(function(opt){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'lang-choice' + (sel.value === opt.value ? ' active' : '');
+    b.setAttribute('data-lang', opt.value);
+    b.innerHTML = `<span>${opt.label}</span><small>${opt.note}</small>`;
+    b.addEventListener('click', function(){
+      sel.value = opt.value;
+      if(typeof sel.onchange === 'function') sel.onchange();
+      else sel.dispatchEvent(new Event('change', {bubbles:true}));
+      ov.style.display='none';
+    });
+    body.appendChild(b);
+  });
+  ov.style.display = 'flex';
+}
+ function promptFont(){
+  function labels(){
+    const L = (window.i18n && i18n.locale) ? i18n.locale : 'ru';
+    const m = {
+      ru:{title:'Шрифт приложения'},
+      en:{title:'App font'},
+      uk:{title:'Шрифт застосунку'},
+      pl:{title:'Czcionka aplikacji'}
+    };
+    return m[L] || m.ru;
+  }
+  function ensurePicker(){
+    let ov = document.getElementById('fontPickerOverlay');
+    if(ov) return ov;
+    ov = document.createElement('div');
+    ov.id = 'fontPickerOverlay';
+    ov.setAttribute('role','dialog');
+    ov.setAttribute('aria-modal','true');
+    ov.innerHTML = `
+      <div id="fontPickerPanel">
+        <header>
+          <div id="fontPickerTitle">Шрифт приложения</div>
+          <button id="fontPickerClose" class="btn" type="button">×</button>
+        </header>
+        <div id="fontPickerBody"></div>
+      </div>`;
+    document.body.appendChild(ov);
+    const close = () => { ov.style.display='none'; };
+    ov.querySelector('#fontPickerClose').onclick = close;
+    ov.addEventListener('click', function(e){ if(e.target === ov) close(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && ov.style.display === 'flex') close(); });
+    return ov;
+  }
+  const sel = document.getElementById('fontSelect');
+  if(!sel) return;
+  const ov = ensurePicker();
+  const body = ov.querySelector('#fontPickerBody');
+  const title = ov.querySelector('#fontPickerTitle');
+  title.textContent = labels().title;
+  const opts = Array.from(sel.options).map(o => o.textContent);
+  body.innerHTML = '';
+  opts.forEach(function(name){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'font-choice' + (sel.value === name ? ' active' : '');
+    b.style.fontFamily = name;
+    b.innerHTML = `<span>${name}</span><small>Aa Bb Cc</small>`;
+    b.addEventListener('click', function(){
+      sel.value = name;
+      sel.dispatchEvent(new Event('change',{bubbles:true}));
+      ov.style.display='none';
+    });
+    body.appendChild(b);
+  });
+  ov.style.display = 'flex';
+}
+ function addYearDirect(){
+    const v = prompt('Введите год (YYYY):', document.getElementById('yearSelect')?.value || String(new Date().getFullYear()));
+    const y = parseInt(String(v||'').trim(),10);
+    if(!y || y<1900 || y>3000) return alert('Неверный год');
+    const key='svc_d_'+y;
+    try{ if(!localStorage.getItem(key)) localStorage.setItem(key,'[]'); }catch{}
+    const sel=document.getElementById('yearSelect');
+    if(sel){
+      if(!Array.from(sel.options).some(o=>o.value===String(y))){
+        const opt=document.createElement('option');
+        opt.value=String(y); opt.textContent=String(y); sel.appendChild(opt);
+      }
+      sel.value=String(y);
+    }
+    try{ window.renderAll?.(); }catch{}
+  }
+
+  function ensureMenuDom(){
+    if(document.getElementById('menuOverlay')) return document.getElementById('menuOverlay');
+
+    const ov=document.createElement('div');
+    ov.id='menuOverlay';
+
+    const panel=document.createElement('div');
+    panel.id='menuPanel';
+
+    const head=document.createElement('header');
+    head.innerHTML='<div>Меню</div>';
+
+    const close=document.createElement('button');
+    close.className='btn';
+    close.style.background='#78909c';
+    close.textContent='×';
+    close.type='button';
+    head.appendChild(close);
+
+    const body=document.createElement('div');
+    body.className='body';
+
+    const items=[
+      {label:'🎨 Цвет интерфейса', hint:'Выбрать акцентный цвет', fn:()=> window.__openThemeChooser && window.__openThemeChooser()},
+      {label:'🌐 Язык', hint:'RU / EN / UA / PL', fn:promptLanguage},
+      {label:'🔤 Шрифт', hint:'Выбрать шрифт приложения', fn:promptFont},
+      {label:'➕ Добавить год', hint:'Добавить любой год', fn:addYearDirect},
+      {label:'📤 Бэкап', hint:'Скачать полный бэкап', fn:()=> window.exportJSON && window.exportJSON()},
+      {label:'📥 Восстановить', hint:'Загрузить бэкап', fn:()=> window.importJSON && window.importJSON()},
+      {label:'🔄 Экспорт синхро', hint:'Скачать sync-файл', fn:()=> window.syncExport && window.syncExport()},
+      {label:'🔁 Импорт синхро', hint:'Загрузить sync-файл', fn:()=> window.syncImport && window.syncImport()},
+      {label:'⚙️ Настройка печати', hint:'Выбор столбцов', fn:()=> { if(typeof window.openPrintSetup==='function') window.openPrintSetup(); else alert('Диалог печати недоступен.'); }},
+      {label:'🖨 Печать', hint:'Открыть диалог печати', fn:()=> window.print()}
+    ];
+
+    function mkItem(it){
+      const div=document.createElement('div');
+      div.className='menu-item';
+      div.innerHTML = `<div><div>${it.label}</div><small>${it.hint||''}</small></div><div>›</div>`;
+      div.onclick = ()=>{
+        ov.style.display='none';
+        setTimeout(()=>{ try{ it.fn?.(); }catch(e){ console.error(e); } }, 80);
+      };
+      return div;
+    }
+
+    items.forEach(it=> body.appendChild(mkItem(it)));
+    panel.appendChild(head);
+    panel.appendChild(body);
+    ov.appendChild(panel);
+    document.body.appendChild(ov);
+
+    close.onclick = ()=>{ ov.style.display='none'; };
+    ov.addEventListener('click', (e)=>{ if(e.target===ov) ov.style.display='none'; });
+    return ov;
+  }
+
+  function openMenu(){
+    const ov = ensureMenuDom();
+    if(ov) ov.style.display='flex';
+  }
+
+  function bindMenuBtn(){
+    const btn=document.getElementById('btnMenu');
+    if(!btn) return;
+    btn.onclick = openMenu;
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      openMenu();
+    }, {capture:false});
+  }
+
+  window.__openAppMenu = openMenu;
   window.addEventListener('load', ()=>{ addViewBtn(); ensureMenuDom(); bindMenuBtn(); });
 })();
 </script>
 
 <script>
-// Adaptive column layout without breaking existing logic
+// Adaptive column layout without recursive resize loop (9 columns aligned)
 (function(){
+  let applying = false;
+  let scheduled = false;
+
   function ensureColgroup(){
     const tbl = document.querySelector('#left-panel > table');
     if(!tbl) return null;
     let cg = tbl.querySelector('colgroup');
     if(!cg){
       cg = document.createElement('colgroup');
-      for(let i=0;i<7;i++) cg.appendChild(document.createElement('col'));
+      for(let i=0;i<9;i++) cg.appendChild(document.createElement('col'));
       tbl.insertBefore(cg, tbl.firstChild);
     }
     return cg;
   }
+
   function applyColLayout(){
+    if(applying) return;
     const tbl = document.querySelector('#left-panel > table');
     if(!tbl) return;
     const cg = ensureColgroup();
+    if(!cg) return;
     const cols = cg.querySelectorAll('col');
-    const w = Math.max(0, Math.floor(tbl.getBoundingClientRect().width));
-    // Breakpoints: narrow / medium / wide
-    let W = {no:44, start:88, end:88, wd:120, we:120};
-    if (w >= 1200)      W = {no:48, start:96, end:96, wd:150, we:150};
-    else if (w <= 760)  W = {no:40, start:84, end:84, wd:110, we:110};
-    const fixed = W.no + W.start + W.end + W.wd + W.we;
-    const rest = Math.max(360, w - fixed - 16); // remaining for Meeting + Notes
-    const meeting = Math.max(220, Math.floor(rest * 0.58));
-    const notes   = Math.max(140, rest - meeting);
-    const widths = [W.no, W.start, W.end, meeting, W.wd, W.we, notes];
-    widths.forEach((px, i)=>{ cols[i].style.width = px+'px'; });
-    // Trigger floating header sync (ResizeObserver should handle, but force resize just in case)
-    try{ window.dispatchEvent(new Event('resize')); }catch{}
+    if(cols.length < 9) return;
+
+    applying = true;
+    try{
+      const w = Math.max(0, Math.floor(tbl.getBoundingClientRect().width));
+      let W = {no:44, start:88, end:88, wd:112, we:112, f302:60, letter:68};
+      if (w >= 1200)      W = {no:48, start:96, end:96, wd:132, we:132, f302:66, letter:78};
+      else if (w <= 760)  W = {no:40, start:84, end:84, wd:98,  we:98,  f302:54, letter:62};
+      const fixed = W.no + W.start + W.end + W.wd + W.we + W.f302 + W.letter;
+      const rest = Math.max(380, w - fixed - 16);
+      const meeting = Math.max(220, Math.floor(rest * 0.54));
+      const notes   = Math.max(150, rest - meeting);
+      const widths = [W.no, W.start, W.end, meeting, W.wd, W.we, W.f302, W.letter, notes];
+      widths.forEach((px, i)=>{
+        const next = px + 'px';
+        if(cols[i].style.width !== next) cols[i].style.width = next;
+      });
+    } finally {
+      applying = false;
+    }
   }
+
+  function scheduleApply(){
+    if(scheduled) return;
+    scheduled = true;
+    const run = () => {
+      scheduled = false;
+      try{ applyColLayout(); }catch(e){ console.warn('[applyColLayout] failed', e); }
+    };
+    if(typeof requestAnimationFrame === 'function') requestAnimationFrame(run);
+    else setTimeout(run, 0);
+  }
+
   if(window.wrapOnceGlobal){
-    wrapOnceGlobal('renderAll', (orig)=> function(){ const r=orig.apply(this, arguments); setTimeout(applyColLayout, 0); return r; });
+    wrapOnceGlobal('renderAll', (orig)=> function(){ const r=orig.apply(this, arguments); scheduleApply(); return r; });
   } else {
-    const _ra = window.renderAll; if(typeof _ra==='function'){ window.renderAll = function(){ const r=_ra.apply(this, arguments); setTimeout(applyColLayout, 0); return r; }; }
+    const _ra = window.renderAll;
+    if(typeof _ra==='function'){
+      window.renderAll = function(){ const r=_ra.apply(this, arguments); scheduleApply(); return r; };
+    }
   }
-  window.addEventListener('resize', ()=>{ try{ applyColLayout(); }catch{} });
-  window.addEventListener('load', ()=>{ try{ applyColLayout(); }catch{} });
+
+  window.addEventListener('resize', scheduleApply);
+  window.addEventListener('load', scheduleApply);
 })();
 </script>
 
@@ -1692,7 +2202,7 @@ window.applyI18nStatic = applyI18nStatic;
         weekend:(L==='en'?'Weekend':(L==='uk'?'Вихідний':(L==='pl'?'Dzień wolny':'Выходной'))),
         notes: (L==='en'?'Notes': (L==='uk'?'Нотатки':(L==='pl'?'Notatki':'Заметки')))
       };
-      return [w0, map.start, map.end, map.meeting, map.weekday, map.weekend, map.notes];
+      return [w0, map.start, map.end, map.meeting, map.weekday, map.weekend, 'S 302', (L==='en'?'Letter':(L==='uk'?'Лист':'Письмо')), map.notes];
     }catch(e){ return ['#','Start','End','Event','Weekday','Weekend','Notes']; }
   };
 
@@ -1701,7 +2211,7 @@ window.applyI18nStatic = applyI18nStatic;
     const orig = window.applyI18nStatic;
     window.applyI18nStatic = function(){ orig(); try{
       const labels = window.sp.i18n.headerLabels();
-      const ids = ['thNo','thStart','thEnd','thMeeting','thWeekday','thWeekend','thNotes'];
+      const ids = ['thNo','thStart','thEnd','thMeeting','thWeekday','thWeekend','thS302','thLetter','thNotes'];
       ids.forEach((id,i)=>{ const el=document.getElementById(id); if(el && labels[i]!==undefined) el.textContent = labels[i]; });
     }catch(e){} };
     window.applyI18nStatic.__spWrapped = true;
@@ -2239,5 +2749,347 @@ input[type="date"], select{
 })();
 </script>
 
+
+<script id="menu-compact-hotfix">
+(function(){
+  function closeMenu(){ const ov=document.getElementById('menuOverlay'); if(ov) ov.style.display='none'; }
+  function bindFix(){
+    const menu = document.getElementById('menuOverlay');
+    if(!menu || menu.dataset.compactHotfixBound==='1') return;
+    menu.dataset.compactHotfixBound='1';
+    menu.addEventListener('click', function(e){
+      const item = e.target.closest('.menu-item');
+      if(!item) return;
+      const txt = (item.textContent || '').toLowerCase();
+      if((txt.includes('печать') || txt.includes('print') || txt.includes('druk')) && (txt.includes('настрой') || txt.includes('setup') || txt.includes('ustaw'))){
+        e.stopPropagation();
+        closeMenu();
+        setTimeout(function(){ try{ if(typeof window.openPrintSetup==='function') window.openPrintSetup(); }catch(err){ console.error('[menu-compact-hotfix] print setup failed', err); } }, 90);
+      }
+    }, true);
+  }
+  function hideHeaderSelectors(){
+    const lang = document.getElementById('langSelect');
+    const font = document.getElementById('fontSelect');
+    if(lang) lang.style.display = 'none';
+    if(font) font.style.display = 'none';
+  }
+  window.addEventListener('load', function(){ bindFix(); hideHeaderSelectors(); });
+})();
+</script>
+
+<script id="menu-open-guarantee">
+(function(){
+  function ensureFallbackMenu(){
+    if(typeof window.__openAppMenu==='function') return window.__openAppMenu();
+    var ov = document.getElementById('menuOverlay');
+    if(ov){ ov.style.display='flex'; return; }
+    var btn = document.getElementById('btnMenu');
+    if(btn && typeof btn.onclick==='function'){ try{ btn.onclick(); }catch(e){ console.error('[menu-open-guarantee] onclick failed', e); } }
+  }
+  function bind(){
+    var btn = document.getElementById('btnMenu');
+    if(!btn || btn.dataset.menuGuaranteed==='1') return;
+    btn.dataset.menuGuaranteed='1';
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      setTimeout(function(){
+        var ov = document.getElementById('menuOverlay');
+        if(!ov || ov.style.display !== 'flex') ensureFallbackMenu();
+      }, 0);
+    }, true);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+  window.addEventListener('load', bind);
+})();
+</script>
+
+<script id="settings-drawer-js">
+(function(){
+  if(window.__settingsDrawerRobustPatched) return;
+  window.__settingsDrawerRobustPatched = true;
+
+  function getLabel(){
+    try{
+      const L = (window.i18n && i18n.locale) ? i18n.locale : 'ru';
+      return L==='en' ? '⚙️ Meetings' : (L==='uk' ? '⚙️ Зібрання' : (L==='pl' ? '⚙️ Zebrania' : '⚙️ Собрания'));
+    }catch(e){ return '⚙️ Собрания'; }
+  }
+
+  function ensureMask(){
+    let mask = document.getElementById('settingsCardMask');
+    if(mask) return mask;
+    mask = document.createElement('div');
+    mask.id = 'settingsCardMask';
+    document.body.appendChild(mask);
+    return mask;
+  }
+
+  function btn(){ return document.getElementById('btnMeetingSetup'); }
+  function card(){ return document.getElementById('settingsCard'); }
+
+  function syncBtnLabel(){
+    const b = btn();
+    if(b) b.textContent = getLabel();
+  }
+
+  function openDrawer(){
+    const c = card();
+    const b = btn();
+    if(!c || !b) return false;
+    ensureMask();
+    document.body.classList.add('settings-drawer-open');
+    b.classList.add('is-open');
+    b.setAttribute('aria-expanded', 'true');
+    return true;
+  }
+
+  function closeDrawer(){
+    const b = btn();
+    document.body.classList.remove('settings-drawer-open');
+    if(b){
+      b.classList.remove('is-open');
+      b.setAttribute('aria-expanded', 'false');
+    }
+    return true;
+  }
+
+  function toggleDrawer(force){
+    const wantOpen = typeof force === 'boolean' ? force : !document.body.classList.contains('settings-drawer-open');
+    return wantOpen ? openDrawer() : closeDrawer();
+  }
+
+  function onBtnActivate(e){
+    if(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+    }
+    toggleDrawer();
+  }
+
+  function bindDrawer(){
+    const b = btn();
+    const c = card();
+    if(!b || !c) return false;
+
+    syncBtnLabel();
+    ensureMask();
+
+    b.type = 'button';
+    b.setAttribute('aria-haspopup', 'dialog');
+    b.setAttribute('aria-controls', 'settingsCard');
+    b.setAttribute('aria-expanded', document.body.classList.contains('settings-drawer-open') ? 'true' : 'false');
+
+    b.onclick = onBtnActivate;
+
+    if(b.dataset.drawerBound !== '1'){
+      b.dataset.drawerBound = '1';
+      b.addEventListener('click', onBtnActivate, true);
+      b.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ onBtnActivate(e); }
+      }, true);
+    }
+
+    const mask = ensureMask();
+    if(mask.dataset.bound !== '1'){
+      mask.dataset.bound = '1';
+      mask.addEventListener('click', function(e){ e.preventDefault(); closeDrawer(); }, true);
+    }
+
+    if(c.dataset.drawerCardBound !== '1'){
+      c.dataset.drawerCardBound = '1';
+      c.addEventListener('click', function(e){ e.stopPropagation(); });
+    }
+
+    return true;
+  }
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && document.body.classList.contains('settings-drawer-open')) closeDrawer();
+  }, true);
+
+  if(window.wrapOnceGlobal){
+    wrapOnceGlobal('applyI18nStatic', function(orig){
+      return function(){ const r = orig.apply(this, arguments); setTimeout(function(){ syncBtnLabel(); bindDrawer(); }, 0); return r; };
+    });
+    wrapOnceGlobal('renderAll', function(orig){
+      return function(){ const r = orig.apply(this, arguments); setTimeout(bindDrawer, 0); return r; };
+    });
+  }
+
+  window.__openMeetingSetupDrawer = function(){ bindDrawer(); return openDrawer(); };
+  window.__closeMeetingSetupDrawer = closeDrawer;
+  window.__toggleMeetingSetupDrawer = function(){ bindDrawer(); return toggleDrawer(); };
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', bindDrawer);
+  } else {
+    bindDrawer();
+  }
+  window.addEventListener('load', bindDrawer);
+})();
+</script>
+
+<script id="calendar-compact-mode-js">
+(function(){
+  const KEY='svc_calendar_compact';
+  function isCompact(){ try{ return localStorage.getItem(KEY)==='1'; }catch{return false;} }
+  function saveCompact(v){ try{ localStorage.setItem(KEY, v ? '1' : '0'); }catch{} }
+  function getLabel(){
+    try{
+      const L = (window.i18n && i18n.locale) ? i18n.locale : 'ru';
+      return {
+        ru:['▦ Компакт', '▣ Обычный'],
+        en:['▦ Compact', '▣ Normal'],
+        uk:['▦ Компактно', '▣ Звично'],
+        pl:['▦ Kompakt', '▣ Zwykły']
+      }[L] || ['▦ Компакт', '▣ Обычный'];
+    }catch(e){ return ['▦ Компакт', '▣ Обычный']; }
+  }
+  function ensureBtn(){
+    let btn = document.getElementById('btnCalCompact');
+    if(btn) return btn;
+    const todayBtn = document.getElementById('btnToday');
+    const resetBtn = document.getElementById('btnFilterReset');
+    const anchor = todayBtn || resetBtn;
+    if(!anchor || !anchor.parentNode) return null;
+    btn = document.createElement('button');
+    btn.id = 'btnCalCompact';
+    btn.className = 'btn';
+    btn.type = 'button';
+    btn.style.background = '#455a64';
+    btn.addEventListener('click', function(){ setCompact(!document.body.classList.contains('calendar-compact')); });
+    anchor.parentNode.insertBefore(btn, anchor);
+    return btn;
+  }
+  function syncBtn(){
+    const btn = ensureBtn();
+    if(!btn) return;
+    const labels = getLabel();
+    const on = document.body.classList.contains('calendar-compact');
+    btn.textContent = on ? labels[1] : labels[0];
+    btn.title = btn.textContent;
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function setCompact(v){
+    document.body.classList.toggle('calendar-compact', !!v);
+    saveCompact(!!v);
+    syncBtn();
+    try{ if(typeof syncFloatingHeaderFinal==='function') syncFloatingHeaderFinal(); }catch{}
+  }
+  function init(){
+    ensureBtn();
+    setCompact(isCompact());
+    syncBtn();
+  }
+  if(window.wrapOnceGlobal){
+    wrapOnceGlobal('applyI18nStatic', function(orig){
+      return function(){ const r = orig.apply(this, arguments); setTimeout(syncBtn, 0); return r; };
+    });
+    wrapOnceGlobal('renderAll', function(orig){
+      return function(){ const r = orig.apply(this, arguments); setTimeout(syncBtn, 0); return r; };
+    });
+  }
+  window.__setCalendarCompact = setCompact;
+  window.addEventListener('load', init);
+})();
+</script>
+
+
+<script id="settings-drawer-guarantee">
+(function(){
+  function bind(){
+    var b = document.getElementById('btnMeetingSetup');
+    if(!b || b.dataset.drawerGuaranteed==='1') return;
+    b.dataset.drawerGuaranteed='1';
+    b.addEventListener('click', function(e){
+      setTimeout(function(){
+        if(!document.body.classList.contains('settings-drawer-open') && typeof window.__openMeetingSetupDrawer==='function'){
+          window.__openMeetingSetupDrawer();
+        }
+      }, 0);
+    }, true);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+  window.addEventListener('load', bind);
+})();
+</script>
+
+<script id="settings-drawer-interaction-fix">
+(function(){
+  // Non-breaking safety patch: ensure the drawer card does not block target clicks in capture phase.
+  function applyFix(){
+    var c = document.getElementById('settingsCard');
+    if(!c || c.dataset.interactionFixApplied==='1') return;
+    c.dataset.interactionFixApplied='1';
+    c.addEventListener('click', function(e){ e.stopPropagation(); }, false);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyFix);
+  else applyFix();
+  window.addEventListener('load', applyFix);
+})();
+</script>
+
+<script id="mobile-list-builder">
+(function(){
+  function esc(s){
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+  function getYearData(y){ try{ return JSON.parse(localStorage.getItem('svc_d_' + y) || '[]'); }catch(e){ return []; } }
+  function noteText(html){ try{ return (typeof stripHtml === 'function') ? stripHtml(html || '') : String(html || '').replace(/<[^>]+>/g,''); }catch(e){ return ''; } }
+  window.buildMobileList = function(){
+    const area = document.getElementById('mobileListArea');
+    if(!area) return;
+    const y = document.getElementById('yearSelect')?.value || '';
+    const data = getYearData(y);
+    const rows = [];
+    const yearNum = parseInt(y || '0', 10) || new Date().getFullYear();
+    const maxW = (typeof getWeeksCount === 'function') ? getWeeksCount(yearNum) : 53;
+    for(let i=1;i<=maxW;i++){
+      const row = data.find(r => r.id == i) || {};
+      const m = (window.meetings || []).find(x => x.name === row.m) || {};
+      const wd = ((m.wd || '') + ' ' + (m.tWD || '')).trim();
+      const we = ((m.we || '') + ' ' + (m.tWE || '')).trim();
+      const addr = (m.addr || '').trim();
+      const note = noteText(row.nt || '');
+      rows.push(`
+        <div class="wk-card" id="wk-card-${i}">
+          <div class="wk-card-header">
+            <div class="wk-badge"><span class="wk-no">№ ${i}</span><span>${esc(row.m || '— нет события —')}</span></div>
+            <div class="wk-actions">
+              <button type="button" onclick="goToWeek(${i}, true)">📅</button>
+              <button type="button" onclick="openWeekInfo(${i})">✎</button>
+            </div>
+          </div>
+          <div class="wk-grid">
+            <div><div class="wk-label">Начало</div><input type="date" value="${esc(row.s || '')}" onchange="(function(el,w){ const d=getYearData(document.getElementById('yearSelect').value); const idx=d.findIndex(r=>r.id==w); const cur=idx>=0?d[idx]:{id:w,s:'',e:'',m:'',nt:''}; cur.s=el.value; if(idx>=0)d[idx]=cur; else d.push(cur); localStorage.setItem('svc_d_'+document.getElementById('yearSelect').value, JSON.stringify(d)); if(typeof renderAll==='function') renderAll(); })(this, ${i})"></div>
+            <div><div class="wk-label">Конец</div><input type="date" value="${esc(row.e || '')}" onchange="(function(el,w){ const d=getYearData(document.getElementById('yearSelect').value); const idx=d.findIndex(r=>r.id==w); const cur=idx>=0?d[idx]:{id:w,s:'',e:'',m:'',nt:''}; cur.e=el.value; if(idx>=0)d[idx]=cur; else d.push(cur); localStorage.setItem('svc_d_'+document.getElementById('yearSelect').value, JSON.stringify(d)); if(typeof renderAll==='function') renderAll(); })(this, ${i})"></div>
+            <div class="full"><div class="wk-label">Будни</div><div class="wk-sched"><div class="line"><span>${esc(wd || '—')}</span>${addr?`<span class="addr">📍 ${esc(addr)}</span>`:''}</div></div></div>
+            <div class="full"><div class="wk-label">Выходной</div><div class="wk-sched"><div class="line"><span>${esc(we || '—')}</span>${addr?`<span class="addr">📍 ${esc(addr)}</span>`:''}</div></div></div>
+            <div class="full wk-notes"><div class="wk-label">Заметки</div><div class="note-preview" id="notePrevM-${i}">${esc(note.slice(0,220))}</div></div>
+          </div>
+        </div>`);
+    }
+    area.innerHTML = rows.join('');
+  };
+  if(window.wrapOnceGlobal){
+    wrapOnceGlobal('renderAll', function(orig){ return function(){ var r=orig.apply(this, arguments); setTimeout(function(){ try{ window.buildMobileList(); }catch(e){} },0); return r; }; });
+  }
+  window.addEventListener('load', function(){ setTimeout(function(){ try{ window.buildMobileList(); }catch(e){} }, 0); });
+})();
+</script>
+
+<script id="final-audit-safety-patch">
+(function(){
+  function refresh(){
+    try{ if(typeof window.markConflictsInCalendar==='function') window.markConflictsInCalendar(); }catch(e){}
+    try{ if(typeof window.applyI18nToCalendar==='function') window.applyI18nToCalendar(); }catch(e){}
+  }
+  window.addEventListener('load', function(){ setTimeout(refresh, 0); });
+})();
+</script>
 </body>
 </html>

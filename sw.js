@@ -1,4 +1,4 @@
-const CACHE_NAME = 'service-pro-prod-cache-1895a90bef4f';
+const CACHE_NAME = 'service-pro-prod-cache-93f018de6572';
 const APP_SHELL = ["./", "./index.html", "./manifest.json", "./sw.js", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/maskable-192.png", "./icons/maskable-512.png", "./icons/apple-touch-icon.png"];
 
 self.addEventListener('install', (event) => {
