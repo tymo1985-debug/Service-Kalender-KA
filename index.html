@@ -1562,11 +1562,8 @@ window.applyI18nStatic = applyI18nStatic;
 </script>
 
 <script>
-// Adaptive column layout without recursive resize loop
+// Adaptive column layout without breaking existing logic
 (function(){
-  let applying = false;
-  let scheduled = false;
-
   function ensureColgroup(){
     const tbl = document.querySelector('#left-panel > table');
     if(!tbl) return null;
@@ -1578,58 +1575,32 @@ window.applyI18nStatic = applyI18nStatic;
     }
     return cg;
   }
-
   function applyColLayout(){
-    if(applying) return;
     const tbl = document.querySelector('#left-panel > table');
     if(!tbl) return;
     const cg = ensureColgroup();
-    if(!cg) return;
     const cols = cg.querySelectorAll('col');
-    if(cols.length < 7) return;
-
-    applying = true;
-    try{
-      const w = Math.max(0, Math.floor(tbl.getBoundingClientRect().width));
-      let W = {no:44, start:88, end:88, wd:120, we:120};
-      if (w >= 1200)      W = {no:48, start:96, end:96, wd:150, we:150};
-      else if (w <= 760)  W = {no:40, start:84, end:84, wd:110, we:110};
-      const fixed = W.no + W.start + W.end + W.wd + W.we;
-      const rest = Math.max(360, w - fixed - 16);
-      const meeting = Math.max(220, Math.floor(rest * 0.58));
-      const notes   = Math.max(140, rest - meeting);
-      const widths = [W.no, W.start, W.end, meeting, W.wd, W.we, notes];
-      widths.forEach((px, i)=>{
-        const next = px + 'px';
-        if(cols[i].style.width !== next) cols[i].style.width = next;
-      });
-    } finally {
-      applying = false;
-    }
+    const w = Math.max(0, Math.floor(tbl.getBoundingClientRect().width));
+    // Breakpoints: narrow / medium / wide
+    let W = {no:44, start:88, end:88, wd:120, we:120};
+    if (w >= 1200)      W = {no:48, start:96, end:96, wd:150, we:150};
+    else if (w <= 760)  W = {no:40, start:84, end:84, wd:110, we:110};
+    const fixed = W.no + W.start + W.end + W.wd + W.we;
+    const rest = Math.max(360, w - fixed - 16); // remaining for Meeting + Notes
+    const meeting = Math.max(220, Math.floor(rest * 0.58));
+    const notes   = Math.max(140, rest - meeting);
+    const widths = [W.no, W.start, W.end, meeting, W.wd, W.we, notes];
+    widths.forEach((px, i)=>{ cols[i].style.width = px+'px'; });
+    // Trigger floating header sync (ResizeObserver should handle, but force resize just in case)
+    try{ window.dispatchEvent(new Event('resize')); }catch{}
   }
-
-  function scheduleApply(){
-    if(scheduled) return;
-    scheduled = true;
-    const run = () => {
-      scheduled = false;
-      try{ applyColLayout(); }catch(e){ console.warn('[applyColLayout] failed', e); }
-    };
-    if(typeof requestAnimationFrame === 'function') requestAnimationFrame(run);
-    else setTimeout(run, 0);
-  }
-
   if(window.wrapOnceGlobal){
-    wrapOnceGlobal('renderAll', (orig)=> function(){ const r=orig.apply(this, arguments); scheduleApply(); return r; });
+    wrapOnceGlobal('renderAll', (orig)=> function(){ const r=orig.apply(this, arguments); setTimeout(applyColLayout, 0); return r; });
   } else {
-    const _ra = window.renderAll;
-    if(typeof _ra==='function'){
-      window.renderAll = function(){ const r=_ra.apply(this, arguments); scheduleApply(); return r; };
-    }
+    const _ra = window.renderAll; if(typeof _ra==='function'){ window.renderAll = function(){ const r=_ra.apply(this, arguments); setTimeout(applyColLayout, 0); return r; }; }
   }
-
-  window.addEventListener('resize', scheduleApply);
-  window.addEventListener('load', scheduleApply);
+  window.addEventListener('resize', ()=>{ try{ applyColLayout(); }catch{} });
+  window.addEventListener('load', ()=>{ try{ applyColLayout(); }catch{} });
 })();
 </script>
 
