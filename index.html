@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Service Pro">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>Service Pro v65 (Patched)</title>
+  <title>Service Pro v65 Release</title>
   <meta name="theme-color" content="#2e7d32">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -77,19 +77,10 @@
     .row-controls button { border:1px solid #cfd8dc; background:#fff; color:#37474f; border-radius:4px; padding:0 6px; font-size:12px; line-height:1.2; cursor:pointer; }
     .row-controls button:hover { background:#f5f5f5; }
     @media print { #right-panel, #resizer, .app-header { display: none !important; } #left-panel { width: 100%; padding: 0; } }
-    /* Today widget */
-    #todayWidget { position: fixed; right: 16px; bottom: 16px; z-index: 999; background:#ffffff; border:1px solid #e0e0e0; box-shadow:0 10px 30px rgba(0,0,0,.15); border-radius:12px; padding:12px; display:flex; gap:12px; align-items:center; }
-    #todayWidget .tw-date { font-weight:800; color:#2e7d32; }
-    #todayWidget .tw-week { font-size:12px; color:#455a64; }
-    #todayWidget .tw-actions { display:flex; gap:8px; }
-    #todayWidget .tw-btn { background:#2e7d32; color:#fff; border:none; border-radius:8px; padding:6px 10px; font-weight:700; cursor:pointer; }
-    #todayWidget .tw-sec { background:#eceff1; color:#263238; }
-    #netBadge { font-size:11px; padding:2px 6px; border-radius:10px; background:#e0f2f1; color:#00695c; margin-left:8px; }
-    #saveStatus { font-size:12px; color:#c8e6c9; margin-left:8px; font-weight:600; white-space:nowrap; }
 
     @media print {
       @page { size: A4 portrait; margin: 10mm; }
-      #todayWidget, #pwa-update-banner { display: none !important; }
+
       .card { break-inside: avoid; }
       table { page-break-inside: auto; }
       tr { page-break-inside: avoid; page-break-after: auto; }
@@ -167,7 +158,6 @@
     #lpFloatTbl { width: 100%; border-collapse: collapse; table-layout: fixed; background:#e8f5e9; }
     #lpFloatTbl thead th { background:#e8f5e9; color: var(--primary); text-transform: uppercase; font-size:11px; padding:12px; }
     #lpFloatWrap.stuck { box-shadow: 0 2px 6px rgba(0,0,0,.14); }
-    #lpFloatBadge { position:absolute; right:10px; top:50%; transform:translateY(-50%); background: var(--primary); color:#fff; border-radius:12px; padding:2px 10px; font-weight:700; font-size:12px; }
 
     #left-panel.lp-stuck table thead { visibility: hidden; }
     #left-panel > table thead { display: none !important; }
@@ -245,12 +235,10 @@
   #left-panel th#thMeeting{ min-width:260px !important; }
   #left-panel td:nth-child(4){ min-width:260px !important; }
 
-
 /* === Adaptive columns via <colgroup> (keeps floating header in sync) === */
 #left-panel table col{ width:auto; }
 /* Avoid legacy inline TH widths influencing layout */
 #left-panel thead th{ width:auto !important; }
-
 
 /* === Theme palette overlay === */
 #themeOverlay{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.35); z-index:14000; }
@@ -262,7 +250,6 @@
 .theme-swatch .cap{ position:absolute; left:8px; bottom:6px; font-size:11px; font-weight:700; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.35); }
 #themePanel .foot{ display:flex; justify-content:flex-end; gap:8px; padding:10px 12px; border-top:1px solid #eee; }
 
-
 /* Theming variables for buttons */
 :root{ --btn-primary: var(--primary); --btn-accent:#1e88e5; --btn-secondary:#607d8b; --btn-muted:#9e9e9e; }
 .app-header .btn{ background: var(--btn-primary) !important; }
@@ -272,7 +259,6 @@
 /* Input error hint */
 input.input-error{ outline:2px solid #e53935 !important; box-shadow:0 0 0 2px rgba(229,57,53,.15) inset; }
 
-
 /* ——— Theming normalization & accessibility layer (non-breaking) ——— */
 .legend-item{ background: var(--card) !important; color: var(--text) !important; border-color: var(--border) !important; }
 .legend-item .legend-swatch{ border-color: rgba(0,0,0,.15); }
@@ -281,11 +267,7 @@ input.input-error{ outline:2px solid #e53935 !important; box-shadow:0 0 0 2px rg
 .addr-text{ color: var(--text) !important; opacity:.75; }
 .wk-actions button, .note-btn{ background: var(--card) !important; color: var(--text) !important; border-color: var(--border) !important; }
 .wk-actions button:hover, .note-btn:hover{ background: rgba(0,0,0,.03) !important; }
-#todayWidget{ background: var(--card) !important; border-color: var(--border) !important; }
-#todayWidget .tw-date{ color: var(--primary) !important; }
-#todayWidget .tw-week{ color: var(--text) !important; opacity:.75; }
-#todayWidget .tw-btn{ background: var(--primary) !important; color:#fff !important; }
-#todayWidget .tw-sec{ background: var(--card) !important; color: var(--text) !important; border:1px solid var(--border); }
+
 /* Ensure identical sizing model for headers/cells to prevent drift */
 #left-panel table th, #left-panel table td, #lpFloatTbl th{ box-sizing: border-box; }
 
@@ -407,7 +389,6 @@ body.calendar-compact #right-panel > .card:last-child{
 body.calendar-compact #btnCalCompact{ background:#2e7d32 !important; }
 </style>
 
-
 <style id="menu-lang-picker-style">
 #langPickerOverlay{
   position:fixed;
@@ -464,7 +445,6 @@ body.calendar-compact #btnCalCompact{ background:#2e7d32 !important; }
 #langPickerClose{ background:#78909c; }
 </style>
 
-
 <style id="menu-font-picker-style">
 #fontPickerOverlay{
   position:fixed; inset:0; display:none; align-items:center; justify-content:center;
@@ -491,10 +471,34 @@ body.calendar-compact #btnCalCompact{ background:#2e7d32 !important; }
 #fontPickerClose{ background:#78909c; }
 </style>
 
+<style id="reconciled-cleanup-style">
+#btnFlagS302Quick, #btnFlagLetterQuick{ display:none !important; }
+#lblHideOthers{ display:none !important; }
+
+#headerTodayInline{
+  display:inline-flex; align-items:center; gap:10px; margin-left:auto; margin-right:4px;
+  padding:4px 10px; border:1px solid rgba(255,255,255,.24); border-radius:999px;
+  background:rgba(255,255,255,.12); color:#fff; min-height:30px; white-space:nowrap;
+}
+#headerTodayInline .hti-date{ font-weight:800; }
+#headerTodayInline .hti-meta{ font-size:12px; opacity:.96; }
+@media (max-width: 900px){
+  #headerTodayInline{ order:99; margin-left:0; width:100%; justify-content:center; }
+}
+#left-panel td:last-child .note-preview,
+#mobileListArea .note-preview{ max-height:none !important; overflow:visible !important; white-space:normal !important; }
+body.desktop-force-table.view-list #left-panel > table{ display:table !important; }
+body.desktop-force-table.view-list #mobileListArea{ display:none !important; }
+</style>
+<style id="polished-deep-research-tweaks">
+#headerTodayInline{ box-shadow: inset 0 0 0 1px rgba(255,255,255,.04); }
+#right-panel #btnFlagS302Quick, #right-panel #btnFlagLetterQuick{ display:none !important; }
+#right-panel #lblHideOthers{ display:none !important; }
+</style>
 </head>
 <body>
 <header class="app-header">
-  <div style="font-weight: bold;">SERVICE PRO v65</div>
+  <div style="font-weight: bold;">SERVICE PRO v65 RELEASE</div>
   <select id="yearSelect" onchange="renderAll()" style="width: 80px; font-weight:bold; border-radius: 4px;">
     <option value="2025">2025</option>
     <option value="2026" selected>2026</option>
@@ -520,10 +524,10 @@ body.calendar-compact #btnCalCompact{ background:#2e7d32 !important; }
     <option>Georgia</option>
     <option>Times New Roman</option>
   </select>
-  <button id="btnHdrToday" class="btn" style="background:#388e3c;" type="button" onclick="goToToday()">📅 Сегодня</button>
+  <div id="headerTodayInline" aria-live="polite"><span class="hti-date" id="htiDate">—</span><span class="hti-meta" id="htiMeta">—</span></div>
+ <button id="btnHdrToday" class="btn" style="background:#388e3c;" type="button" onclick="goToToday()">📅 Сегодня</button>
   <button id="btnMeetingSetup" class="btn" style="background:#546e7a;" type="button">⚙️ Собрания</button>
   <button id="btnMenu" class="btn" style="background:#1e88e5;" type="button">⋯ Меню</button>
-  <!-- placeholders to prevent auto-adding extra header buttons -->
   <span id="btnAddYear" style="display:none"></span>
   <span id="btnPrintSetup" style="display:none"></span>
 </header>
@@ -614,7 +618,6 @@ body.calendar-compact #btnCalCompact{ background:#2e7d32 !important; }
   </div>
 </div>
 
-
 <div id="pwa-update-banner" role="status" aria-live="polite" hidden>
   <div class="pwa-upd-icon" aria-hidden="true">🔄</div>
   <div class="pwa-upd-text" id="updText">Доступно обновление приложения. Обновить сейчас?</div>
@@ -622,17 +625,6 @@ body.calendar-compact #btnCalCompact{ background:#2e7d32 !important; }
     <button class="btn-upd-apply" id="pwaApplyBtn" type="button">Обновить</button>
     <button class="btn-upd-later" id="pwaLaterBtn" type="button">Позже</button>
     <button class="btn-upd-close" id="pwaCloseBtn" title="Скрыть" type="button">✕</button>
-  </div>
-</div>
-
-<div id="todayWidget" hidden>
-  <div>
-    <div class="tw-date" id="twDate">—</div>
-    <div class="tw-week" id="twWeek">—</div>
-  </div>
-  <div class="tw-actions">
-    <button class="tw-btn" id="twBtnToday" type="button" onclick="goToToday()">Сегодня</button>
-    <button class="tw-btn tw-sec" id="twBtnPrint" type="button" onclick="window.print()">Печать</button>
   </div>
 </div>
 
@@ -663,6 +655,46 @@ body.calendar-compact #btnCalCompact{ background:#2e7d32 !important; }
 <!-- Тосты -->
 <div id="toast" role="status" aria-live="polite"></div>
 
+<script id="bootstrap-safe-file-mode-guard">
+(function(){
+  function createMemoryStorage(){
+    const map = new Map();
+    return {
+      get length(){ return map.size; },
+      key(i){ return Array.from(map.keys())[i] ?? null; },
+      getItem(k){ k = String(k); return map.has(k) ? map.get(k) : null; },
+      setItem(k,v){ map.set(String(k), String(v)); },
+      removeItem(k){ map.delete(String(k)); },
+      clear(){ map.clear(); }
+    };
+  }
+  let ok = true;
+  try{
+    const probeKey = '__sp_probe__' + Math.random().toString(36).slice(2);
+    const ls = window.localStorage;
+    ls.setItem(probeKey, '1');
+    ls.removeItem(probeKey);
+  }catch(e){
+    ok = false;
+  }
+  if(!ok){
+    const fallback = createMemoryStorage();
+    try{
+      Object.defineProperty(window, 'localStorage', { value: fallback, configurable: true });
+      window.__spStorageFallback = true;
+    }catch(e1){
+      try{
+        window.__spMemoryStorage = fallback;
+        Object.defineProperty(window, 'localStorage', {
+          get(){ return window.__spMemoryStorage; },
+          configurable: true
+        });
+        window.__spStorageFallback = true;
+      }catch(e2){}
+    }
+  }
+})();
+</script>
 <!-- ==== ХЕЛПЕРЫ ДАТ ==== -->
 <script>
 (function(){
@@ -1269,9 +1301,9 @@ function gotoPrevMarked() {
 })();
 </script>
 <script>
-// PWA updater (как у тебя)
+
 (function initPwaUpdater(){
-  if (!('serviceWorker' in navigator)) return;
+  if (!('serviceWorker' in navigator) || location.protocol === 'file:') return;
   const BANNER_ID = 'pwa-update-banner';
   const $banner = document.getElementById(BANNER_ID);
   const $apply = document.getElementById('pwaApplyBtn');
@@ -1351,13 +1383,19 @@ function gotoPrevMarked() {
     });
   }
 
-  const $tw=document.getElementById('todayWidget');
-  const $twD=document.getElementById('twDate');
-  const $twW=document.getElementById('twWeek');
-  function updateTodayWidget(){ if(!$tw) return; const now=new Date(); const loc=i18n.locale==='ru'?'ru-RU':(i18n.locale==='uk'?'uk-UA':(i18n.locale==='pl'?'pl-PL':'en-US')); $twD.textContent=now.toLocaleDateString(loc,{weekday:'long',day:'2-digit',month:'long'}); const ay=getAcademicYearForDate(now); const wk=getServiceWeekNoByDate(now,ay); $twW.textContent=`${i18n.t('schoolYear')} ${ay} • ${i18n.t('week')} №${wk}`; $tw.hidden=false; }
-
-  window.__enhanceAfterRender = enhanceAfterRender;
-  window.updateTodayWidget = updateTodayWidget;
+  function updateTodayWidget(){
+  const dateEl = document.getElementById('htiDate');
+  const metaEl = document.getElementById('htiMeta');
+  if(!dateEl || !metaEl) return;
+  const loc = i18n.locale==='ru'?'ru-RU':(i18n.locale==='uk'?'uk-UA':(i18n.locale==='pl'?'pl-PL':'en-US'));
+  const now = new Date();
+  const ay = getAcademicYearForDate(now);
+  const wk = getServiceWeekNoByDate(now, ay);
+  dateEl.textContent = now.toLocaleDateString(loc,{weekday:'short',day:'2-digit',month:'short'});
+  metaEl.textContent = `${i18n.t('schoolYear')} ${ay} • ${i18n.t('week')} №${wk}`;
+}
+window.__enhanceAfterRender = enhanceAfterRender;
+window.updateTodayWidget = updateTodayWidget;
   window.addEventListener('load', enhanceAfterRender);
 
   const COLLAPSE_KEY='svc_settings_collapsed';
@@ -1427,8 +1465,7 @@ function gotoPrevMarked() {
   set('btnHdrToday', i18n.t('today'));
   set('btnPrev', i18n.t('prev'));
   set('btnNext', i18n.t('next'));
-  set('twBtnToday', i18n.t('today'));
-  set('twBtnPrint', i18n.t('print'));
+
   const thNo = document.getElementById('thNo'); if(thNo) thNo.textContent = i18n.dict[i18n.locale].wdays[0];
   const thStart = document.getElementById('thStart'); if(thStart) thStart.textContent = (i18n.locale==='en'?'Start':(i18n.locale==='uk'?'Початок':'Начало'));
   const thEnd = document.getElementById('thEnd'); if(thEnd) thEnd.textContent = (i18n.locale==='en'?'End':(i18n.locale==='uk'?'Кінець':'Конец'));
@@ -1607,98 +1644,100 @@ window.applyI18nStatic = applyI18nStatic;
 })();
 </script>
 <script>
-// Notes icons only + Today always visible
+// Notes icons only + header date refresh
 (function(){
   function enableNotesIconsOnly(){ document.body.classList.add('notes-icons-only'); }
-  function refreshToday(){ try { updateTodayWidget(); } catch(e){} const tw = document.getElementById('todayWidget'); if (tw) tw.hidden = false; }
-  window.addEventListener('load', function(){ enableNotesIconsOnly(); refreshToday(); setInterval(refreshToday, 60000); });
+  function refreshHeader(){ try { updateTodayWidget(); } catch(e){} }
+  window.addEventListener('load', function(){ enableNotesIconsOnly(); refreshHeader(); setInterval(refreshHeader, 60000); });
 })();
 </script>
 <script>
-
-// Floating header polyfill with week badge (оставлено без изменений функционально)
+// Floating header polyfill (badge-free polished version)
 (function(){
   function setupFloatingHeader(){
-    const panel = document.getElementById('left-panel'); const tbl = panel?.querySelector('table'); if(!panel || !tbl) return;
+    const panel = document.getElementById('left-panel');
+    const tbl = panel?.querySelector('table');
+    if(!panel || !tbl) return;
     let wrap = document.getElementById('lpFloatWrap');
     if(!wrap){
-      wrap = document.createElement('div'); wrap.id = 'lpFloatWrap';
-      const inner = document.createElement('div'); inner.id = 'lpFloatInner';
-      const ftbl = document.createElement('table'); ftbl.id = 'lpFloatTbl';
- // clone colgroup from source table to keep columns in sync
- const srcCg = tbl.querySelector('colgroup'); if(srcCg && !ftbl.querySelector('colgroup')){ ftbl.insertBefore(srcCg.cloneNode(true), ftbl.firstChild); }
- 
-      const thead = tbl.querySelector('thead'); const cloneHead = thead.cloneNode(true); ftbl.appendChild(cloneHead);
-      const badge = document.createElement('div'); badge.id = 'lpFloatBadge'; badge.textContent = '';
-      inner.appendChild(ftbl); inner.appendChild(badge); wrap.appendChild(inner); panel.insertBefore(wrap, panel.firstChild);
+      wrap = document.createElement('div');
+      wrap.id = 'lpFloatWrap';
+      const inner = document.createElement('div');
+      inner.id = 'lpFloatInner';
+      const ftbl = document.createElement('table');
+      ftbl.id = 'lpFloatTbl';
+      const srcCg = tbl.querySelector('colgroup');
+      if(srcCg && !ftbl.querySelector('colgroup')) ftbl.insertBefore(srcCg.cloneNode(true), ftbl.firstChild);
+      const thead = tbl.querySelector('thead');
+      if(thead) ftbl.appendChild(thead.cloneNode(true));
+      inner.appendChild(ftbl);
+      wrap.appendChild(inner);
+      panel.insertBefore(wrap, panel.firstChild);
     }
     const ftbl = wrap.querySelector('#lpFloatTbl');
     function getHeaderLabels(){
       const ids = ['thNo','thStart','thEnd','thMeeting','thWeekday','thWeekend','thS302','thLetter','thNotes'];
-      const fromDom = ids.map(id => { const el = document.getElementById(id); return el ? (el.textContent||'').trim() : null; });
-      let labels = fromDom.filter(x=>x!==null);
-      if(labels.length !== ids.length){
-        labels = [];
-        if(window.i18n){
-          const L = i18n.locale; const w0 = (i18n.dict[L] && i18n.dict[L].wdays ? i18n.dict[L].wdays[0] : '#');
-          labels.push(w0);
-          labels.push(L==='en'?'Start':(L==='uk'?'Початок':'Начало'));
-          labels.push(L==='en'?'End':(L==='uk'?'Кінець':'Конец'));
-          labels.push(L==='en'?'Meeting / Event':(L==='uk'?'Зібрання / Подія':'Собрание / Событие'));
-          labels.push(L==='en'?'Weekday':(L==='uk'?'Будні':'Будни'));
-          labels.push(L==='en'?'Weekend':(L==='uk'?'Вихідний':'Выходной'));
-          labels.push('S 302');
-          labels.push(L==='en'?'Letter':(L==='uk'?'Лист':'Письмо'));
-          labels.push(L==='en'?'Notes':(L==='uk'?'Нотатки':'Заметки'));
-        }
+      const fromDom = ids.map(id => { const el = document.getElementById(id); return el ? (el.textContent || '').trim() : null; });
+      let labels = fromDom.filter(x => x !== null);
+      if(labels.length !== ids.length && window.i18n){
+        const L = i18n.locale;
+        const w0 = (i18n.dict[L] && i18n.dict[L].wdays ? i18n.dict[L].wdays[0] : '#');
+        labels = [
+          w0,
+          L==='en'?'Start':(L==='uk'?'Початок':(L==='pl'?'Początek':'Начало')),
+          L==='en'?'End':(L==='uk'?'Кінець':(L==='pl'?'Koniec':'Конец')),
+          L==='en'?'Meeting / Event':(L==='uk'?'Зібрання / Подія':(L==='pl'?'Zebranie / Wydarzenie':'Собрание / Событие')),
+          L==='en'?'Weekday':(L==='uk'?'Будні':(L==='pl'?'Dzień powszedni':'Будни')),
+          L==='en'?'Weekend':(L==='uk'?'Вихідний':(L==='pl'?'Dzień wolny':'Выходной')),
+          'S 302',
+          L==='en'?'Letter':(L==='uk'?'Лист':'Письмо'),
+          L==='en'?'Notes':(L==='uk'?'Нотатки':(L==='pl'?'Notatki':'Заметки'))
+        ];
       }
       return labels;
     }
-    function ensureFloatHead(){
-      const labels = getHeaderLabels();
-      let cHead = ftbl.tHead; if(!cHead){ cHead = document.createElement('thead'); ftbl.appendChild(cHead); }
-      let tr = cHead.querySelector('tr'); if(!tr){ tr = document.createElement('tr'); cHead.appendChild(tr); }
-      while(tr.children.length < labels.length){ tr.appendChild(document.createElement('th')); }
-      while(tr.children.length > labels.length){ tr.removeChild(tr.lastChild); }
-      Array.from(tr.children).forEach((th,i)=>{ th.textContent = labels[i] || ''; });
-    }
-    function syncLabels(){ try{ ensureFloatHead(); const ftHead = ftbl.querySelector('thead'); if(!ftHead) return; const fths = ftHead.querySelectorAll('th'); const labels = getHeaderLabels(); if(labels && labels.length){ fths.forEach((th,i)=>{ if(labels[i]!==undefined) th.textContent = labels[i]; }); } }catch(e){}
+    function syncLabels(){
+      try{
+        let cHead = ftbl.tHead; if(!cHead){ cHead = document.createElement('thead'); ftbl.appendChild(cHead); }
+        let tr = cHead.querySelector('tr'); if(!tr){ tr = document.createElement('tr'); cHead.appendChild(tr); }
+        const labels = getHeaderLabels();
+        while(tr.children.length < labels.length) tr.appendChild(document.createElement('th'));
+        while(tr.children.length > labels.length) tr.removeChild(tr.lastChild);
+        Array.from(tr.children).forEach((th,i)=>{ th.textContent = labels[i] || ''; });
+      }catch(e){}
     }
     function syncWidths(){
- try{
-  // Copy exact column widths from <colgroup> and set table width minus scrollbar
-  const srcCg2 = tbl.querySelector('colgroup');
-  let dstCg2 = ftbl.querySelector('colgroup');
-  if(srcCg2 && !dstCg2){ dstCg2 = srcCg2.cloneNode(true); ftbl.insertBefore(dstCg2, ftbl.firstChild); }
-  if(srcCg2 && dstCg2){
-    const srcCols = srcCg2.querySelectorAll('col');
-    const dstCols = dstCg2.querySelectorAll('col');
-    srcCols.forEach((c,i)=>{ if(dstCols[i]) dstCols[i].style.width = c.style.width; });
-  }
-  const sb = Math.max(0, panel.offsetWidth - panel.clientWidth);
-  const tw = Math.ceil(tbl.getBoundingClientRect().width);
-  ftbl.style.width = Math.max(0, tw - sb) + 'px';
- }catch(e){}
-}
-    function currentWeekInView(){
-      const headH = wrap.getBoundingClientRect().height || 0; const panelRect = panel.getBoundingClientRect(); let cur = null; const rows = panel.querySelectorAll('#tableBody tr');
-      rows.forEach(tr=>{ const r = tr.getBoundingClientRect(); const delta = r.top - panelRect.top - headH; if(delta <= 2){ cur = tr; } }); if(!cur) return ''; const m = (cur.id||'').match(/row-wk-(\d+)/); return m ? m[1] : '';
+      try{
+        const srcCg2 = tbl.querySelector('colgroup');
+        let dstCg2 = ftbl.querySelector('colgroup');
+        if(srcCg2 && !dstCg2){ dstCg2 = srcCg2.cloneNode(true); ftbl.insertBefore(dstCg2, ftbl.firstChild); }
+        if(srcCg2 && dstCg2){
+          const srcCols = srcCg2.querySelectorAll('col');
+          const dstCols = dstCg2.querySelectorAll('col');
+          srcCols.forEach((c,i)=>{ if(dstCols[i]) dstCols[i].style.width = c.style.width; });
+        }
+        const sb = Math.max(0, panel.offsetWidth - panel.clientWidth);
+        const tw = Math.ceil(tbl.getBoundingClientRect().width);
+        ftbl.style.width = Math.max(0, tw - sb) + 'px';
+      }catch(e){}
     }
-    function updateBadge(){ const wk = currentWeekInView(); const lbl = (window.i18n? i18n.t('week'):'Неделя'); const text = wk ? `${lbl} №${wk}` : `${lbl} —`; const badge = document.getElementById('lpFloatBadge'); if(badge) badge.textContent = text; }
-    function onScroll(){ const stuck = panel.scrollTop > 0; wrap.classList.toggle('stuck', stuck); panel.classList.toggle('lp-stuck', stuck); updateBadge(); }
+    function onScroll(){
+      const stuck = panel.scrollTop > 0;
+      wrap.classList.toggle('stuck', stuck);
+      panel.classList.toggle('lp-stuck', stuck);
+    }
     syncLabels(); syncWidths(); onScroll();
     window.addEventListener('resize', syncWidths);
     try { new ResizeObserver(syncWidths).observe(tbl); } catch{}
     panel.addEventListener('scroll', onScroll);
-  window.__syncFloatingHeaderPolyfill = function(){ try{ syncLabels(); syncWidths(); onScroll(); }catch(e){} };
+    window.__syncFloatingHeaderPolyfill = function(){ try{ syncLabels(); syncWidths(); onScroll(); }catch(e){} };
   }
-  if(document.readyState === 'complete' || document.readyState === 'interactive'){ setTimeout(setupFloatingHeader, 0); } else { window.addEventListener('DOMContentLoaded', setupFloatingHeader); }
+  if(document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(setupFloatingHeader, 0);
+  else window.addEventListener('DOMContentLoaded', setupFloatingHeader);
 })();
-
 </script>
 <script>
 
-// v65: Add Year button + menu + print chooser + mobile list mode + sync link (как в исходнике)
 (function(){
   function storedYearsForYearButton(){ const years = new Set(); try{ for(let i=0;i<localStorage.length;i++){ const k = localStorage.key(i); const m = /^svc_d_(\d{4})$/.exec(k||''); if(m) years.add(parseInt(m[1],10)); } }catch{} return years; }
   function ensureYearOptionsForYearButton(){ const sel = document.getElementById('yearSelect'); if(!sel) return; const cur = parseInt(sel.value||'0',10) || (new Date().getFullYear()); const years = storedYearsForYearButton(); for(let y=cur-1;y<=cur+3;y++) years.add(y); Array.from(sel.options||[]).forEach(o=>{ const v=parseInt(o.value||'0',10); if(v) years.add(v); }); const arr = Array.from(years).sort((a,b)=>a-b); sel.innerHTML = arr.map(y=>`<option value="${y}">${y}</option>`).join(''); sel.value = String(cur); }
@@ -1709,7 +1748,6 @@ window.applyI18nStatic = applyI18nStatic;
 </script>
 <script>
 
-// Print column chooser (как в исходнике)
 (function(){
   const KEY='svc_print_cols';
   function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch{ return {}; } }
@@ -1782,7 +1820,6 @@ window.applyI18nStatic = applyI18nStatic;
 </script>
 <script>
 
-// Auto-width meeting select (как в исходнике)
 (function(){
   function measure(text, font){ const s=document.createElement('span'); s.style.position='absolute'; s.style.left='-9999px'; s.style.top='-9999px'; s.style.whiteSpace='nowrap'; s.style.font=font; s.textContent=text||''; document.body.appendChild(s); const w=Math.ceil(s.getBoundingClientRect().width); document.body.removeChild(s); return w; }
   function fit(sel){ if(!sel) return; const opt = sel.options && sel.selectedIndex>=0 ? sel.options[sel.selectedIndex] : null; const text = opt ? (opt.textContent||'') : (sel.value||''); const cs=getComputedStyle(sel); const font = cs.font || `${cs.fontSize} ${cs.fontFamily}`; const td=sel.closest('td'); const maxW=td? Math.floor(td.getBoundingClientRect().width) : 9999; const w=measure(text,font)+48; sel.style.width = Math.max(160, Math.min(w,maxW)) + 'px'; }
@@ -1796,7 +1833,6 @@ window.applyI18nStatic = applyI18nStatic;
 </script>
 <script>
 
-// Mobile list mode + header menu + sync link (переписано: прямые вызовы)
 (function(){
   const KEY='svc_view_mode';
 
@@ -1937,7 +1973,7 @@ window.applyI18nStatic = applyI18nStatic;
   }
   const sel = document.getElementById('fontSelect');
   if(!sel) return;
-  const ov = ensureLanguagePicker();
+  const ov = ensureFontPicker();
   const body = ov.querySelector('#fontPickerBody');
   const title = ov.querySelector('#fontPickerTitle');
   title.textContent = getFontPickerLabels().title;
@@ -2118,7 +2154,6 @@ window.applyI18nStatic = applyI18nStatic;
 
 </script>
 
-
 <script>
 
 // Theme chooser: changes primary accent color and persists to localStorage
@@ -2175,7 +2210,6 @@ window.applyI18nStatic = applyI18nStatic;
 
 </script>
 
-
 <script>
 
 // === sp namespace & helpers (non-breaking additions) ===
@@ -2222,15 +2256,8 @@ window.applyI18nStatic = applyI18nStatic;
     }catch(e){}
   };
 
-
-
   // Hook floating header to use unified labels
-  try{
-    const panel = document.getElementById('left-panel');
-    if(panel){ const badge=document.getElementById('lpFloatBadge'); /* no-op, we just leave as is */ }
-  }catch{}
-
-  // --- conflicts cache + faster marking ---
+// --- conflicts cache + faster marking ---
   window.sp.conflicts = { cache:new Map(), invalidate:(y)=>{ try{ window.sp.conflicts.cache.delete(String(y)); }catch{} } };
   function computeConflictsCached(year){
     try{
@@ -2312,7 +2339,6 @@ window.applyI18nStatic = applyI18nStatic;
   }catch{}
   // Patch chooser apply function by observing changes to --primary
   try{
-    const ro = new MutationObserver(()=>{}); // placeholder; no heavy observers
     // On load, mirror --primary to --btn-primary
     const cs = getComputedStyle(document.documentElement);
     const prim = cs.getPropertyValue('--primary').trim();
@@ -2335,9 +2361,7 @@ window.applyI18nStatic = applyI18nStatic;
 
 </script>
 
-
 <style id="final-ui-fixes">
-/* === FINAL UI FIXES (non-breaking, override only) === */
 
 /* Theme consistency */
 .legend-item,
@@ -2379,7 +2403,6 @@ input[type="date"], select{
 
 </style>
 
-
 <script id="final-ui-js">
 
 (function(){
@@ -2415,16 +2438,13 @@ input[type="date"], select{
 
 </script>
 
-
 <script id="wk-sync-and-popup">
-/* restored popup logic moved to wk-popup-restored-final */
-</script>
 
+</script>
 
 <script id="wk-goToWeek-patch">
-/* restored popup logic moved to wk-popup-restored-final */
-</script>
 
+</script>
 
 <script id="wk-popup-restored-final">
 
@@ -2754,26 +2774,6 @@ input[type="date"], select{
 
 </script>
 
-
-<script id="menu-compact-hotfix">
-
-(function(){
-  /* deep-clean: removed redundant menu hotfix.
-     Print setup is already called directly from the menu item,
-     and header selectors are already hidden by CSS. */
-})();
-
-</script>
-
-<script id="menu-open-guarantee">
-
-(function(){
-  /* deep-clean: removed redundant menu-open guarantee.
-     Primary menu binding already exists in the main menu module. */
-})();
-
-</script>
-
 <script id="settings-drawer-js">
 
 (function(){
@@ -2956,25 +2956,6 @@ input[type="date"], select{
 
 </script>
 
-
-<script id="settings-drawer-guarantee">
-
-(function(){
-  /* deep-clean: removed redundant drawer guarantee.
-     The main drawer controller already binds open/toggle logic. */
-})();
-
-</script>
-
-<script id="settings-drawer-interaction-fix">
-
-(function(){
-  /* deep-clean: removed redundant drawer interaction fix.
-     settings-drawer-js already applies the same click-isolation on the card. */
-})();
-
-</script>
-
 <script id="mobile-list-builder">
 
 (function(){
@@ -3024,125 +3005,1279 @@ input[type="date"], select{
 
 </script>
 
-<script id="final-audit-safety-patch">
+<style id="print-architecture-v2-style">
+/* ===== Print / PDF center v2 ===== */
+body.print-prep{
+  overflow:auto !important;
+  background:#ffffff !important;
+}
+body.print-prep .app-header,
+body.print-prep #right-panel,
+body.print-prep #resizer,
+body.print-prep #pwa-update-banner,
+body.print-prep #toast,
+body.print-prep #menuOverlay,
+body.print-prep #themeOverlay,
+body.print-prep #noteOverlay,
+body.print-prep #settingsCardMask,
+body.print-prep #settingsCard,
+body.print-prep #lpFloatWrap,
+body.print-prep .row-controls,
+body.print-prep .drag-handle,
+body.print-prep .addr-actions,
+body.print-prep .note-actions,
+body.print-prep .actions,
+body.print-prep .act-btn,
+body.print-prep .btn,
+body.print-prep input[type="checkbox"]{
+  display:none !important;
+}
+body.print-prep main{ display:block !important; overflow:visible !important; }
+body.print-prep #left-panel{ width:100% !important; min-width:0 !important; padding:16px 18px 28px !important; overflow:visible !important; }
+body.print-prep #left-panel > table{ box-shadow:none !important; border-radius:0 !important; }
+body.print-prep #left-panel input,
+body.print-prep #left-panel select,
+body.print-prep #left-panel textarea{
+  border:none !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  pointer-events:none !important;
+  color:#1b1f23 !important;
+  padding:2px 0 !important;
+  appearance:none !important;
+  -webkit-appearance:none !important;
+  font-weight:600;
+}
+body.print-prep #left-panel td{ padding-top:6px !important; padding-bottom:6px !important; }
+body.print-prep .linklike{ color:#1b1f23 !important; text-decoration:none !important; pointer-events:none !important; }
+body.print-prep .note-preview{ border:none !important; background:transparent !important; padding:0 !important; max-height:none !important; }
+body.print-prep #left-panel table thead th,
+body.print-prep #lpFloatTbl thead th{ position:static !important; box-shadow:none !important; }
+body.print-prep #left-panel > table thead{ display:table-header-group !important; visibility:visible !important; }
 
+body.print-prep #printPrepBar .btn,
+body.print-prep #printCenterOverlay .btn{ display:inline-flex !important; }
+#printPrepBar,
+#printCenterOverlay{ display:none; }
+body.print-prep #printPrepBar{ display:flex; }
+#printPrepBar{
+  position:sticky; top:0; z-index:17000; align-items:center; justify-content:space-between;
+  gap:12px; padding:10px 14px; background:#102027; color:#fff; box-shadow:0 6px 20px rgba(0,0,0,.22);
+}
+#printPrepBar .meta{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+#printPrepBar .title{ font-weight:800; }
+#printPrepBar .sub{ font-size:12px; opacity:.85; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#printPrepBar .actions{ display:flex; flex-wrap:wrap; gap:8px; }
+#printPrepBar .actions button{ display:inline-flex !important; }
+#printCenterOverlay{
+  position:fixed; inset:0; z-index:17100; align-items:center; justify-content:center; background:rgba(0,0,0,.38);
+}
+#printCenterPanel{
+  width:min(96vw, 980px); max-height:min(92vh, 860px); overflow:auto; background:var(--card);
+  color:var(--text); border:1px solid var(--border); border-radius:16px; box-shadow:0 20px 55px rgba(0,0,0,.28);
+}
+#printCenterPanel header{
+  position:sticky; top:0; z-index:2; background:var(--primary); color:#fff; padding:12px 16px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+#printCenterPanel .pc-body{ padding:14px 16px 16px; display:grid; grid-template-columns:1.1fr .9fr; gap:14px; }
+#printCenterPanel .pc-col{ display:flex; flex-direction:column; gap:14px; min-width:0; }
+#printCenterPanel .pc-card{ border:1px solid var(--border); border-radius:12px; padding:12px; background:var(--card); }
+#printCenterPanel .pc-card h4{ margin:0 0 8px; font-size:15px; }
+#printCenterPanel .pc-muted{ color:#607d8b; font-size:12px; }
+#printCenterPanel .pc-template-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; }
+#printCenterPanel .pc-template-btn{
+  text-align:left; border:1px solid var(--border); border-radius:12px; background:var(--card); color:var(--text);
+  padding:10px 12px; cursor:pointer; transition:.15s ease; display:flex; flex-direction:column; gap:4px;
+}
+#printCenterPanel .pc-template-btn:hover{ background:rgba(0,0,0,.03); }
+#printCenterPanel .pc-template-btn.active{ outline:2px solid var(--primary); border-color:transparent; }
+#printCenterPanel .pc-template-btn small{ color:#607d8b; }
+#printCenterPanel .pc-cols{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 12px; }
+#printCenterPanel .pc-check{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 0; border-bottom:1px dashed var(--border); }
+#printCenterPanel .pc-check input{ width:auto; }
+#printCenterPanel .pc-actions{ display:flex; flex-wrap:wrap; gap:8px; }
+#printCenterPanel .pc-actions .btn{ display:inline-flex !important; }
+#printCenterPanel .pc-list{ display:flex; flex-direction:column; gap:8px; }
+#printCenterPanel .pc-profile-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; border:1px solid var(--border); border-radius:10px; padding:8px 10px; }
+#printCenterPanel .pc-profile-row .left{ min-width:0; }
+#printCenterPanel .pc-profile-row strong{ display:block; }
+#printCenterPanel .pc-profile-row small{ color:#607d8b; }
+#printCenterPanel footer{ display:flex; justify-content:flex-end; gap:8px; padding:12px 16px 16px; border-top:1px solid var(--border); }
+.flag-quick-btn{ position:relative; }
+.flag-quick-btn.is-active{ box-shadow:inset 0 0 0 2px rgba(255,255,255,.28), 0 0 0 2px rgba(46,125,50,.24); }
+.flag-quick-btn.is-active::after{ content:'●'; position:absolute; right:8px; top:4px; font-size:10px; }
+body.pphide-1 #left-panel table th:nth-child(1), body.pphide-1 #left-panel table td:nth-child(1),
+body.pphide-1 #lpFloatTbl thead th:nth-child(1){ display:none !important; }
+body.pphide-2 #left-panel table th:nth-child(2), body.pphide-2 #left-panel table td:nth-child(2),
+body.pphide-2 #lpFloatTbl thead th:nth-child(2){ display:none !important; }
+body.pphide-3 #left-panel table th:nth-child(3), body.pphide-3 #left-panel table td:nth-child(3),
+body.pphide-3 #lpFloatTbl thead th:nth-child(3){ display:none !important; }
+body.pphide-4 #left-panel table th:nth-child(4), body.pphide-4 #left-panel table td:nth-child(4),
+body.pphide-4 #lpFloatTbl thead th:nth-child(4){ display:none !important; }
+body.pphide-5 #left-panel table th:nth-child(5), body.pphide-5 #left-panel table td:nth-child(5),
+body.pphide-5 #lpFloatTbl thead th:nth-child(5){ display:none !important; }
+body.pphide-6 #left-panel table th:nth-child(6), body.pphide-6 #left-panel table td:nth-child(6),
+body.pphide-6 #lpFloatTbl thead th:nth-child(6){ display:none !important; }
+body.pphide-7 #left-panel table th:nth-child(7), body.pphide-7 #left-panel table td:nth-child(7),
+body.pphide-7 #lpFloatTbl thead th:nth-child(7){ display:none !important; }
+body.pphide-8 #left-panel table th:nth-child(8), body.pphide-8 #left-panel table td:nth-child(8),
+body.pphide-8 #lpFloatTbl thead th:nth-child(8){ display:none !important; }
+body.pphide-9 #left-panel table th:nth-child(9), body.pphide-9 #left-panel table td:nth-child(9),
+body.pphide-9 #lpFloatTbl thead th:nth-child(9){ display:none !important; }
+body.print-template-archive #left-panel table th,
+body.print-template-archive #left-panel table td{ font-size:11px !important; }
+body.print-template-council #left-panel table th,
+body.print-template-council #left-panel table td{ font-size:12px !important; }
+@media (max-width: 900px){
+  #printCenterPanel .pc-body{ grid-template-columns:1fr; }
+  #printCenterPanel .pc-cols{ grid-template-columns:1fr; }
+  #printPrepBar{ align-items:flex-start; flex-direction:column; }
+}
+@media print{
+  #printPrepBar, #printCenterOverlay{ display:none !important; }
+  body.print-prep #left-panel{ padding:0 !important; }
+}
+</style>
+<div id="printPrepBar" aria-live="polite">
+  <div class="meta">
+    <div class="title" id="printPrepTitle">Режим подготовки к печати</div>
+    <div class="sub" id="printPrepSub">—</div>
+  </div>
+  <div class="actions">
+    <button id="printPrepBack" class="btn" type="button" style="background:#607d8b;">← Назад</button>
+    <button id="printPrepPrint" class="btn" type="button" style="background:#2e7d32;">🖨 Печать</button>
+    <button id="printPrepPdf" class="btn" type="button" style="background:#1565c0;">📄 PDF</button>
+    <button id="printPrepClose" class="btn" type="button" style="background:#c62828;">✕ Выход</button>
+  </div>
+</div>
+<div id="printCenterOverlay" role="dialog" aria-modal="true" aria-labelledby="printCenterTitle">
+  <div id="printCenterPanel">
+    <header>
+      <div>
+        <div id="printCenterTitle" style="font-weight:800;">Печать и PDF</div>
+        <div class="pc-muted" id="printCenterSub" style="color:rgba(255,255,255,.88);">Управляемый режим подготовки, шаблоны и экспорт.</div>
+      </div>
+      <button id="printCenterClose" class="btn" type="button" style="background:#78909c;">×</button>
+    </header>
+    <div class="pc-body">
+      <div class="pc-col">
+        <section class="pc-card">
+          <h4 id="pcTemplatesTitle">Шаблоны</h4>
+          <div class="pc-muted" id="pcTemplatesHint">Быстрые сценарии печати + сохранение собственных шаблонов.</div>
+          <div class="pc-template-grid" id="pcTemplateGrid" style="margin-top:10px;"></div>
+        </section>
+        <section class="pc-card">
+          <h4 id="pcProfilesTitle">Пользовательские шаблоны</h4>
+          <div class="pc-list" id="pcCustomProfiles"></div>
+          <div class="pc-actions" style="margin-top:10px;">
+            <button id="pcSaveCustom" class="btn" type="button" style="background:#6a1b9a;">💾 Сохранить как шаблон</button>
+            <button id="pcResetBuiltins" class="btn" type="button" style="background:#8d6e63;">↺ Вернуть рекомендуемые</button>
+          </div>
+        </section>
+      </div>
+      <div class="pc-col">
+        <section class="pc-card">
+          <h4 id="pcLayoutTitle">Макет</h4>
+          <div class="pc-check"><span id="pcOrientationLabel">Ориентация</span>
+            <select id="pcOrientationSelect" style="width:auto; min-width:160px;">
+              <option value="portrait">A4 portrait</option>
+              <option value="landscape">A4 landscape</option>
+            </select>
+          </div>
+          <div class="pc-check"><span id="pcFilterInfoLabel">Активные быстрые фильтры</span>
+            <strong id="pcFilterState">—</strong>
+          </div>
+        </section>
+        <section class="pc-card">
+          <h4 id="pcColumnsTitle">Колонки</h4>
+          <div class="pc-cols" id="pcColumnsBox"></div>
+        </section>
+        <section class="pc-card">
+          <h4 id="pcActionsTitle">Действия</h4>
+          <div class="pc-actions">
+            <button id="pcPreviewBtn" class="btn" type="button" style="background:#455a64;">👁 Подготовить</button>
+            <button id="pcPrintBtn" class="btn" type="button" style="background:#2e7d32;">🖨 Печатать</button>
+            <button id="pcPdfBtn" class="btn" type="button" style="background:#1565c0;">📄 Экспорт PDF</button>
+          </div>
+          <div class="pc-muted" id="pcActionsHint" style="margin-top:8px;">Сначала применяется режим подготовки: лишняя интерактивность временно убирается ещё до вызова диалога печати.</div>
+        </section>
+      </div>
+    </div>
+    <footer>
+      <button id="pcCancelBtn" class="btn" type="button" style="background:#9e9e9e;">Закрыть</button>
+    </footer>
+  </div>
+</div>
+<script id="print-architecture-v2">
 (function(){
-  /* deep-clean: removed redundant final load refresh.
-     Calendar decoration is already applied in buildCal after DOM render. */
-})();
+  if(window.__printArchitectureV2Applied) return;
+  window.__printArchitectureV2Applied = true;
 
-</script>
+  const LEGACY_COL_KEY = 'svc_print_cols';
+  const PROFILE_KEY = 'svc_print_profiles_v2';
+  const ACTIVE_KEY = 'svc_print_active_profile_v2';
+  const FLAG_KEY = 'svc_flag_quick_filters_v2';
+  const PAGE_STYLE_ID = 'dynamic-print-page-style-v2';
+  const DEFAULT_TITLE = 'Service Pro';
+  const COL_LABELS = {
+    1:'№', 2:'Начало', 3:'Конец', 4:'Собрание / Событие', 5:'Будни', 6:'Выходной', 7:'S 302', 8:'Письмо', 9:'Заметки'
+  };
+  const BUILTINS = {
+    council: {
+      id:'council', system:true, title:'Для совета', orientation:'portrait',
+      description:'Фокус на назначениях, флагах и заметках.',
+      cols:{1:true,2:true,3:true,4:true,5:false,6:false,7:true,8:true,9:true}
+    },
+    overview: {
+      id:'overview', system:true, title:'Для общего обзора', orientation:'portrait',
+      description:'Лёгкая обзорная распечатка без заметок.',
+      cols:{1:true,2:true,3:true,4:true,5:true,6:true,7:true,8:true,9:false}
+    },
+    archive: {
+      id:'archive', system:true, title:'Для архивирования', orientation:'landscape',
+      description:'Максимум данных на лист, включая заметки.',
+      cols:{1:true,2:true,3:true,4:true,5:true,6:true,7:true,8:true,9:true}
+    }
+  };
+  const ctx = {
+    activeProfileId: null,
+    inPreview: false,
+    previewReason: 'manual',
+    pendingPrint: false,
+    currentProfile: null,
+    currentOrientation: 'portrait'
+  };
 
-<script id="production-stability-patch">
-
-(function(){
-  if(window.__productionStabilityPatchApplied) return;
-  window.__productionStabilityPatchApplied = true;
-
-  function syncMeetingsStore(){
+  function t(key, fallback){
+    try{ return (window.i18n && i18n.t) ? i18n.t(key) : fallback; }catch(e){ return fallback; }
+  }
+  function esc(s){
+    return String(s ?? '')
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
+  }
+  function getYear(){ return document.getElementById('yearSelect')?.value || String(new Date().getFullYear()); }
+  function getYearRows(year){ try{ return JSON.parse(localStorage.getItem('svc_d_' + year) || '[]'); }catch(e){ return []; } }
+  function getMeetings(){ try{ return JSON.parse(localStorage.getItem('svc_m') || '[]'); }catch(e){ return window.meetings || []; } }
+  function mergeProfiles(){
     try{
-      const fresh = JSON.parse(localStorage.getItem('svc_m') || '[]');
-      if(Array.isArray(fresh)){
-        meetings = fresh;
-        window.meetings = fresh;
-        return fresh;
+      const custom = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}');
+      return Object.assign({}, BUILTINS, custom && typeof custom === 'object' ? custom : {});
+    }catch(e){
+      return Object.assign({}, BUILTINS);
+    }
+  }
+  function getCustomProfiles(){
+    try{
+      const all = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}');
+      return (all && typeof all === 'object') ? all : {};
+    }catch(e){ return {}; }
+  }
+  function saveCustomProfiles(obj){ try{ localStorage.setItem(PROFILE_KEY, JSON.stringify(obj || {})); }catch(e){} }
+  function normalizeCols(cols){
+    const out = {};
+    for(let i=1;i<=9;i++) out[i] = cols && cols[i] !== false;
+    return out;
+  }
+  function normalizeProfile(p, fallbackId){
+    const base = BUILTINS[fallbackId] || BUILTINS.overview;
+    const src = p && typeof p === 'object' ? p : base;
+    return {
+      id: src.id || fallbackId || base.id,
+      title: src.title || base.title,
+      description: src.description || base.description || '',
+      orientation: src.orientation === 'landscape' ? 'landscape' : 'portrait',
+      cols: normalizeCols(src.cols || base.cols),
+      system: !!src.system
+    };
+  }
+  function getActiveProfileId(){
+    try{
+      const id = localStorage.getItem(ACTIVE_KEY);
+      if(id && mergeProfiles()[id]) return id;
+    }catch(e){}
+    return 'overview';
+  }
+  function setActiveProfileId(id){
+    try{ localStorage.setItem(ACTIVE_KEY, id); }catch(e){}
+    ctx.activeProfileId = id;
+  }
+  function getProfile(id){
+    const all = mergeProfiles();
+    const key = id && all[id] ? id : getActiveProfileId();
+    return normalizeProfile(all[key], key);
+  }
+  function saveLegacyCols(cols){ try{ localStorage.setItem(LEGACY_COL_KEY, JSON.stringify(cols)); }catch(e){} }
+  function loadLegacyCols(){ try{ return JSON.parse(localStorage.getItem(LEGACY_COL_KEY) || '{}'); }catch(e){ return {}; } }
+  function setPageOrientation(orientation){
+    const o = orientation === 'landscape' ? 'landscape' : 'portrait';
+    ctx.currentOrientation = o;
+    document.body.classList.toggle('print-landscape', o === 'landscape');
+    document.body.classList.toggle('print-portrait', o !== 'landscape');
+    let style = document.getElementById(PAGE_STYLE_ID);
+    if(!style){ style = document.createElement('style'); style.id = PAGE_STYLE_ID; document.head.appendChild(style); }
+    style.textContent = '@media print { @page { size: A4 ' + o + '; margin: 10mm; } }';
+    const sel = document.getElementById('pcOrientationSelect');
+    if(sel && sel.value !== o) sel.value = o;
+  }
+  function applyPreviewColClasses(cols){
+    for(let i=1;i<=9;i++) document.body.classList.remove('pphide-' + i);
+    for(let i=1;i<=9;i++) if(cols[i] === false) document.body.classList.add('pphide-' + i);
+  }
+  function applyPrintMediaCols(cols){
+    for(let i=1;i<=9;i++) document.body.classList.remove('phide-' + i);
+    for(let i=1;i<=9;i++) if(cols[i] === false) document.body.classList.add('phide-' + i);
+    saveLegacyCols(cols);
+  }
+  function applyProfile(profile, opts){
+    const p = normalizeProfile(profile, profile?.id || 'overview');
+    ctx.currentProfile = p;
+    applyPreviewColClasses(p.cols);
+    applyPrintMediaCols(p.cols);
+    setPageOrientation(p.orientation);
+    document.body.classList.remove('print-template-council', 'print-template-overview', 'print-template-archive');
+    document.body.classList.add('print-template-' + (p.id || 'overview'));
+    syncColumnsEditor(p.cols);
+    syncTemplateButtons(p.id);
+    syncCustomProfilesList(p.id);
+    updatePrintPrepMeta();
+    return p;
+  }
+  function describeCols(cols){
+    const names = [];
+    for(let i=1;i<=9;i++) if(cols[i] !== false) names.push(COL_LABELS[i]);
+    return names.join(', ');
+  }
+  function saveCurrentAsCustom(){
+    const name = prompt('Название шаблона:', ctx.currentProfile?.title ? ('Копия — ' + ctx.currentProfile.title) : 'Мой шаблон');
+    const clean = String(name || '').trim();
+    if(!clean) return;
+    const id = 'custom_' + Date.now();
+    const custom = getCustomProfiles();
+    custom[id] = {
+      id, title: clean, description: 'Пользовательский шаблон', orientation: ctx.currentOrientation || 'portrait', cols: collectEditedCols(), system:false
+    };
+    saveCustomProfiles(custom);
+    setActiveProfileId(id);
+    applyProfile(getProfile(id));
+    showToastSafe('Шаблон сохранён: ' + clean);
+  }
+  function deleteCustomProfile(id){
+    const custom = getCustomProfiles();
+    if(!custom[id]) return;
+    if(!confirm('Удалить шаблон «' + custom[id].title + '»?')) return;
+    delete custom[id];
+    saveCustomProfiles(custom);
+    const nextId = getActiveProfileId() === id ? 'overview' : getActiveProfileId();
+    setActiveProfileId(nextId);
+    applyProfile(getProfile(nextId));
+  }
+  function resetToBuiltins(){
+    if(!confirm('Сбросить пользовательские шаблоны и вернуться к рекомендованным?')) return;
+    saveCustomProfiles({});
+    setActiveProfileId('overview');
+    applyProfile(getProfile('overview'));
+    showToastSafe('Пользовательские шаблоны очищены.');
+  }
+  function showToastSafe(msg){
+    try{ if(typeof showToast === 'function') showToast(msg); else alert(msg); }catch(e){}
+  }
+  function ensureQuickFlagButtons(){
+    const bar = document.querySelector('#right-panel .card div[style*="flex-wrap:wrap"]');
+    if(!bar) return;
+    if(!document.getElementById('btnFlagS302Quick')){
+      const b = document.createElement('button');
+      b.id = 'btnFlagS302Quick';
+      b.type = 'button';
+      b.className = 'btn flag-quick-btn';
+      b.style.background = '#6d4c41';
+      b.textContent = 'S 302';
+      b.addEventListener('click', function(){ toggleFlagFilter('s302'); });
+      bar.insertBefore(b, document.getElementById('btnToday') || null);
+    }
+    if(!document.getElementById('btnFlagLetterQuick')){
+      const b = document.createElement('button');
+      b.id = 'btnFlagLetterQuick';
+      b.type = 'button';
+      b.className = 'btn flag-quick-btn';
+      b.style.background = '#8e24aa';
+      b.textContent = 'Письмо';
+      b.addEventListener('click', function(){ toggleFlagFilter('letter'); });
+      bar.insertBefore(b, document.getElementById('btnToday') || null);
+    }
+    if(!document.getElementById('btnPrintCenter')){
+      const b = document.createElement('button');
+      b.id = 'btnPrintCenter';
+      b.type = 'button';
+      b.className = 'btn';
+      b.style.background = '#00695c';
+      b.textContent = '🖨 Печать/PDF';
+      b.addEventListener('click', openPrintCenter);
+      bar.appendChild(b);
+    }
+  }
+  function loadFlagState(){
+    try{
+      const state = JSON.parse(localStorage.getItem(FLAG_KEY) || '{}');
+      return { s302: !!state.s302, letter: !!state.letter };
+    }catch(e){ return { s302:false, letter:false }; }
+  }
+  function saveFlagState(state){ try{ localStorage.setItem(FLAG_KEY, JSON.stringify(state)); }catch(e){} }
+  function toggleFlagFilter(key){
+    const state = loadFlagState();
+    state[key] = !state[key];
+    saveFlagState(state);
+    applyFlagFiltersEverywhere();
+  }
+  function rowPassesFlagFilter(row){
+    const state = loadFlagState();
+    if(!state.s302 && !state.letter) return true;
+    if(state.s302 && !row?.f302) return false;
+    if(state.letter && !row?.letter) return false;
+    return true;
+  }
+  function updateQuickFlagButtons(){
+    const state = loadFlagState();
+    const s = document.getElementById('btnFlagS302Quick');
+    const l = document.getElementById('btnFlagLetterQuick');
+    s && s.classList.toggle('is-active', !!state.s302);
+    l && l.classList.toggle('is-active', !!state.letter);
+    const label = document.getElementById('pcFilterState');
+    if(label){
+      const parts = [];
+      if(state.s302) parts.push('S 302');
+      if(state.letter) parts.push('Письмо');
+      label.textContent = parts.length ? parts.join(' + ') : 'нет';
+    }
+  }
+  function applyFlagFiltersToTable(){
+    const year = getYear();
+    const rows = getYearRows(year);
+    const map = new Map(rows.map(r => [String(r.id), r]));
+    document.querySelectorAll('#tableBody tr').forEach(tr => {
+      const wk = String((tr.id || '').replace('row-wk-',''));
+      const row = map.get(wk) || {id:Number(wk)||0};
+      tr.style.display = rowPassesFlagFilter(row) ? '' : 'none';
+    });
+  }
+  function applyFlagFiltersToCalendar(){
+    const year = getYear();
+    const rows = getYearRows(year);
+    const map = new Map(rows.map(r => [String(r.id), r]));
+    document.querySelectorAll('#calendarArea .wk-item').forEach(rowEl => {
+      const wk = String(rowEl.getAttribute('data-week') || '');
+      if(!wk){ rowEl.style.display=''; return; }
+      const row = map.get(wk) || {id:Number(wk)||0};
+      rowEl.style.display = rowPassesFlagFilter(row) ? '' : 'none';
+    });
+  }
+  function applyFlagFiltersToMobile(){
+    const year = getYear();
+    const rows = getYearRows(year);
+    const map = new Map(rows.map(r => [String(r.id), r]));
+    document.querySelectorAll('#mobileListArea .wk-card').forEach(card => {
+      const wk = String((card.id || '').replace('wk-card-',''));
+      const row = map.get(wk) || {id:Number(wk)||0};
+      card.style.display = rowPassesFlagFilter(row) ? '' : 'none';
+    });
+  }
+  function applyFlagFiltersEverywhere(){
+    updateQuickFlagButtons();
+    applyFlagFiltersToTable();
+    applyFlagFiltersToCalendar();
+    applyFlagFiltersToMobile();
+    try{ window.syncFloatingHeaderFinal?.(); }catch(e){}
+  }
+
+  function ensureModalBindings(){
+    document.getElementById('printCenterClose')?.addEventListener('click', closePrintCenter);
+    document.getElementById('pcCancelBtn')?.addEventListener('click', closePrintCenter);
+    document.getElementById('printCenterOverlay')?.addEventListener('click', function(e){ if(e.target === this) closePrintCenter(); });
+    document.getElementById('pcSaveCustom')?.addEventListener('click', saveCurrentAsCustom);
+    document.getElementById('pcResetBuiltins')?.addEventListener('click', resetToBuiltins);
+    document.getElementById('pcPreviewBtn')?.addEventListener('click', function(){ preparePrintPreview('manual'); closePrintCenter(); });
+    document.getElementById('pcPrintBtn')?.addEventListener('click', function(){ closePrintCenter(); preparePrintPreview('print'); });
+    document.getElementById('pcPdfBtn')?.addEventListener('click', function(){ closePrintCenter(); preparePrintPreview('pdf'); });
+    document.getElementById('pcOrientationSelect')?.addEventListener('change', function(){
+      const next = normalizeProfile(Object.assign({}, ctx.currentProfile || {}, {orientation:this.value, cols:collectEditedCols()}), ctx.currentProfile?.id || 'overview');
+      applyProfile(next);
+    });
+    document.getElementById('printPrepBack')?.addEventListener('click', function(){ openPrintCenter(); });
+    document.getElementById('printPrepPrint')?.addEventListener('click', function(){ ctx.pendingPrint = true; setTimeout(function(){ window.print(); }, 120); });
+    document.getElementById('printPrepPdf')?.addEventListener('click', function(){ exportCurrentViewToPdf(); });
+    document.getElementById('printPrepClose')?.addEventListener('click', exitPrintPreview);
+  }
+  function openPrintCenter(){
+    renderPrintCenter();
+    document.getElementById('printCenterOverlay').style.display = 'flex';
+  }
+  function closePrintCenter(){
+    const el = document.getElementById('printCenterOverlay');
+    if(el) el.style.display = 'none';
+  }
+  window.openPrintCenter = openPrintCenter;
+  window.openPrintSetup = openPrintCenter;
+
+  function syncTemplateButtons(activeId){
+    document.querySelectorAll('#pcTemplateGrid .pc-template-btn').forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-profile-id') === activeId));
+  }
+  function syncCustomProfilesList(activeId){
+    const box = document.getElementById('pcCustomProfiles');
+    if(!box) return;
+    const custom = getCustomProfiles();
+    const ids = Object.keys(custom);
+    if(!ids.length){
+      box.innerHTML = '<div class="pc-muted">Пока нет пользовательских шаблонов.</div>';
+      return;
+    }
+    box.innerHTML = ids.map(id => {
+      const p = normalizeProfile(custom[id], id);
+      const active = id === activeId ? 'style="outline:2px solid var(--primary); border-color:transparent;"' : '';
+      return '<div class="pc-profile-row" ' + active + '>' +
+        '<div class="left"><strong>' + esc(p.title) + '</strong><small>' + esc(describeCols(p.cols)) + '</small></div>' +
+        '<div style="display:flex; gap:6px;">' +
+        '<button class="btn" type="button" data-custom-apply="' + esc(id) + '" style="background:#2e7d32;">Применить</button>' +
+        '<button class="btn" type="button" data-custom-delete="' + esc(id) + '" style="background:#c62828;">Удалить</button>' +
+        '</div></div>';
+    }).join('');
+    box.querySelectorAll('[data-custom-apply]').forEach(btn => btn.addEventListener('click', function(){
+      const id = this.getAttribute('data-custom-apply');
+      setActiveProfileId(id);
+      applyProfile(getProfile(id));
+    }));
+    box.querySelectorAll('[data-custom-delete]').forEach(btn => btn.addEventListener('click', function(){ deleteCustomProfile(this.getAttribute('data-custom-delete')); }));
+  }
+  function syncColumnsEditor(cols){
+    const box = document.getElementById('pcColumnsBox');
+    if(!box) return;
+    if(!box.dataset.built){
+      box.innerHTML = Array.from({length:9}, (_,i)=>i+1).map(idx => {
+        return '<label class="pc-check"><span>' + esc(COL_LABELS[idx]) + '</span><input type="checkbox" data-col-check="' + idx + '"></label>';
+      }).join('');
+      box.dataset.built = '1';
+      box.querySelectorAll('[data-col-check]').forEach(ch => ch.addEventListener('change', function(){
+        const next = normalizeProfile(Object.assign({}, ctx.currentProfile || {}, { cols: collectEditedCols(), orientation: document.getElementById('pcOrientationSelect')?.value || ctx.currentOrientation || 'portrait' }), ctx.currentProfile?.id || 'overview');
+        applyProfile(next);
+      }));
+    }
+    box.querySelectorAll('[data-col-check]').forEach(ch => {
+      const idx = ch.getAttribute('data-col-check');
+      ch.checked = cols[idx] !== false;
+    });
+  }
+  function collectEditedCols(){
+    const out = {};
+    document.querySelectorAll('#pcColumnsBox [data-col-check]').forEach(ch => { out[ch.getAttribute('data-col-check')] = !!ch.checked; });
+    return normalizeCols(out);
+  }
+  function renderTemplateGrid(){
+    const box = document.getElementById('pcTemplateGrid');
+    if(!box) return;
+    const all = mergeProfiles();
+    const ids = Object.keys(BUILTINS);
+    box.innerHTML = ids.map(id => {
+      const p = normalizeProfile(all[id], id);
+      return '<button type="button" class="pc-template-btn" data-profile-id="' + esc(id) + '">' +
+        '<strong>' + esc(p.title) + '</strong>' +
+        '<small>' + esc(p.description || '') + '</small>' +
+        '<small>' + esc((p.orientation === 'landscape' ? 'A4 landscape' : 'A4 portrait') + ' • ' + describeCols(p.cols)) + '</small>' +
+        '</button>';
+    }).join('');
+    box.querySelectorAll('.pc-template-btn').forEach(btn => btn.addEventListener('click', function(){
+      const id = this.getAttribute('data-profile-id');
+      setActiveProfileId(id);
+      applyProfile(getProfile(id));
+    }));
+  }
+  function renderPrintCenter(){
+    renderTemplateGrid();
+    const profile = getProfile(getActiveProfileId());
+    applyProfile(profile);
+    const sub = document.getElementById('printCenterSub');
+    if(sub) sub.textContent = 'Управляемый режим подготовки, шаблоны и экспорт.';
+    updateQuickFlagButtons();
+  }
+  function updatePrintPrepMeta(){
+    const p = ctx.currentProfile || getProfile(getActiveProfileId());
+    const year = getYear();
+    const state = loadFlagState();
+    const activeFlags = [];
+    if(state.s302) activeFlags.push('S 302');
+    if(state.letter) activeFlags.push('Письмо');
+    const title = document.getElementById('printPrepTitle');
+    const sub = document.getElementById('printPrepSub');
+    if(title) title.textContent = 'Подготовка к печати — ' + (p.title || 'Шаблон');
+    if(sub) sub.textContent = 'Год: ' + year + ' • ' + (p.orientation === 'landscape' ? 'A4 landscape' : 'A4 portrait') + ' • ' + (activeFlags.length ? ('Фильтр: ' + activeFlags.join(' + ')) : 'Без флаговых фильтров');
+  }
+  function preparePrintPreview(reason){
+    const p = normalizeProfile(Object.assign({}, ctx.currentProfile || getProfile(getActiveProfileId()), { cols: collectEditedCols(), orientation: document.getElementById('pcOrientationSelect')?.value || ctx.currentOrientation || 'portrait' }), ctx.currentProfile?.id || getActiveProfileId());
+    ctx.currentProfile = p;
+    ctx.previewReason = reason || 'manual';
+    applyProfile(p);
+    updatePrintPrepMeta();
+    ctx.inPreview = true;
+    document.body.classList.add('print-prep');
+    applyFlagFiltersEverywhere();
+    try{ window.syncFloatingHeaderFinal?.(); }catch(e){}
+    if(reason === 'print'){
+      ctx.pendingPrint = true;
+      setTimeout(function(){ window.print(); }, 140);
+    }else if(reason === 'pdf'){
+      setTimeout(function(){ exportCurrentViewToPdf(); }, 100);
+    }
+  }
+  function exitPrintPreview(){
+    ctx.inPreview = false;
+    ctx.pendingPrint = false;
+    document.body.classList.remove('print-prep');
+    applyFlagFiltersEverywhere();
+    try{ window.syncFloatingHeaderFinal?.(); }catch(e){}
+  }
+  window.addEventListener('afterprint', function(){
+    if(ctx.pendingPrint || ctx.inPreview){
+      ctx.pendingPrint = false;
+      exitPrintPreview();
+    }
+  });
+
+  function formatDate(v){
+    if(!v) return '';
+    try{ return new Date(v + 'T00:00:00').toLocaleDateString((window.i18n?.locale === 'pl' ? 'pl-PL' : window.i18n?.locale === 'uk' ? 'uk-UA' : window.i18n?.locale === 'en' ? 'en-US' : 'ru-RU')); }catch(e){ return v; }
+  }
+  function stripHtmlSafe(html){
+    try{ return typeof stripHtml === 'function' ? stripHtml(html || '') : String(html || '').replace(/<[^>]+>/g, ''); }catch(e){ return String(html || ''); }
+  }
+  function boolMark(v){ return v ? '✓' : ''; }
+  function collectExportDataset(){
+    const year = getYear();
+    const rows = getYearRows(year);
+    const meetings = getMeetings();
+    const byMeeting = new Map(meetings.map(m => [m.name, m]));
+    const visibleCols = [];
+    const profile = ctx.currentProfile || getProfile(getActiveProfileId());
+    for(let i=1;i<=9;i++) if(profile.cols[i] !== false) visibleCols.push(i);
+    const items = rows.filter(rowPassesFlagFilter).sort((a,b)=> (a.id||0) - (b.id||0)).map(row => {
+      const m = byMeeting.get(row.m) || {};
+      const wd = ((m.wd || '') + ' ' + (m.tWD || '')).trim();
+      const we = ((m.we || '') + ' ' + (m.tWE || '')).trim();
+      return {
+        1: String(row.id || ''),
+        2: formatDate(row.s || ''),
+        3: formatDate(row.e || ''),
+        4: row.m || '',
+        5: wd + (m.addr ? ('\n' + m.addr) : ''),
+        6: we + (m.addr ? ('\n' + m.addr) : ''),
+        7: boolMark(!!row.f302),
+        8: boolMark(!!row.letter),
+        9: stripHtmlSafe(row.nt || ''),
+        __color: m.color || '#78909c'
+      };
+    });
+    return { year, profile, visibleCols, items };
+  }
+  function wrapText(ctx2d, text, maxWidth){
+    const raw = String(text || '').split(/\r?\n/);
+    const lines = [];
+    raw.forEach(block => {
+      const words = block.split(/\s+/).filter(Boolean);
+      if(!words.length){ lines.push(''); return; }
+      let cur = words[0];
+      for(let i=1;i<words.length;i++){
+        const candidate = cur + ' ' + words[i];
+        if(ctx2d.measureText(candidate).width <= maxWidth){ cur = candidate; }
+        else { lines.push(cur); cur = words[i]; }
       }
-    }catch(e){}
-    try{ return Array.isArray(meetings) ? meetings : []; }catch(e){ return []; }
+      lines.push(cur);
+    });
+    return lines.length ? lines : [''];
   }
-
-  function safePostRenderRefresh(){
-    try{ if(typeof window.markConflicts === 'function') window.markConflicts(); }catch(e){}
-    try{ if(typeof window.markConflictsInCalendar === 'function') window.markConflictsInCalendar(); }catch(e){}
-    try{ if(typeof window.buildMobileList === 'function' && document.body.classList.contains('view-list')) window.buildMobileList(); }catch(e){}
-    try{ if(typeof window.syncFloatingHeaderFinal === 'function') window.syncFloatingHeaderFinal(); }catch(e){}
+  function getPdfColumnWidths(visibleCols, innerWidth){
+    const base = {1:48,2:84,3:84,4:210,5:128,6:128,7:56,8:64,9:220};
+    const total = visibleCols.reduce((sum, col) => sum + (base[col] || 100), 0) || 1;
+    const widths = {};
+    visibleCols.forEach(col => { widths[col] = Math.round(innerWidth * ((base[col] || 100) / total)); });
+    const diff = innerWidth - visibleCols.reduce((sum, col) => sum + widths[col], 0);
+    if(visibleCols.length) widths[visibleCols[visibleCols.length - 1]] += diff;
+    return widths;
   }
-
-  window.__syncMeetingsStore = syncMeetingsStore;
-  window.__safePostRenderRefresh = safePostRenderRefresh;
-
-  let storageRefreshTimer = null;
-  window.addEventListener('storage', function(ev){
+  function renderPdfPages(){
+    const dataset = collectExportDataset();
+    const landscape = dataset.profile.orientation === 'landscape';
+    const page = landscape ? {w:1754, h:1240, ptW:842, ptH:595} : {w:1240, h:1754, ptW:595, ptH:842};
+    const margin = landscape ? 58 : 64;
+    const innerW = page.w - margin * 2;
+    const innerH = page.h - margin * 2;
+    const cols = dataset.visibleCols;
+    const widths = getPdfColumnWidths(cols, innerW);
+    const pages = [];
+    let canvas = document.createElement('canvas');
+    let c = canvas.getContext('2d');
+    function startPage(pageNo){
+      canvas.width = page.w; canvas.height = page.h;
+      c = canvas.getContext('2d');
+      c.fillStyle = '#ffffff'; c.fillRect(0,0,page.w,page.h);
+      c.fillStyle = '#1f2933';
+      c.font = 'bold 26px Segoe UI, Arial, sans-serif';
+      c.fillText((dataset.profile.title || 'Экспорт') + ' — ' + dataset.year, margin, margin - 14);
+      c.font = '14px Segoe UI, Arial, sans-serif';
+      c.fillStyle = '#546e7a';
+      const stamp = new Date().toLocaleString(window.i18n?.locale === 'pl' ? 'pl-PL' : window.i18n?.locale === 'uk' ? 'uk-UA' : window.i18n?.locale === 'en' ? 'en-US' : 'ru-RU');
+      c.fillText('Создано: ' + stamp, margin, margin + 10);
+      const state = loadFlagState();
+      const flags = [];
+      if(state.s302) flags.push('S 302');
+      if(state.letter) flags.push('Письмо');
+      c.fillText(flags.length ? ('Фильтр: ' + flags.join(' + ')) : 'Фильтр: нет', margin, margin + 30);
+      c.fillStyle = '#2e7d32';
+      c.fillRect(margin, margin + 48, innerW, 30);
+      c.font = 'bold 14px Segoe UI, Arial, sans-serif';
+      c.fillStyle = '#ffffff';
+      let x = margin;
+      cols.forEach(col => {
+        c.fillText(COL_LABELS[col], x + 6, margin + 68);
+        x += widths[col];
+      });
+      c.strokeStyle = '#cfd8dc';
+      c.lineWidth = 1;
+      return margin + 84;
+    }
+    let y = startPage(1);
+    c.font = '13px Segoe UI, Arial, sans-serif';
+    const lineH = 16;
+    dataset.items.forEach((item, idx) => {
+      const rowLines = {};
+      let rowH = 26;
+      cols.forEach(col => {
+        c.font = (col === 4 ? 'bold 13px Segoe UI, Arial, sans-serif' : '13px Segoe UI, Arial, sans-serif');
+        rowLines[col] = wrapText(c, item[col], widths[col] - 10);
+        rowH = Math.max(rowH, rowLines[col].length * lineH + 10);
+      });
+      if(y + rowH > page.h - margin){
+        pages.push(canvas.toDataURL('image/jpeg', 0.92));
+        canvas = document.createElement('canvas');
+        y = startPage(pages.length + 1);
+      }
+      c.fillStyle = idx % 2 === 0 ? '#fafafa' : '#ffffff';
+      c.fillRect(margin, y, innerW, rowH);
+      let x = margin;
+      cols.forEach(col => {
+        c.strokeStyle = '#dde5ea';
+        c.strokeRect(x, y, widths[col], rowH);
+        if(col === 4 && item.__color){
+          c.fillStyle = item.__color;
+          c.fillRect(x + 2, y + 2, 4, rowH - 4);
+        }
+        c.fillStyle = '#1f2933';
+        c.font = col === 4 ? 'bold 13px Segoe UI, Arial, sans-serif' : '13px Segoe UI, Arial, sans-serif';
+        rowLines[col].forEach((line, lineIdx) => {
+          c.fillText(line, x + 8, y + 17 + lineIdx * lineH);
+        });
+        x += widths[col];
+      });
+      y += rowH;
+    });
+    pages.push(canvas.toDataURL('image/jpeg', 0.92));
+    return { pages, page };
+  }
+  function dataUrlToBytes(dataUrl){
+    const base64 = String(dataUrl).split(',')[1] || '';
+    const bin = atob(base64);
+    const bytes = new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  }
+  function pdfStringBytes(str){
+    const arr = new Uint8Array(str.length);
+    for(let i=0;i<str.length;i++) arr[i] = str.charCodeAt(i) & 0xff;
+    return arr;
+  }
+  function concatBytes(parts){
+    const total = parts.reduce((sum, p) => sum + p.length, 0);
+    const out = new Uint8Array(total);
+    let off = 0;
+    parts.forEach(p => { out.set(p, off); off += p.length; });
+    return out;
+  }
+  function buildPdfFromJpegs(pageImages, pageSpec){
+    const pageCount = pageImages.length;
+    const objects = [];
+    const pageObjNums = [];
+    const imageObjNums = [];
+    const contentObjNums = [];
+    let objNum = 1;
+    const pagesObjNum = 1 + pageCount * 3;
+    const catalogObjNum = pagesObjNum + 1;
+    pageImages.forEach((img, idx) => {
+      imageObjNums[idx] = objNum++;
+      contentObjNums[idx] = objNum++;
+      pageObjNums[idx] = objNum++;
+    });
+    const buffers = [pdfStringBytes('%PDF-1.4\n')];
+    const offsets = [0];
+    function addObject(n, bytes){
+      const prefix = pdfStringBytes(String(n) + ' 0 obj\n');
+      const suffix = pdfStringBytes('\nendobj\n');
+      const current = concatBytes([prefix, bytes, suffix]);
+      offsets[n] = buffers.reduce((s, p) => s + p.length, 0);
+      buffers.push(current);
+    }
+    pageImages.forEach((dataUrl, idx) => {
+      const imgBytes = dataUrlToBytes(dataUrl);
+      addObject(imageObjNums[idx], concatBytes([
+        pdfStringBytes('<< /Type /XObject /Subtype /Image /Width ' + (pageSpec.w) + ' /Height ' + (pageSpec.h) + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + imgBytes.length + ' >>\nstream\n'),
+        imgBytes,
+        pdfStringBytes('\nendstream')
+      ]));
+      const stream = 'q\n' + pageSpec.ptW + ' 0 0 ' + pageSpec.ptH + ' 0 0 cm\n/Im' + (idx+1) + ' Do\nQ';
+      addObject(contentObjNums[idx], pdfStringBytes('<< /Length ' + stream.length + ' >>\nstream\n' + stream + '\nendstream'));
+      addObject(pageObjNums[idx], pdfStringBytes('<< /Type /Page /Parent ' + pagesObjNum + ' 0 R /MediaBox [0 0 ' + pageSpec.ptW + ' ' + pageSpec.ptH + '] /Resources << /XObject << /Im' + (idx+1) + ' ' + imageObjNums[idx] + ' 0 R >> >> /Contents ' + contentObjNums[idx] + ' 0 R >>'));
+    });
+    addObject(pagesObjNum, pdfStringBytes('<< /Type /Pages /Count ' + pageCount + ' /Kids [' + pageObjNums.map(n => n + ' 0 R').join(' ') + '] >>'));
+    addObject(catalogObjNum, pdfStringBytes('<< /Type /Catalog /Pages ' + pagesObjNum + ' 0 R >>'));
+    const xrefStart = buffers.reduce((s,p)=>s+p.length,0);
+    let xref = 'xref\n0 ' + (catalogObjNum + 1) + '\n0000000000 65535 f \n';
+    for(let i=1;i<=catalogObjNum;i++){
+      xref += String(offsets[i] || 0).padStart(10,'0') + ' 00000 n \n';
+    }
+    const trailer = 'trailer\n<< /Size ' + (catalogObjNum + 1) + ' /Root ' + catalogObjNum + ' 0 R >>\nstartxref\n' + xrefStart + '\n%%EOF';
+    buffers.push(pdfStringBytes(xref));
+    buffers.push(pdfStringBytes(trailer));
+    return new Blob([concatBytes(buffers)], {type:'application/pdf'});
+  }
+  function exportCurrentViewToPdf(){
     try{
-      if(!ev) return;
-      const k = ev.key || '';
-      if(!(k === 'svc_m' || /^svc_d_\d{4}$/.test(k))) return;
-      clearTimeout(storageRefreshTimer);
-      storageRefreshTimer = setTimeout(function(){
-        try{ syncMeetingsStore(); }catch(e){}
-        try{ if(typeof window.renderAll === 'function') window.renderAll(); }catch(e){}
-      }, 120);
-    }catch(e){}
-  });
+      const rendered = renderPdfPages();
+      const blob = buildPdfFromJpegs(rendered.pages, rendered.page);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const profile = ctx.currentProfile || getProfile(getActiveProfileId());
+      a.href = url;
+      a.download = ('service-pro_' + getYear() + '_' + (profile.id || 'export') + '.pdf').replace(/\s+/g,'_');
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+      showToastSafe('PDF сформирован и скачивается.');
+    }catch(err){
+      console.error('[print-v2] pdf export failed', err);
+      alert('Не удалось сформировать PDF.');
+    }
+  }
+  window.exportCurrentViewToPdf = exportCurrentViewToPdf;
 
-  window.addEventListener('load', function(){
-    syncMeetingsStore();
-    setTimeout(safePostRenderRefresh, 0);
-  });
+  function patchRenderHooks(){
+    if(typeof window.renderAll === 'function' && !window.renderAll.__printV2Wrapped){
+      const _renderAll = window.renderAll;
+      window.renderAll = function(){
+        const r = _renderAll.apply(this, arguments);
+        ensureQuickFlagButtons();
+        applyFlagFiltersEverywhere();
+        return r;
+      };
+      window.renderAll.__printV2Wrapped = true;
+    }
+    if(typeof window.buildCal === 'function' && !window.buildCal.__printV2Wrapped){
+      const _buildCal = window.buildCal;
+      window.buildCal = function(){
+        const r = _buildCal.apply(this, arguments);
+        applyFlagFiltersToCalendar();
+        return r;
+      };
+      window.buildCal.__printV2Wrapped = true;
+    }
+    if(typeof window.buildMobileList === 'function' && !window.buildMobileList.__printV2Wrapped){
+      const _buildMobileList = window.buildMobileList;
+      window.buildMobileList = function(){
+        const r = _buildMobileList.apply(this, arguments);
+        applyFlagFiltersToMobile();
+        return r;
+      };
+      window.buildMobileList.__printV2Wrapped = true;
+    }
+  }
+
+  function i18nPatch(){
+    const locale = window.i18n?.locale || 'ru';
+    const map = {
+      ru:{ title:'Печать и PDF', tpl:'Шаблоны', profiles:'Пользовательские шаблоны', layout:'Макет', cols:'Колонки', actions:'Действия', preview:'👁 Подготовить', print:'🖨 Печатать', pdf:'📄 Экспорт PDF', close:'Закрыть', save:'💾 Сохранить как шаблон', reset:'↺ Вернуть рекомендуемые', filterLabel:'Активные быстрые фильтры', orient:'Ориентация' },
+      en:{ title:'Print & PDF', tpl:'Templates', profiles:'Custom templates', layout:'Layout', cols:'Columns', actions:'Actions', preview:'👁 Prepare', print:'🖨 Print', pdf:'📄 Export PDF', close:'Close', save:'💾 Save as template', reset:'↺ Restore recommended', filterLabel:'Active quick filters', orient:'Orientation' },
+      uk:{ title:'Друк і PDF', tpl:'Шаблони', profiles:'Користувацькі шаблони', layout:'Макет', cols:'Колонки', actions:'Дії', preview:'👁 Підготувати', print:'🖨 Друкувати', pdf:'📄 Експорт PDF', close:'Закрити', save:'💾 Зберегти як шаблон', reset:'↺ Повернути рекомендовані', filterLabel:'Активні швидкі фільтри', orient:'Орієнтація' },
+      pl:{ title:'Druk i PDF', tpl:'Szablony', profiles:'Szablony użytkownika', layout:'Układ', cols:'Kolumny', actions:'Akcje', preview:'👁 Przygotuj', print:'🖨 Drukuj', pdf:'📄 Eksport PDF', close:'Zamknij', save:'💾 Zapisz jako szablon', reset:'↺ Przywróć zalecane', filterLabel:'Aktywne szybkie filtry', orient:'Orientacja' }
+    }[locale] || {};
+    const set = (id, value) => { const el = document.getElementById(id); if(el && value) el.textContent = value; };
+    set('printCenterTitle', map.title);
+    set('pcTemplatesTitle', map.tpl);
+    set('pcProfilesTitle', map.profiles);
+    set('pcLayoutTitle', map.layout);
+    set('pcColumnsTitle', map.cols);
+    set('pcActionsTitle', map.actions);
+    set('pcPreviewBtn', map.preview);
+    set('pcPrintBtn', map.print);
+    set('pcPdfBtn', map.pdf);
+    set('pcCancelBtn', map.close);
+    set('pcSaveCustom', map.save);
+    set('pcResetBuiltins', map.reset);
+    set('pcFilterInfoLabel', map.filterLabel);
+    set('pcOrientationLabel', map.orient);
+  }
+
+  function init(){
+    ensureQuickFlagButtons();
+    ensureModalBindings();
+    patchRenderHooks();
+    i18nPatch();
+    const active = getActiveProfileId();
+    setActiveProfileId(active);
+    applyProfile(getProfile(active));
+    updateQuickFlagButtons();
+    applyFlagFiltersEverywhere();
+    document.getElementById('btnPrintCenter')?.addEventListener('click', openPrintCenter);
+    document.getElementById('btnPrintSetup')?.addEventListener('click', openPrintCenter);
+    const twPrint = document.getElementById('');
+    if(twPrint){
+      twPrint.onclick = function(e){ if(e){ e.preventDefault && e.preventDefault(); e.stopPropagation && e.stopPropagation(); } openPrintCenter(); return false; };
+    }
+    window.addEventListener('storage', function(ev){ if(ev.key === FLAG_KEY || ev.key === PROFILE_KEY || ev.key === ACTIVE_KEY){ applyFlagFiltersEverywhere(); applyProfile(getProfile(getActiveProfileId())); } });
+    if(typeof window.applyI18nStatic === 'function' && !window.applyI18nStatic.__printV2Wrapped){
+      const _applyI18nStatic = window.applyI18nStatic;
+      window.applyI18nStatic = function(){
+        const r = _applyI18nStatic.apply(this, arguments);
+        i18nPatch();
+        updateQuickFlagButtons();
+        return r;
+      };
+      window.applyI18nStatic.__printV2Wrapped = true;
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else setTimeout(init, 0);
 })();
-
 </script>
 
-<script id="final-wrapper-consolidation">
+<style id="note-ux-repair-v3-style">
+/* ===== Notes UX repair v3 ===== */
+#noteOverlay{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:17500 !important;
+  background:rgba(0,0,0,.42) !important;
+  padding:16px !important;
+  box-sizing:border-box !important;
+  overflow:auto !important;
+  align-items:center !important;
+  justify-content:center !important;
+  -webkit-overflow-scrolling:touch;
+}
+#noteModal{
+  width:min(96vw, 860px) !important;
+  max-height:min(92vh, calc(100dvh - 24px)) !important;
+  background:var(--card) !important;
+  color:var(--text) !important;
+  border:1px solid var(--border) !important;
+  border-radius:16px !important;
+  box-shadow:0 20px 55px rgba(0,0,0,.28) !important;
+  display:flex !important;
+  flex-direction:column !important;
+  overflow:hidden !important;
+  margin:auto !important;
+}
+#noteModal header{
+  background:var(--primary) !important;
+  color:#fff !important;
+  padding:12px 14px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:10px !important;
+  position:sticky !important;
+  top:0 !important;
+  z-index:2 !important;
+}
+#noteToolbar{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:8px !important;
+  padding:10px 12px !important;
+  border-bottom:1px solid var(--border) !important;
+  background:var(--card) !important;
+  position:sticky !important;
+  top:56px !important;
+  z-index:2 !important;
+}
+#noteToolbar button{
+  width:auto !important;
+  min-height:38px !important;
+  padding:6px 10px !important;
+  border:1px solid var(--border) !important;
+  border-radius:10px !important;
+  background:#ffffff !important;
+  color:#263238 !important;
+  font-size:13px !important;
+  font-weight:700 !important;
+  cursor:pointer !important;
+  box-shadow:none !important;
+}
+#noteToolbar button:hover{ background:#f5f7f8 !important; }
+#noteEditor{
+  flex:1 1 auto !important;
+  min-height:260px !important;
+  padding:14px !important;
+  overflow:auto !important;
+  background:var(--card) !important;
+  color:var(--text) !important;
+  line-height:1.45 !important;
+}
+#noteEditor:focus{
+  outline:none !important;
+  box-shadow:inset 0 0 0 2px rgba(46,125,50,.18) !important;
+}
+#noteFooter{
+  display:flex !important;
+  justify-content:flex-end !important;
+  gap:10px !important;
+  padding:12px 14px calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+  border-top:1px solid var(--border) !important;
+  background:var(--card) !important;
+  position:sticky !important;
+  bottom:0 !important;
+  z-index:3 !important;
+  box-shadow:0 -6px 18px rgba(0,0,0,.06) !important;
+}
+#noteFooter .btn,
+#noteClose.btn{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:42px !important;
+  padding:10px 14px !important;
+  font-size:14px !important;
+  font-weight:800 !important;
+  border:none !important;
+  color:#fff !important;
+  box-shadow:none !important;
+}
+#noteClose.btn{ background:#546e7a !important; }
+#noteCancel.btn{ background:#607d8b !important; color:#fff !important; }
+#noteSave.btn{ background:var(--primary) !important; color:#fff !important; }
+.mobile-note-actions{
+  display:flex !important;
+  gap:8px !important;
+  margin-top:8px !important;
+  flex-wrap:wrap !important;
+}
+.mobile-note-actions .note-btn{
+  flex:1 1 160px !important;
+  min-height:38px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border-radius:10px !important;
+  border:1px solid var(--border) !important;
+  background:var(--card) !important;
+  color:var(--text) !important;
+  font-size:12px !important;
+  padding:6px 10px !important;
+}
+.mobile-note-actions .note-btn.note-save-entry{ background:rgba(46,125,50,.08) !important; color:var(--primary) !important; border-color:rgba(46,125,50,.22) !important; }
+@media (max-width: 720px){
+  #noteOverlay{
+    padding:8px !important;
+    align-items:flex-end !important;
+  }
+  #noteModal{
+    width:100% !important;
+    max-height:min(96vh, calc(100dvh - 8px)) !important;
+    border-radius:18px 18px 12px 12px !important;
+  }
+  #noteToolbar{
+    top:54px !important;
+    overflow-x:auto !important;
+    flex-wrap:nowrap !important;
+    padding-bottom:8px !important;
+  }
+  #noteToolbar button{
+    flex:0 0 auto !important;
+    min-width:max-content !important;
+  }
+  #noteEditor{
+    min-height:220px !important;
+    padding:12px !important;
+  }
+  #noteFooter{
+    justify-content:stretch !important;
+    flex-wrap:nowrap !important;
+  }
+  #noteFooter .btn{
+    flex:1 1 0 !important;
+    min-width:0 !important;
+  }
+}
+body.note-editor-open{
+  overflow:hidden !important;
+  touch-action:none;
+}
+</style>
+<script id="note-ux-repair-v3">
 (function(){
-  if(window.__finalWrapperConsolidationApplied) return;
-  window.__finalWrapperConsolidationApplied = true;
-
-  function call(fn){
-    try{ if(typeof fn === 'function') return fn(); }catch(e){}
+  if(window.__noteUxRepairV3Applied) return;
+  window.__noteUxRepairV3Applied = true;
+  function setNoteTexts(){
+    try{
+      const L = (window.i18n && i18n.locale) ? i18n.locale : 'ru';
+      const labels = {
+        ru:{save:'Сохранить', cancel:'Отмена', edit:'✎ Редактировать', clear:'🗑 Очистить'},
+        en:{save:'Save', cancel:'Cancel', edit:'✎ Edit', clear:'🗑 Clear'},
+        uk:{save:'Зберегти', cancel:'Скасувати', edit:'✎ Редагувати', clear:'🗑 Очистити'},
+        pl:{save:'Zapisz', cancel:'Anuluj', edit:'✎ Edytuj', clear:'🗑 Wyczyść'}
+      }[L] || {save:'Сохранить', cancel:'Отмена', edit:'✎ Редактировать', clear:'🗑 Очистить'};
+      const s = document.getElementById('noteSave'); if(s) s.textContent = labels.save;
+      const c = document.getElementById('noteCancel'); if(c) c.textContent = labels.cancel;
+      document.querySelectorAll('.mobile-note-actions [data-note-edit]').forEach(btn => btn.textContent = labels.edit);
+      document.querySelectorAll('.mobile-note-actions [data-note-clear]').forEach(btn => btn.textContent = labels.clear);
+    }catch(e){}
   }
-
-  if(typeof window.renderAll === 'function' && !window.renderAll.__finalUnifiedWrapped){
-    const _renderAll = window.renderAll;
-    window.renderAll = function(){
-      try{ if(typeof window.__syncMeetingsStore === 'function') window.__syncMeetingsStore(); }catch(e){}
-      const r = _renderAll.apply(this, arguments);
-      call(window.__enhanceAfterRender);
-      call(window.__fitMeetingSelects);
-      call(window.__scheduleAdaptiveCols);
-      call(window.__syncFloatingHeaderPolyfill);
-      call(window.syncFloatingHeaderFinal);
-      call(window.__wkRefreshBindings);
-      call(window.__bindSettingsDrawer);
-      call(window.__syncCalendarCompactBtn);
-      call(window.__rebuildMobileListSafe);
-      call(window.__safePostRenderRefresh);
-      return r;
+  function injectMobileNoteActions(){
+    const area = document.getElementById('mobileListArea');
+    if(!area) return;
+    const cards = area.querySelectorAll('.wk-card');
+    cards.forEach(card => {
+      const wk = Number(String(card.id || '').replace('wk-card-',''));
+      if(!wk) return;
+      const notes = card.querySelector('.wk-notes');
+      if(!notes || notes.querySelector('.mobile-note-actions')) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'mobile-note-actions';
+      wrap.innerHTML = '<button class="note-btn note-save-entry" type="button" data-note-edit="'+wk+'">✎ Редактировать</button>' +
+                       '<button class="note-btn" type="button" data-note-clear="'+wk+'">🗑 Очистить</button>';
+      notes.appendChild(wrap);
+    });
+    area.querySelectorAll('[data-note-edit]').forEach(btn => {
+      if(btn.dataset.boundEdit === '1') return;
+      btn.dataset.boundEdit = '1';
+      btn.addEventListener('click', function(){
+        const wk = parseInt(this.getAttribute('data-note-edit') || '0', 10);
+        if(wk && typeof window.openNoteEditor === 'function') window.openNoteEditor(wk);
+      });
+    });
+    area.querySelectorAll('[data-note-clear]').forEach(btn => {
+      if(btn.dataset.boundClear === '1') return;
+      btn.dataset.boundClear = '1';
+      btn.addEventListener('click', function(){
+        const wk = parseInt(this.getAttribute('data-note-clear') || '0', 10);
+        if(wk && typeof window.clearNote === 'function') window.clearNote(wk);
+      });
+    });
+    setNoteTexts();
+  }
+  function patchBuildMobileList(){
+    if(typeof window.buildMobileList === 'function' && !window.buildMobileList.__noteUxRepairV3Wrapped){
+      const _orig = window.buildMobileList;
+      window.buildMobileList = function(){
+        const r = _orig.apply(this, arguments);
+        injectMobileNoteActions();
+        return r;
+      };
+      window.buildMobileList.__noteUxRepairV3Wrapped = true;
+    }
+  }
+  function patchClearNote(){
+    if(typeof window.clearNote === 'function' && !window.clearNote.__noteUxRepairV3Wrapped){
+      const _orig = window.clearNote;
+      window.clearNote = function(week){
+        const r = _orig.apply(this, arguments);
+        const prevM = document.getElementById('notePrevM-' + week);
+        if(prevM) prevM.textContent = '';
+        try{ if(document.body.classList.contains('view-list') && typeof window.buildMobileList === 'function') window.buildMobileList(); }catch(e){}
+        return r;
+      };
+      window.clearNote.__noteUxRepairV3Wrapped = true;
+    }
+  }
+  function patchOpenNoteEditor(){
+    if(typeof window.openNoteEditor === 'function' && !window.openNoteEditor.__noteUxRepairV3Wrapped){
+      const _orig = window.openNoteEditor;
+      window.openNoteEditor = function(week){
+        const r = _orig.apply(this, arguments);
+        document.body.classList.add('note-editor-open');
+        setTimeout(function(){
+          try{
+            document.getElementById('noteFooter')?.scrollIntoView({block:'nearest'});
+          }catch(e){}
+        }, 80);
+        return r;
+      };
+      window.openNoteEditor.__noteUxRepairV3Wrapped = true;
+    }
+  }
+  function watchOverlay(){
+    const ov = document.getElementById('noteOverlay');
+    if(!ov || ov.dataset.noteUxObserved === '1') return;
+    ov.dataset.noteUxObserved = '1';
+    const sync = function(){
+      const isOpen = ov.style.display === 'flex';
+      document.body.classList.toggle('note-editor-open', isOpen);
+      if(isOpen) setNoteTexts();
     };
-    window.renderAll.__finalUnifiedWrapped = true;
+    new MutationObserver(sync).observe(ov, {attributes:true, attributeFilter:['style']});
+    ov.addEventListener('click', function(e){ if(e.target === ov) document.body.classList.remove('note-editor-open'); }, true);
+    document.getElementById('noteCancel')?.addEventListener('click', function(){ document.body.classList.remove('note-editor-open'); }, true);
+    document.getElementById('noteClose')?.addEventListener('click', function(){ document.body.classList.remove('note-editor-open'); }, true);
+    document.getElementById('noteSave')?.addEventListener('click', function(){ document.body.classList.remove('note-editor-open'); }, true);
+    sync();
   }
-
-  if(typeof window.buildCal === 'function' && !window.buildCal.__finalUnifiedWrapped){
-    const _buildCal = window.buildCal;
-    window.buildCal = function(){
-      try{ if(typeof window.__syncMeetingsStore === 'function') window.__syncMeetingsStore(); }catch(e){}
-      const r = _buildCal.apply(this, arguments);
-      call(window.updateTodayWidget);
-      call(window.__wkRefreshBindings);
-      call(window.__syncFloatingHeaderPolyfill);
-      call(window.syncFloatingHeaderFinal);
-      call(window.__safePostRenderRefresh);
-      return r;
-    };
-    window.buildCal.__finalUnifiedWrapped = true;
+  function patchI18n(){
+    if(typeof window.applyI18nStatic === 'function' && !window.applyI18nStatic.__noteUxRepairV3Wrapped){
+      const _orig = window.applyI18nStatic;
+      window.applyI18nStatic = function(){
+        const r = _orig.apply(this, arguments);
+        setNoteTexts();
+        injectMobileNoteActions();
+        return r;
+      };
+      window.applyI18nStatic.__noteUxRepairV3Wrapped = true;
+    }
   }
-
-  if(typeof window.applyI18nStatic === 'function' && !window.applyI18nStatic.__finalUnifiedWrapped){
-    const _applyI18nStatic = window.applyI18nStatic;
-    window.applyI18nStatic = function(){
-      const r = _applyI18nStatic.apply(this, arguments);
-      call(window.__applyUnifiedHeaderLabels);
-      call(window.__syncFloatingHeaderPolyfill);
-      call(window.__syncSettingsDrawerLabel);
-      call(window.__bindSettingsDrawer);
-      call(window.__syncCalendarCompactBtn);
-      call(window.__wkApplyPopupLabels);
-      return r;
-    };
-    window.applyI18nStatic.__finalUnifiedWrapped = true;
+  function init(){
+    patchBuildMobileList();
+    patchClearNote();
+    patchOpenNoteEditor();
+    patchI18n();
+    watchOverlay();
+    setNoteTexts();
+    injectMobileNoteActions();
   }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else setTimeout(init, 0);
+  window.addEventListener('load', function(){ setTimeout(init, 0); });
 })();
 </script>
-
+<script id="reconciled-behavior-patch">
+(function(){
+  if(window.__reconciledBehaviorPatchApplied) return;
+  window.__reconciledBehaviorPatchApplied = true;
+  function call(fn){ try{ if(typeof fn === 'function') return fn(); }catch(e){ console.warn('[reconciled-clean]', e); } }
+  function getYear(){ return document.getElementById('yearSelect')?.value || String(new Date().getFullYear()); }
+  function getYearData(){ try{ return JSON.parse(localStorage.getItem('svc_d_' + getYear()) || '[]'); }catch(e){ return []; } }
+  function stripSafe(input){ try{ if(typeof stripHtml === 'function') return stripHtml(input || ''); const div=document.createElement('div'); div.innerHTML=input||''; return div.textContent||''; }catch(e){ return ''; } }
+  function syncMeetingsStore(){ try{ const fresh = JSON.parse(localStorage.getItem('svc_m') || '[]'); if(Array.isArray(fresh)){ meetings = fresh; window.meetings = fresh; return fresh; } }catch(e){} return Array.isArray(window.meetings) ? window.meetings : []; }
+  function syncHeaderWidget(){ const dateEl=document.getElementById('htiDate'); const metaEl=document.getElementById('htiMeta'); if(!dateEl || !metaEl) return; const locale=(window.i18n && i18n.locale)?i18n.locale:'ru'; const locMap={ru:'ru-RU',en:'en-US',uk:'uk-UA',pl:'pl-PL'}; const now=new Date(); const ay=(typeof getAcademicYearForDate==='function')?getAcademicYearForDate(now):now.getFullYear(); const wk=(typeof getServiceWeekNoByDate==='function')?getServiceWeekNoByDate(now, ay):0; const schoolYearLabel=(window.i18n && i18n.t)?i18n.t('schoolYear'):'Служебный год'; const weekLabel=(window.i18n && i18n.t)?i18n.t('week'):'Неделя'; dateEl.textContent=now.toLocaleDateString(locMap[locale]||'ru-RU', {weekday:'short', day:'2-digit', month:'short'}); metaEl.textContent=schoolYearLabel + ' ' + ay + ' • ' + weekLabel + ' №' + wk; }
+  function patchTodayUpdater(){ window.updateTodayWidget = function(){ syncHeaderWidget(); }; }
+  function removeQuickButtons(){ ['btnFlagS302Quick','btnFlagLetterQuick'].forEach(id => { const el=document.getElementById(id); if(el) el.remove(); }); }
+  function removeUnusedStrictFilter(){ const lbl=document.getElementById('lblHideOthers'); const chk=document.getElementById('filterStrict'); if(lbl) lbl.remove(); if(chk){ chk.checked=false; chk.disabled=true; } }
+  function syncNotePreviews(){ getYearData().forEach(function(row){ const text=stripSafe((row && row.nt) || ''); const a=document.getElementById('notePrev-' + row.id); const b=document.getElementById('notePrevM-' + row.id); if(a) a.textContent=text.slice(0,240); if(b) b.textContent=text.slice(0,320); }); }
+  function ensureDesktopCalendarReturn(){ const desktop = window.innerWidth > 960; document.body.classList.toggle('desktop-force-table', desktop); if(desktop){ document.body.classList.remove('view-list'); const tbl=document.querySelector('#left-panel > table'); const mobile=document.getElementById('mobileListArea'); if(tbl) tbl.style.display='table'; if(mobile) mobile.style.display='none'; } else if(document.body.classList.contains('view-list')){ const mobile=document.getElementById('mobileListArea'); if(mobile) mobile.style.display='block'; } }
+  function postRender(){ syncMeetingsStore(); removeUnusedStrictFilter(); removeQuickButtons(); patchTodayUpdater(); syncHeaderWidget(); syncNotePreviews(); ensureDesktopCalendarReturn(); call(window.__scheduleAdaptiveCols); call(window.__fitMeetingSelects); call(window.syncFloatingHeaderFinal); call(window.__syncFloatingHeaderPolyfill); call(window.markConflicts); call(window.markConflictsInCalendar); call(window.buildMobileList); }
+  let scheduled=false; function schedule(){ if(scheduled) return; scheduled=true; requestAnimationFrame(function(){ scheduled=false; postRender(); }); }
+  if(typeof window.renderAll==='function' && !window.renderAll.__reconciledWrapped){ const orig=window.renderAll; window.renderAll=function(){ syncMeetingsStore(); const r=orig.apply(this, arguments); schedule(); return r; }; window.renderAll.__reconciledWrapped=true; }
+  if(typeof window.buildCal==='function' && !window.buildCal.__reconciledWrapped){ const orig=window.buildCal; window.buildCal=function(){ const r=orig.apply(this, arguments); schedule(); return r; }; window.buildCal.__reconciledWrapped=true; }
+  if(typeof window.applyI18nStatic==='function' && !window.applyI18nStatic.__reconciledWrapped){ const orig=window.applyI18nStatic; window.applyI18nStatic=function(){ const r=orig.apply(this, arguments); schedule(); return r; }; window.applyI18nStatic.__reconciledWrapped=true; }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', schedule, { once:true }); else schedule();
+  window.addEventListener('load', schedule, { once:true }); window.addEventListener('resize', schedule); window.addEventListener('storage', function(ev){ const k=(ev && ev.key) || ''; if(k==='svc_m' || /^svc_d_\d{4}$/.test(k)) schedule(); });
+})();
+</script>
 </body>
 </html>
