@@ -1299,6 +1299,7 @@ function gotoPrevMarked() {
 })();
 </script>
 <script>
+
 /* ===== Autosave Indicator, DnD, Today widget, Collapse, Conflicts, i18n, Notes ===== */
 (function(){
   const i18n = (function(){
@@ -1355,8 +1356,8 @@ function gotoPrevMarked() {
   const $twW=document.getElementById('twWeek');
   function updateTodayWidget(){ if(!$tw) return; const now=new Date(); const loc=i18n.locale==='ru'?'ru-RU':(i18n.locale==='uk'?'uk-UA':(i18n.locale==='pl'?'pl-PL':'en-US')); $twD.textContent=now.toLocaleDateString(loc,{weekday:'long',day:'2-digit',month:'long'}); const ay=getAcademicYearForDate(now); const wk=getServiceWeekNoByDate(now,ay); $twW.textContent=`${i18n.t('schoolYear')} ${ay} • ${i18n.t('week')} №${wk}`; $tw.hidden=false; }
 
-  const _renderAll=window.renderAll; window.renderAll=function(){ _renderAll(); enhanceAfterRender(); };
-  const _buildCal=window.buildCal; window.buildCal=function(){ _buildCal(); updateTodayWidget(); };
+  window.__enhanceAfterRender = enhanceAfterRender;
+  window.updateTodayWidget = updateTodayWidget;
   window.addEventListener('load', enhanceAfterRender);
 
   const COLLAPSE_KEY='svc_settings_collapsed';
@@ -1482,8 +1483,8 @@ window.applyI18nStatic = applyI18nStatic;
     toRemove.forEach(n=>{ const p=n.parentNode; if(!p) return; while(n.firstChild) p.insertBefore(n.firstChild, n); p.removeChild(n); });
     return tmp.innerHTML;
   }
-  function getYearData(y){ return JSON.parse(localStorage.getItem('svc_d_'+y) || '[]'); }
-  function setYearData(y, arr){ localStorage.setItem('svc_d_'+y, JSON.stringify(arr)); }
+  function getYearDataForNotes(y){ return JSON.parse(localStorage.getItem('svc_d_'+y) || '[]'); }
+  function setYearDataForNotes(y, arr){ localStorage.setItem('svc_d_'+y, JSON.stringify(arr)); }
 
   function setDialogA11y(){
     $noteModal.setAttribute('role','dialog');
@@ -1509,7 +1510,7 @@ window.applyI18nStatic = applyI18nStatic;
 
   window.openNoteEditor = function(week){
     const y = document.getElementById('yearSelect').value;
-    const data = getYearData(y);
+    const data = getYearDataForNotes(y);
     const row = data.find(r=>r.id==week) || { id:week };
     noteCtx = { y, w:week };
     $noteLbl.textContent = String(week);
@@ -1521,11 +1522,11 @@ window.applyI18nStatic = applyI18nStatic;
   };
   window.clearNote = function(week){
     const y = document.getElementById('yearSelect').value;
-    const data = getYearData(y);
+    const data = getYearDataForNotes(y);
     const idx = data.findIndex(r=>r.id==week);
     if(idx>=0){ data[idx] = { ...data[idx], nt:'', ts:Date.now() }; }
     else { data.push({ id:week, s:'', e:'', m:'', nt:'', ts:Date.now() }); }
-    setYearData(y, data);
+    setYearDataForNotes(y, data);
     const prev = document.getElementById('notePrev-'+week);
     if(prev) prev.textContent = '';
   };
@@ -1555,10 +1556,10 @@ window.applyI18nStatic = applyI18nStatic;
   $noteSave?.addEventListener('click', ()=>{
     const safeHtml = sanitizeNoteHtml($noteEd.innerHTML);
     const y = noteCtx.y; const week = noteCtx.w; if(!y || !week) return hideNote();
-    const data = getYearData(y); const idx = data.findIndex(r=>r.id==week);
+    const data = getYearDataForNotes(y); const idx = data.findIndex(r=>r.id==week);
     if(idx>=0){ data[idx] = { ...data[idx], nt: safeHtml, ts: Date.now() }; }
     else { data.push({ id:week, s:'', e:'', m:'', nt: safeHtml, ts: Date.now() }); }
-    setYearData(y, data);
+    setYearDataForNotes(y, data);
     const prev = document.getElementById('notePrev-'+week); if(prev) prev.textContent = stripHtml(safeHtml).slice(0,180);
     const prevM = document.getElementById('notePrevM-'+week); if(prevM) prevM.textContent = stripHtml(safeHtml).slice(0,220);
     try{ if(document.body.classList.contains('view-list') && typeof buildMobileList==='function') buildMobileList(); }catch{}
@@ -1576,6 +1577,7 @@ window.applyI18nStatic = applyI18nStatic;
   $lang.value = i18n.locale; $lang.onchange = ()=>{ i18n.setLocale($lang.value); applyI18nStatic(); buildCal(); };
   applyI18nStatic();
 })();
+
 </script>
 <script>
 // Делегирование кнопок адреса (добавлен noreferrer)
@@ -1613,6 +1615,7 @@ window.applyI18nStatic = applyI18nStatic;
 })();
 </script>
 <script>
+
 // Floating header polyfill with week badge (оставлено без изменений функционально)
 (function(){
   function setupFloatingHeader(){
@@ -1687,22 +1690,25 @@ window.applyI18nStatic = applyI18nStatic;
     window.addEventListener('resize', syncWidths);
     try { new ResizeObserver(syncWidths).observe(tbl); } catch{}
     panel.addEventListener('scroll', onScroll);
-    const _renderAll = window.renderAll; if(!_renderAll.__lpWrapped){ window.renderAll = function(){ _renderAll(); setTimeout(syncLabels, 0); setTimeout(syncWidths, 0); setTimeout(onScroll, 0); }; window.renderAll.__lpWrapped = true; }
-    const _applyI18nStatic = window.applyI18nStatic; if(_applyI18nStatic && !_applyI18nStatic.__lpWrapped){ window.applyI18nStatic = function(){ _applyI18nStatic(); syncLabels(); updateBadge(); }; window.applyI18nStatic.__lpWrapped = true; }
+  window.__syncFloatingHeaderPolyfill = function(){ try{ syncLabels(); syncWidths(); onScroll(); }catch(e){} };
   }
   if(document.readyState === 'complete' || document.readyState === 'interactive'){ setTimeout(setupFloatingHeader, 0); } else { window.addEventListener('DOMContentLoaded', setupFloatingHeader); }
 })();
+
 </script>
 <script>
+
 // v65: Add Year button + menu + print chooser + mobile list mode + sync link (как в исходнике)
 (function(){
-  function storedYears(){ const years = new Set(); try{ for(let i=0;i<localStorage.length;i++){ const k = localStorage.key(i); const m = /^svc_d_(\d{4})$/.exec(k||''); if(m) years.add(parseInt(m[1],10)); } }catch{} return years; }
-  function ensureYearOptions(){ const sel = document.getElementById('yearSelect'); if(!sel) return; const cur = parseInt(sel.value||'0',10) || (new Date().getFullYear()); const years = storedYears(); for(let y=cur-1;y<=cur+3;y++) years.add(y); Array.from(sel.options||[]).forEach(o=>{ const v=parseInt(o.value||'0',10); if(v) years.add(v); }); const arr = Array.from(years).sort((a,b)=>a-b); sel.innerHTML = arr.map(y=>`<option value="${y}">${y}</option>`).join(''); sel.value = String(cur); }
-  function addYearBtn(){ const header=document.querySelector('.app-header'); if(!header || document.getElementById('btnAddYear')) return; const b=document.createElement('button'); b.id='btnAddYear'; b.className='btn'; b.style.background='#5e35b1'; b.textContent='➕ Год'; b.type='button'; b.onclick = ()=>{ const v = prompt('Введите год (YYYY):', document.getElementById('yearSelect')?.value || String(new Date().getFullYear())); const y = parseInt(String(v||'').trim(),10); if(!y || y<1900 || y>3000) return alert('Неверный год'); const key='svc_d_'+y; try{ if(!localStorage.getItem(key)) localStorage.setItem(key, '[]'); }catch{} ensureYearOptions(); const sel=document.getElementById('yearSelect'); if(sel) sel.value=String(y); try{ window.renderAll?.(); }catch{} }; header.insertBefore(b, document.getElementById('yearSelect') || null); }
-  window.addEventListener('load', ()=>{ addYearBtn(); ensureYearOptions(); });
+  function storedYearsForYearButton(){ const years = new Set(); try{ for(let i=0;i<localStorage.length;i++){ const k = localStorage.key(i); const m = /^svc_d_(\d{4})$/.exec(k||''); if(m) years.add(parseInt(m[1],10)); } }catch{} return years; }
+  function ensureYearOptionsForYearButton(){ const sel = document.getElementById('yearSelect'); if(!sel) return; const cur = parseInt(sel.value||'0',10) || (new Date().getFullYear()); const years = storedYearsForYearButton(); for(let y=cur-1;y<=cur+3;y++) years.add(y); Array.from(sel.options||[]).forEach(o=>{ const v=parseInt(o.value||'0',10); if(v) years.add(v); }); const arr = Array.from(years).sort((a,b)=>a-b); sel.innerHTML = arr.map(y=>`<option value="${y}">${y}</option>`).join(''); sel.value = String(cur); }
+  function addYearBtn(){ const header=document.querySelector('.app-header'); if(!header || document.getElementById('btnAddYear')) return; const b=document.createElement('button'); b.id='btnAddYear'; b.className='btn'; b.style.background='#5e35b1'; b.textContent='➕ Год'; b.type='button'; b.onclick = ()=>{ const v = prompt('Введите год (YYYY):', document.getElementById('yearSelect')?.value || String(new Date().getFullYear())); const y = parseInt(String(v||'').trim(),10); if(!y || y<1900 || y>3000) return alert('Неверный год'); const key='svc_d_'+y; try{ if(!localStorage.getItem(key)) localStorage.setItem(key, '[]'); }catch{} ensureYearOptionsForYearButton(); const sel=document.getElementById('yearSelect'); if(sel) sel.value=String(y); try{ window.renderAll?.(); }catch{} }; header.insertBefore(b, document.getElementById('yearSelect') || null); }
+  window.addEventListener('load', ()=>{ addYearBtn(); ensureYearOptionsForYearButton(); });
 })();
+
 </script>
 <script>
+
 // Print column chooser (как в исходнике)
 (function(){
   const KEY='svc_print_cols';
@@ -1758,7 +1764,7 @@ window.applyI18nStatic = applyI18nStatic;
       save(p); apply(p); closeModal(); setTimeout(()=>window.print(), 80);
     };
   }
-  function open(){
+  function openPrintSetupDialog(){
     ensureModal();
     const ov=document.getElementById('printOverlay');
     const p=load();
@@ -1767,13 +1773,15 @@ window.applyI18nStatic = applyI18nStatic;
   }
   function addBtn(){
     const existing=document.getElementById('btnPrintSetup');
-    if(existing){ existing.style.display='none'; existing.onclick=open; }
+    if(existing){ existing.style.display='none'; existing.onclick=openPrintSetupDialog; }
   }
-  window.openPrintSetup = open;
+  window.openPrintSetup = openPrintSetupDialog;
   window.addEventListener('load', ()=>{ addBtn(); apply(load()); });
 })();
+
 </script>
 <script>
+
 // Auto-width meeting select (как в исходнике)
 (function(){
   function measure(text, font){ const s=document.createElement('span'); s.style.position='absolute'; s.style.left='-9999px'; s.style.top='-9999px'; s.style.whiteSpace='nowrap'; s.style.font=font; s.textContent=text||''; document.body.appendChild(s); const w=Math.ceil(s.getBoundingClientRect().width); document.body.removeChild(s); return w; }
@@ -1782,15 +1790,17 @@ window.applyI18nStatic = applyI18nStatic;
   document.addEventListener('change',(e)=>{ const t=e.target; if(t && t.classList && t.classList.contains('m-select')) fit(t); }, true);
   window.addEventListener('resize', ()=>{ try{ fitAll(); }catch{} });
   window.addEventListener('load', ()=> setTimeout(fitAll, 60));
-  if(window.wrapOnceGlobal){ wrapOnceGlobal('renderAll', (orig)=> function(){ const r=orig.apply(this, arguments); setTimeout(fitAll,0); return r; }); }
+  window.__fitMeetingSelects = fitAll;
 })();
+
 </script>
 <script>
+
 // Mobile list mode + header menu + sync link (переписано: прямые вызовы)
 (function(){
   const KEY='svc_view_mode';
 
-  function labels(){
+  function getViewModeLabels(){
     const L=(window.i18n && i18n.locale)? i18n.locale : 'ru';
     const dict={
       ru:{list:'📱 Список', table:'📋 Таблица', week:(window.i18n? i18n.t('week'):'Неделя')},
@@ -1811,7 +1821,7 @@ window.applyI18nStatic = applyI18nStatic;
   function updBtn(){
     const b=document.getElementById('btnViewMode');
     if(!b) return;
-    const l=labels();
+    const l=getViewModeLabels();
     b.textContent=(getMode()==='list')? l.table : l.list;
     b.title=b.textContent;
   }
@@ -1830,7 +1840,7 @@ window.applyI18nStatic = applyI18nStatic;
   }
 
   function promptLanguage(){
-  function labels(){
+  function getLanguagePickerLabels(){
     const L = (window.i18n && i18n.locale) ? i18n.locale : 'ru';
     const m = {
       ru:{title:'Язык интерфейса', close:'Закрыть'},
@@ -1840,7 +1850,7 @@ window.applyI18nStatic = applyI18nStatic;
     };
     return m[L] || m.ru;
   }
-  function ensurePicker(){
+  function ensureLanguagePicker(){
     let ov = document.getElementById('langPickerOverlay');
     if(ov) return ov;
     ov = document.createElement('div');
@@ -1862,10 +1872,10 @@ window.applyI18nStatic = applyI18nStatic;
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && ov.style.display === 'flex') close(); });
     return ov;
   }
-  const ov = ensurePicker();
+  const ov = ensureLanguagePicker();
   const body = ov.querySelector('#langPickerBody');
   const title = ov.querySelector('#langPickerTitle');
-  const txt = labels();
+  const txt = getLanguagePickerLabels();
   title.textContent = txt.title;
   const sel = document.getElementById('langSelect');
   if(!sel) return;
@@ -1893,7 +1903,7 @@ window.applyI18nStatic = applyI18nStatic;
   ov.style.display = 'flex';
 }
  function promptFont(){
-  function labels(){
+  function getFontPickerLabels(){
     const L = (window.i18n && i18n.locale) ? i18n.locale : 'ru';
     const m = {
       ru:{title:'Шрифт приложения'},
@@ -1903,7 +1913,7 @@ window.applyI18nStatic = applyI18nStatic;
     };
     return m[L] || m.ru;
   }
-  function ensurePicker(){
+  function ensureFontPicker(){
     let ov = document.getElementById('fontPickerOverlay');
     if(ov) return ov;
     ov = document.createElement('div');
@@ -1927,10 +1937,10 @@ window.applyI18nStatic = applyI18nStatic;
   }
   const sel = document.getElementById('fontSelect');
   if(!sel) return;
-  const ov = ensurePicker();
+  const ov = ensureLanguagePicker();
   const body = ov.querySelector('#fontPickerBody');
   const title = ov.querySelector('#fontPickerTitle');
-  title.textContent = labels().title;
+  title.textContent = getFontPickerLabels().title;
   const opts = Array.from(sel.options).map(o => o.textContent);
   body.innerHTML = '';
   opts.forEach(function(name){
@@ -2040,9 +2050,11 @@ window.applyI18nStatic = applyI18nStatic;
   window.__openAppMenu = openMenu;
   window.addEventListener('load', ()=>{ addViewBtn(); ensureMenuDom(); bindMenuBtn(); });
 })();
+
 </script>
 
 <script>
+
 // Adaptive column layout without recursive resize loop (9 columns aligned)
 (function(){
   let applying = false;
@@ -2099,23 +2111,16 @@ window.applyI18nStatic = applyI18nStatic;
     if(typeof requestAnimationFrame === 'function') requestAnimationFrame(run);
     else setTimeout(run, 0);
   }
-
-  if(window.wrapOnceGlobal){
-    wrapOnceGlobal('renderAll', (orig)=> function(){ const r=orig.apply(this, arguments); scheduleApply(); return r; });
-  } else {
-    const _ra = window.renderAll;
-    if(typeof _ra==='function'){
-      window.renderAll = function(){ const r=_ra.apply(this, arguments); scheduleApply(); return r; };
-    }
-  }
-
+  window.__scheduleAdaptiveCols = scheduleApply;
   window.addEventListener('resize', scheduleApply);
   window.addEventListener('load', scheduleApply);
 })();
+
 </script>
 
 
 <script>
+
 // Theme chooser: changes primary accent color and persists to localStorage
 (function(){
   const STORE_KEY = 'svc_ui_primary_v2';
@@ -2147,30 +2152,32 @@ window.applyI18nStatic = applyI18nStatic;
       });
     }catch(e){ console.warn('[theme] apply failed', e); }
   }
-  function open(){ try{ $ov.style.display='flex'; }catch{} }
-  function close(){ try{ $ov.style.display='none'; }catch{} }
-  function build(){
+  function openThemeChooserPanel(){ try{ $ov.style.display='flex'; }catch{} }
+  function closeThemeChooserPanel(){ try{ $ov.style.display='none'; }catch{} }
+  function buildThemeChooserPanel(){
     if(!$grid) return;
     $grid.innerHTML = '';
     PRESETS.forEach(p=>{
       const d=document.createElement('div');
       d.className='theme-swatch'; d.style.background=p.hex; d.title=p.name+' '+p.hex;
       const cap=document.createElement('div'); cap.className='cap'; cap.textContent=p.name; d.appendChild(cap);
-      d.onclick=()=>{ applyPrimary(p.hex); close(); };
+      d.onclick=()=>{ applyPrimary(p.hex); closeThemeChooserPanel(); };
       $grid.appendChild(d);
     });
   }
   function restore(){ try{ const hex=localStorage.getItem(STORE_KEY); if(hex) applyPrimary(hex); }catch{} }
   // expose to menu item
-  window.__openThemeChooser = function(){ build(); open(); };
-  [$close,$cancel].forEach(b=> b && b.addEventListener('click', close));
-  $ov && $ov.addEventListener('click', (e)=>{ if(e.target===$ov) close(); });
+  window.__openThemeChooser = function(){ buildThemeChooserPanel(); openThemeChooserPanel(); };
+  [$close,$cancel].forEach(b=> b && b.addEventListener('click', closeThemeChooserPanel));
+  $ov && $ov.addEventListener('click', (e)=>{ if(e.target===$ov) closeThemeChooserPanel(); });
   window.addEventListener('load', restore);
 })();
+
 </script>
 
 
 <script>
+
 // === sp namespace & helpers (non-breaking additions) ===
 (function(){
   window.sp = window.sp || {};
@@ -2206,16 +2213,16 @@ window.applyI18nStatic = applyI18nStatic;
     }catch(e){ return ['#','Start','End','Event','Weekday','Weekend','Notes']; }
   };
 
-  // Enhance applyI18nStatic to use unified headers (without breaking original)
-  if(window.applyI18nStatic && !window.applyI18nStatic.__spWrapped){
-    const orig = window.applyI18nStatic;
-    window.applyI18nStatic = function(){ orig(); try{
+  // Expose unified header labels helper for the final orchestrator (without extra wrapping)
+  window.__applyUnifiedHeaderLabels = function(){
+    try{
       const labels = window.sp.i18n.headerLabels();
       const ids = ['thNo','thStart','thEnd','thMeeting','thWeekday','thWeekend','thS302','thLetter','thNotes'];
       ids.forEach((id,i)=>{ const el=document.getElementById(id); if(el && labels[i]!==undefined) el.textContent = labels[i]; });
-    }catch(e){} };
-    window.applyI18nStatic.__spWrapped = true;
-  }
+    }catch(e){}
+  };
+
+
 
   // Hook floating header to use unified labels
   try{
@@ -2325,6 +2332,7 @@ window.applyI18nStatic = applyI18nStatic;
     }
   }catch{}
 })();
+
 </script>
 
 
@@ -2373,6 +2381,7 @@ input[type="date"], select{
 
 
 <script id="final-ui-js">
+
 (function(){
   function syncFloatingHeaderFinal(){
     const panel = document.getElementById('left-panel');
@@ -2397,15 +2406,13 @@ input[type="date"], select{
       s.forEach((c,i)=>{ if(d[i]) d[i].style.width = c.style.width; });
     }
   }
+  window.syncFloatingHeaderFinal = syncFloatingHeaderFinal;
 
   // run on key lifecycle points
   window.addEventListener('resize', ()=> setTimeout(syncFloatingHeaderFinal, 0));
-  const _renderAll = window.renderAll;
-  if(typeof _renderAll === 'function'){
-    window.renderAll = function(){ const r=_renderAll.apply(this, arguments); setTimeout(syncFloatingHeaderFinal, 0); return r; };
-  }
   window.addEventListener('load', ()=> setTimeout(syncFloatingHeaderFinal, 0));
 })();
+
 </script>
 
 
@@ -2420,11 +2427,12 @@ input[type="date"], select{
 
 
 <script id="wk-popup-restored-final">
+
 (function(){
   if(window.__wkPopupRestoredFinal) return;
   window.__wkPopupRestoredFinal = true;
 
-  function esc(s){
+  function popupEsc(s){
     return String(s ?? '')
       .replace(/&/g,'&amp;')
       .replace(/</g,'&lt;')
@@ -2435,8 +2443,8 @@ input[type="date"], select{
   function getYear(){ const el = document.getElementById('yearSelect'); return el ? el.value : ''; }
   function getMeetings(){ try{ return JSON.parse(localStorage.getItem('svc_m') || '[]'); }catch(e){ return window.meetings || []; } }
   function syncMeetings(){ try{ window.meetings = getMeetings(); }catch(e){} return window.meetings || []; }
-  function getYearData(y){ try{ return JSON.parse(localStorage.getItem('svc_d_' + y) || '[]'); }catch(e){ return []; } }
-  function setYearData(y, arr){ try{ localStorage.setItem('svc_d_' + y, JSON.stringify(arr)); }catch(e){} }
+  function getPopupYearData(y){ try{ return JSON.parse(localStorage.getItem('svc_d_' + y) || '[]'); }catch(e){ return []; } }
+  function setPopupYearData(y, arr){ try{ localStorage.setItem('svc_d_' + y, JSON.stringify(arr)); }catch(e){} }
   function parseDate(v){ return typeof parseYmdLocal === 'function' ? parseYmdLocal(v) : null; }
   function dateVal(dt){
     if(!dt || isNaN(dt.getTime())) return '';
@@ -2584,9 +2592,9 @@ input[type="date"], select{
     const info = name ? syncMeetings().find(x => x.name === name) : null;
 
     if(name && info){
-      evEl.innerHTML = `<span class="pill" style="background:${info.color}">${esc(name)}</span>`;
+      evEl.innerHTML = `<span class="pill" style="background:${info.color}">${popupEsc(name)}</span>`;
     } else if(name && !info){
-      evEl.innerHTML = `<span class="pill" style="background:#cfd8dc;color:#263238">${esc(name)}</span>`;
+      evEl.innerHTML = `<span class="pill" style="background:#cfd8dc;color:#263238">${popupEsc(name)}</span>`;
     } else {
       evEl.textContent = popupLabel('none');
     }
@@ -2606,7 +2614,7 @@ input[type="date"], select{
     applyLabels();
     const year = getYear();
     ctx = { year, week };
-    const row = getYearData(year).find(r => r.id == week) || { id:week, s:'', e:'', m:'', nt:'' };
+    const row = getPopupYearData(year).find(r => r.id == week) || { id:week, s:'', e:'', m:'', nt:'' };
     const span = weekSpan(week, year);
     const m = popup.modal;
     const meetings = syncMeetings();
@@ -2616,7 +2624,7 @@ input[type="date"], select{
     m.querySelector('#wkEndDateFixed').value = row.e || dateVal(span.end);
 
     const sel = m.querySelector('#wkPickSelFixed');
-    sel.innerHTML = [`<option value="">${esc(popupLabel('none'))}</option>`].concat(meetings.map(x => `<option value="${esc(x.name)}">${esc(x.name)}</option>`)).join('');
+    sel.innerHTML = [`<option value="">${popupEsc(popupLabel('none'))}</option>`].concat(meetings.map(x => `<option value="${popupEsc(x.name)}">${popupEsc(x.name)}</option>`)).join('');
     sel.value = row.m || '';
     updateEventPreview(row.m || '');
 
@@ -2632,7 +2640,7 @@ input[type="date"], select{
       if(window.__wkPopupCloseFixed) window.__wkPopupCloseFixed();
     };
     m.querySelector('#wkApplyFixed').onclick = () => {
-      const rows = getYearData(year);
+      const rows = getPopupYearData(year);
       const idx = rows.findIndex(r => r.id == week);
       const prev = idx >= 0 ? rows[idx] : { id:week, s:'', e:'', m:'', nt:'' };
       let s = parseDate(m.querySelector('#wkStartDateFixed').value);
@@ -2651,7 +2659,7 @@ input[type="date"], select{
         ts: Date.now()
       });
       if(idx >= 0) rows[idx] = next; else rows.push(next);
-      setYearData(year, rows);
+      setPopupYearData(year, rows);
       if(window.__wkPopupCloseFixed) window.__wkPopupCloseFixed();
       if(typeof window.renderAll === 'function') window.renderAll();
       setTimeout(() => {
@@ -2733,13 +2741,9 @@ input[type="date"], select{
     bindCalendarWeekClicks();
     applyLabels();
   }
-
-  // Re-bind after re-renders and locale changes without depending on older popup layers.
-  if(window.wrapOnceGlobal){
-    wrapOnceGlobal('renderAll', (orig) => function(){ const r = orig.apply(this, arguments); setTimeout(refreshBindings, 0); return r; });
-    wrapOnceGlobal('buildCal', (orig) => function(){ const r = orig.apply(this, arguments); setTimeout(bindCalendarWeekClicks, 0); return r; });
-    wrapOnceGlobal('applyI18nStatic', (orig) => function(){ const r = orig.apply(this, arguments); setTimeout(applyLabels, 0); return r; });
-  }
+  // Re-bind via the final orchestrator (single global wrapper)
+  window.__wkRefreshBindings = refreshBindings;
+  window.__wkApplyPopupLabels = applyLabels;
 
   window.addEventListener('load', () => {
     syncMeetings();
@@ -2747,70 +2751,36 @@ input[type="date"], select{
     refreshBindings();
   });
 })();
+
 </script>
 
 
 <script id="menu-compact-hotfix">
+
 (function(){
-  function closeMenu(){ const ov=document.getElementById('menuOverlay'); if(ov) ov.style.display='none'; }
-  function bindFix(){
-    const menu = document.getElementById('menuOverlay');
-    if(!menu || menu.dataset.compactHotfixBound==='1') return;
-    menu.dataset.compactHotfixBound='1';
-    menu.addEventListener('click', function(e){
-      const item = e.target.closest('.menu-item');
-      if(!item) return;
-      const txt = (item.textContent || '').toLowerCase();
-      if((txt.includes('печать') || txt.includes('print') || txt.includes('druk')) && (txt.includes('настрой') || txt.includes('setup') || txt.includes('ustaw'))){
-        e.stopPropagation();
-        closeMenu();
-        setTimeout(function(){ try{ if(typeof window.openPrintSetup==='function') window.openPrintSetup(); }catch(err){ console.error('[menu-compact-hotfix] print setup failed', err); } }, 90);
-      }
-    }, true);
-  }
-  function hideHeaderSelectors(){
-    const lang = document.getElementById('langSelect');
-    const font = document.getElementById('fontSelect');
-    if(lang) lang.style.display = 'none';
-    if(font) font.style.display = 'none';
-  }
-  window.addEventListener('load', function(){ bindFix(); hideHeaderSelectors(); });
+  /* deep-clean: removed redundant menu hotfix.
+     Print setup is already called directly from the menu item,
+     and header selectors are already hidden by CSS. */
 })();
+
 </script>
 
 <script id="menu-open-guarantee">
+
 (function(){
-  function ensureFallbackMenu(){
-    if(typeof window.__openAppMenu==='function') return window.__openAppMenu();
-    var ov = document.getElementById('menuOverlay');
-    if(ov){ ov.style.display='flex'; return; }
-    var btn = document.getElementById('btnMenu');
-    if(btn && typeof btn.onclick==='function'){ try{ btn.onclick(); }catch(e){ console.error('[menu-open-guarantee] onclick failed', e); } }
-  }
-  function bind(){
-    var btn = document.getElementById('btnMenu');
-    if(!btn || btn.dataset.menuGuaranteed==='1') return;
-    btn.dataset.menuGuaranteed='1';
-    btn.addEventListener('click', function(e){
-      e.preventDefault();
-      setTimeout(function(){
-        var ov = document.getElementById('menuOverlay');
-        if(!ov || ov.style.display !== 'flex') ensureFallbackMenu();
-      }, 0);
-    }, true);
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
-  else bind();
-  window.addEventListener('load', bind);
+  /* deep-clean: removed redundant menu-open guarantee.
+     Primary menu binding already exists in the main menu module. */
 })();
+
 </script>
 
 <script id="settings-drawer-js">
+
 (function(){
   if(window.__settingsDrawerRobustPatched) return;
   window.__settingsDrawerRobustPatched = true;
 
-  function getLabel(){
+  function getDrawerLabel(){
     try{
       const L = (window.i18n && i18n.locale) ? i18n.locale : 'ru';
       return L==='en' ? '⚙️ Meetings' : (L==='uk' ? '⚙️ Зібрання' : (L==='pl' ? '⚙️ Zebrania' : '⚙️ Собрания'));
@@ -2831,7 +2801,7 @@ input[type="date"], select{
 
   function syncBtnLabel(){
     const b = btn();
-    if(b) b.textContent = getLabel();
+    if(b) b.textContent = getDrawerLabel();
   }
 
   function openDrawer(){
@@ -2909,15 +2879,8 @@ input[type="date"], select{
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && document.body.classList.contains('settings-drawer-open')) closeDrawer();
   }, true);
-
-  if(window.wrapOnceGlobal){
-    wrapOnceGlobal('applyI18nStatic', function(orig){
-      return function(){ const r = orig.apply(this, arguments); setTimeout(function(){ syncBtnLabel(); bindDrawer(); }, 0); return r; };
-    });
-    wrapOnceGlobal('renderAll', function(orig){
-      return function(){ const r = orig.apply(this, arguments); setTimeout(bindDrawer, 0); return r; };
-    });
-  }
+  window.__bindSettingsDrawer = bindDrawer;
+  window.__syncSettingsDrawerLabel = syncBtnLabel;
 
   window.__openMeetingSetupDrawer = function(){ bindDrawer(); return openDrawer(); };
   window.__closeMeetingSetupDrawer = closeDrawer;
@@ -2930,14 +2893,16 @@ input[type="date"], select{
   }
   window.addEventListener('load', bindDrawer);
 })();
+
 </script>
 
 <script id="calendar-compact-mode-js">
+
 (function(){
   const KEY='svc_calendar_compact';
   function isCompact(){ try{ return localStorage.getItem(KEY)==='1'; }catch{return false;} }
   function saveCompact(v){ try{ localStorage.setItem(KEY, v ? '1' : '0'); }catch{} }
-  function getLabel(){
+  function getCompactModeLabel(){
     try{
       const L = (window.i18n && i18n.locale) ? i18n.locale : 'ru';
       return {
@@ -2967,7 +2932,7 @@ input[type="date"], select{
   function syncBtn(){
     const btn = ensureBtn();
     if(!btn) return;
-    const labels = getLabel();
+    const labels = getCompactModeLabel();
     const on = document.body.classList.contains('calendar-compact');
     btn.textContent = on ? labels[1] : labels[0];
     btn.title = btn.textContent;
@@ -2984,67 +2949,45 @@ input[type="date"], select{
     setCompact(isCompact());
     syncBtn();
   }
-  if(window.wrapOnceGlobal){
-    wrapOnceGlobal('applyI18nStatic', function(orig){
-      return function(){ const r = orig.apply(this, arguments); setTimeout(syncBtn, 0); return r; };
-    });
-    wrapOnceGlobal('renderAll', function(orig){
-      return function(){ const r = orig.apply(this, arguments); setTimeout(syncBtn, 0); return r; };
-    });
-  }
+  window.__syncCalendarCompactBtn = syncBtn;
   window.__setCalendarCompact = setCompact;
   window.addEventListener('load', init);
 })();
+
 </script>
 
 
 <script id="settings-drawer-guarantee">
+
 (function(){
-  function bind(){
-    var b = document.getElementById('btnMeetingSetup');
-    if(!b || b.dataset.drawerGuaranteed==='1') return;
-    b.dataset.drawerGuaranteed='1';
-    b.addEventListener('click', function(e){
-      setTimeout(function(){
-        if(!document.body.classList.contains('settings-drawer-open') && typeof window.__openMeetingSetupDrawer==='function'){
-          window.__openMeetingSetupDrawer();
-        }
-      }, 0);
-    }, true);
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
-  else bind();
-  window.addEventListener('load', bind);
+  /* deep-clean: removed redundant drawer guarantee.
+     The main drawer controller already binds open/toggle logic. */
 })();
+
 </script>
 
 <script id="settings-drawer-interaction-fix">
+
 (function(){
-  // Non-breaking safety patch: ensure the drawer card does not block target clicks in capture phase.
-  function applyFix(){
-    var c = document.getElementById('settingsCard');
-    if(!c || c.dataset.interactionFixApplied==='1') return;
-    c.dataset.interactionFixApplied='1';
-    c.addEventListener('click', function(e){ e.stopPropagation(); }, false);
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyFix);
-  else applyFix();
-  window.addEventListener('load', applyFix);
+  /* deep-clean: removed redundant drawer interaction fix.
+     settings-drawer-js already applies the same click-isolation on the card. */
 })();
+
 </script>
 
 <script id="mobile-list-builder">
+
 (function(){
-  function esc(s){
+  function mobileEsc(s){
     return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
-  function getYearData(y){ try{ return JSON.parse(localStorage.getItem('svc_d_' + y) || '[]'); }catch(e){ return []; } }
+  function getYearDataForMobile(y){ try{ return JSON.parse(localStorage.getItem('svc_d_' + y) || '[]'); }catch(e){ return []; } }
   function noteText(html){ try{ return (typeof stripHtml === 'function') ? stripHtml(html || '') : String(html || '').replace(/<[^>]+>/g,''); }catch(e){ return ''; } }
   window.buildMobileList = function(){
     const area = document.getElementById('mobileListArea');
     if(!area) return;
     const y = document.getElementById('yearSelect')?.value || '';
-    const data = getYearData(y);
+    const data = getYearDataForMobile(y);
     const rows = [];
     const yearNum = parseInt(y || '0', 10) || new Date().getFullYear();
     const maxW = (typeof getWeeksCount === 'function') ? getWeeksCount(yearNum) : 53;
@@ -3058,38 +3001,148 @@ input[type="date"], select{
       rows.push(`
         <div class="wk-card" id="wk-card-${i}">
           <div class="wk-card-header">
-            <div class="wk-badge"><span class="wk-no">№ ${i}</span><span>${esc(row.m || '— нет события —')}</span></div>
+            <div class="wk-badge"><span class="wk-no">№ ${i}</span><span>${mobileEsc(row.m || '— нет события —')}</span></div>
             <div class="wk-actions">
               <button type="button" onclick="goToWeek(${i}, true)">📅</button>
               <button type="button" onclick="openWeekInfo(${i})">✎</button>
             </div>
           </div>
           <div class="wk-grid">
-            <div><div class="wk-label">Начало</div><input type="date" value="${esc(row.s || '')}" onchange="(function(el,w){ const d=getYearData(document.getElementById('yearSelect').value); const idx=d.findIndex(r=>r.id==w); const cur=idx>=0?d[idx]:{id:w,s:'',e:'',m:'',nt:''}; cur.s=el.value; if(idx>=0)d[idx]=cur; else d.push(cur); localStorage.setItem('svc_d_'+document.getElementById('yearSelect').value, JSON.stringify(d)); if(typeof renderAll==='function') renderAll(); })(this, ${i})"></div>
-            <div><div class="wk-label">Конец</div><input type="date" value="${esc(row.e || '')}" onchange="(function(el,w){ const d=getYearData(document.getElementById('yearSelect').value); const idx=d.findIndex(r=>r.id==w); const cur=idx>=0?d[idx]:{id:w,s:'',e:'',m:'',nt:''}; cur.e=el.value; if(idx>=0)d[idx]=cur; else d.push(cur); localStorage.setItem('svc_d_'+document.getElementById('yearSelect').value, JSON.stringify(d)); if(typeof renderAll==='function') renderAll(); })(this, ${i})"></div>
-            <div class="full"><div class="wk-label">Будни</div><div class="wk-sched"><div class="line"><span>${esc(wd || '—')}</span>${addr?`<span class="addr">📍 ${esc(addr)}</span>`:''}</div></div></div>
-            <div class="full"><div class="wk-label">Выходной</div><div class="wk-sched"><div class="line"><span>${esc(we || '—')}</span>${addr?`<span class="addr">📍 ${esc(addr)}</span>`:''}</div></div></div>
-            <div class="full wk-notes"><div class="wk-label">Заметки</div><div class="note-preview" id="notePrevM-${i}">${esc(note.slice(0,220))}</div></div>
+            <div><div class="wk-label">Начало</div><input type="date" value="${mobileEsc(row.s || '')}" onchange="(function(el,w){ const d=getYearDataForMobile(document.getElementById('yearSelect').value); const idx=d.findIndex(r=>r.id==w); const cur=idx>=0?d[idx]:{id:w,s:'',e:'',m:'',nt:''}; cur.s=el.value; if(idx>=0)d[idx]=cur; else d.push(cur); localStorage.setItem('svc_d_'+document.getElementById('yearSelect').value, JSON.stringify(d)); if(typeof renderAll==='function') renderAll(); })(this, ${i})"></div>
+            <div><div class="wk-label">Конец</div><input type="date" value="${mobileEsc(row.e || '')}" onchange="(function(el,w){ const d=getYearDataForMobile(document.getElementById('yearSelect').value); const idx=d.findIndex(r=>r.id==w); const cur=idx>=0?d[idx]:{id:w,s:'',e:'',m:'',nt:''}; cur.e=el.value; if(idx>=0)d[idx]=cur; else d.push(cur); localStorage.setItem('svc_d_'+document.getElementById('yearSelect').value, JSON.stringify(d)); if(typeof renderAll==='function') renderAll(); })(this, ${i})"></div>
+            <div class="full"><div class="wk-label">Будни</div><div class="wk-sched"><div class="line"><span>${mobileEsc(wd || '—')}</span>${addr?`<span class="addr">📍 ${mobileEsc(addr)}</span>`:''}</div></div></div>
+            <div class="full"><div class="wk-label">Выходной</div><div class="wk-sched"><div class="line"><span>${mobileEsc(we || '—')}</span>${addr?`<span class="addr">📍 ${mobileEsc(addr)}</span>`:''}</div></div></div>
+            <div class="full wk-notes"><div class="wk-label">Заметки</div><div class="note-preview" id="notePrevM-${i}">${mobileEsc(note.slice(0,220))}</div></div>
           </div>
         </div>`);
     }
     area.innerHTML = rows.join('');
   };
-  if(window.wrapOnceGlobal){
-    wrapOnceGlobal('renderAll', function(orig){ return function(){ var r=orig.apply(this, arguments); setTimeout(function(){ try{ window.buildMobileList(); }catch(e){} },0); return r; }; });
-  }
+  window.__rebuildMobileListSafe = function(){ try{ window.buildMobileList(); }catch(e){} };
   window.addEventListener('load', function(){ setTimeout(function(){ try{ window.buildMobileList(); }catch(e){} }, 0); });
 })();
+
 </script>
 
 <script id="final-audit-safety-patch">
+
 (function(){
-  function refresh(){
-    try{ if(typeof window.markConflictsInCalendar==='function') window.markConflictsInCalendar(); }catch(e){}
-    try{ if(typeof window.applyI18nToCalendar==='function') window.applyI18nToCalendar(); }catch(e){}
+  /* deep-clean: removed redundant final load refresh.
+     Calendar decoration is already applied in buildCal after DOM render. */
+})();
+
+</script>
+
+<script id="production-stability-patch">
+
+(function(){
+  if(window.__productionStabilityPatchApplied) return;
+  window.__productionStabilityPatchApplied = true;
+
+  function syncMeetingsStore(){
+    try{
+      const fresh = JSON.parse(localStorage.getItem('svc_m') || '[]');
+      if(Array.isArray(fresh)){
+        meetings = fresh;
+        window.meetings = fresh;
+        return fresh;
+      }
+    }catch(e){}
+    try{ return Array.isArray(meetings) ? meetings : []; }catch(e){ return []; }
   }
-  window.addEventListener('load', function(){ setTimeout(refresh, 0); });
+
+  function safePostRenderRefresh(){
+    try{ if(typeof window.markConflicts === 'function') window.markConflicts(); }catch(e){}
+    try{ if(typeof window.markConflictsInCalendar === 'function') window.markConflictsInCalendar(); }catch(e){}
+    try{ if(typeof window.buildMobileList === 'function' && document.body.classList.contains('view-list')) window.buildMobileList(); }catch(e){}
+    try{ if(typeof window.syncFloatingHeaderFinal === 'function') window.syncFloatingHeaderFinal(); }catch(e){}
+  }
+
+  window.__syncMeetingsStore = syncMeetingsStore;
+  window.__safePostRenderRefresh = safePostRenderRefresh;
+
+  let storageRefreshTimer = null;
+  window.addEventListener('storage', function(ev){
+    try{
+      if(!ev) return;
+      const k = ev.key || '';
+      if(!(k === 'svc_m' || /^svc_d_\d{4}$/.test(k))) return;
+      clearTimeout(storageRefreshTimer);
+      storageRefreshTimer = setTimeout(function(){
+        try{ syncMeetingsStore(); }catch(e){}
+        try{ if(typeof window.renderAll === 'function') window.renderAll(); }catch(e){}
+      }, 120);
+    }catch(e){}
+  });
+
+  window.addEventListener('load', function(){
+    syncMeetingsStore();
+    setTimeout(safePostRenderRefresh, 0);
+  });
+})();
+
+</script>
+
+<script id="final-wrapper-consolidation">
+(function(){
+  if(window.__finalWrapperConsolidationApplied) return;
+  window.__finalWrapperConsolidationApplied = true;
+
+  function call(fn){
+    try{ if(typeof fn === 'function') return fn(); }catch(e){}
+  }
+
+  if(typeof window.renderAll === 'function' && !window.renderAll.__finalUnifiedWrapped){
+    const _renderAll = window.renderAll;
+    window.renderAll = function(){
+      try{ if(typeof window.__syncMeetingsStore === 'function') window.__syncMeetingsStore(); }catch(e){}
+      const r = _renderAll.apply(this, arguments);
+      call(window.__enhanceAfterRender);
+      call(window.__fitMeetingSelects);
+      call(window.__scheduleAdaptiveCols);
+      call(window.__syncFloatingHeaderPolyfill);
+      call(window.syncFloatingHeaderFinal);
+      call(window.__wkRefreshBindings);
+      call(window.__bindSettingsDrawer);
+      call(window.__syncCalendarCompactBtn);
+      call(window.__rebuildMobileListSafe);
+      call(window.__safePostRenderRefresh);
+      return r;
+    };
+    window.renderAll.__finalUnifiedWrapped = true;
+  }
+
+  if(typeof window.buildCal === 'function' && !window.buildCal.__finalUnifiedWrapped){
+    const _buildCal = window.buildCal;
+    window.buildCal = function(){
+      try{ if(typeof window.__syncMeetingsStore === 'function') window.__syncMeetingsStore(); }catch(e){}
+      const r = _buildCal.apply(this, arguments);
+      call(window.updateTodayWidget);
+      call(window.__wkRefreshBindings);
+      call(window.__syncFloatingHeaderPolyfill);
+      call(window.syncFloatingHeaderFinal);
+      call(window.__safePostRenderRefresh);
+      return r;
+    };
+    window.buildCal.__finalUnifiedWrapped = true;
+  }
+
+  if(typeof window.applyI18nStatic === 'function' && !window.applyI18nStatic.__finalUnifiedWrapped){
+    const _applyI18nStatic = window.applyI18nStatic;
+    window.applyI18nStatic = function(){
+      const r = _applyI18nStatic.apply(this, arguments);
+      call(window.__applyUnifiedHeaderLabels);
+      call(window.__syncFloatingHeaderPolyfill);
+      call(window.__syncSettingsDrawerLabel);
+      call(window.__bindSettingsDrawer);
+      call(window.__syncCalendarCompactBtn);
+      call(window.__wkApplyPopupLabels);
+      return r;
+    };
+    window.applyI18nStatic.__finalUnifiedWrapped = true;
+  }
 })();
 </script>
+
 </body>
 </html>
